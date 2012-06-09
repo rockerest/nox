@@ -25,7 +25,7 @@
 		<tfoot>
 			<tr>
 				<td colspan="5">
-					<a href="account.php?a=addnew&amp;tb=e" class="float-r"><img src="images/icons/16/user--plus.png" alt="add user" class="icon-fix" />Add User</a>
+					<a href="account.php?a=addnew&amp;tb=u" class="float-r"><img src="images/icons/16/user--plus.png" alt="add user" class="icon-fix" />Add User</a>
 				</td>
 			</tr>
 		</tfoot>
@@ -46,13 +46,13 @@
 						<a href="mailto:<?php echo $user->contact->email;?>"><img src="images/icons/16/mail.png" alt="envelope" class="icon-fix tipped" title="Open new email to <?php echo $user->fullname;?>"/></a>
 					</td>
 					<td>
-						<?php if($reduce){?><a href="components/account/reduce.php?uid=<?php echo $user->userid;?>&amp;tb=e"><img src="images/icons/16/arrow-270.png" alt="reduce" class="icon-fix tipped" title="Reduce <?php echo $user->fullname;?>'s Role"/></a><?php }?>
+						<?php if($reduce){?><a href="components/account/reduce.php?uid=<?php echo $user->userid;?>&amp;tb=u"><img src="images/icons/16/arrow-270.png" alt="reduce" class="icon-fix tipped" title="Reduce <?php echo $user->fullname;?>'s Role"/></a><?php }?>
 						<?php echo $user->authentication->role->name;?>
-						<?php if($elevate){?><a href="components/account/elevate.php?uid=<?php echo $user->userid;?>&amp;tb=e"><img src="images/icons/16/arrow-090.png" alt="elevate" class="icon-fix tipped" title="Elevate <?php echo $user->fullname;?>'s Role"/></a><?php }?>
+						<?php if($elevate){?><a href="components/account/elevate.php?uid=<?php echo $user->userid;?>&amp;tb=u"><img src="images/icons/16/arrow-090.png" alt="elevate" class="icon-fix tipped" title="Elevate <?php echo $user->fullname;?>'s Role"/></a><?php }?>
 					</td>
 					<td>
 						<a href="account.php?uid=<?php echo $user->userid;?>"><img src="images/icons/16/pencil.png" alt="edit" title="Edit User" class="tipped" /></a>
-						<a href="components/account/toggleAccount.php?uid=<?php echo $user->userid;?>&amp;tb=e">
+						<a href="components/account/toggleAccount.php?uid=<?php echo $user->userid;?>&amp;tb=u">
 						<?php
 						if( !$user->authentication->disabled ){
 							echo '<img src="images/icons/16/door-open.png" alt="disable" title="Disable Login" class="tipped" /></a>';
@@ -61,7 +61,7 @@
 							echo '<img src="images/icons/16/door.png" alt="enable" title="Enable Login" class="tipped" /></a>';
 						}
 						?>
-						<a href="components/account/toggleResetPassword.php?uid=<?php echo $user->userid;?>&amp;tb=e">
+						<a href="components/account/toggleResetPassword.php?uid=<?php echo $user->userid;?>&amp;tb=u">
 						<?php
 						if( !$user->authentication->resetPassword ){
 							echo '<img src="images/icons/16/tick-button.png" alt="reset" title="Force Password Change" class="tipped" /></a>';
@@ -72,7 +72,7 @@
 						?>
 					</td>
 					<td>
-						<a href="components/account/delete.php?uid=<?php echo $user->userid;?>&amp;tb=e"><img src="images/icons/16/minus.png" alt="delete" title="Delete User (permanent)" class="tipped" /></a>
+						<a href="components/account/delete.php?uid=<?php echo $user->userid;?>&amp;tb=u"><img src="images/icons/16/minus.png" alt="delete" title="Delete User (permanent)" class="tipped" /></a>
 					</td>
 				</tr>
 				<?php

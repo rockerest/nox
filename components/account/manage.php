@@ -1,9 +1,9 @@
 <?php
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
-	$require_once( $home . 'components/system/Preload.php' );
+	require_once( $home . 'components/system/Preload.php' );
 
 	if( !$_SESSION['active'] ){
-		header('Location: /index.php?code=2');
+		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
 
 	$userid = isset($_GET['uid']) ? $_GET['uid'] : $_SESSION['userid'];
@@ -11,7 +11,7 @@
 	$attempt = \model\User::getByID($userid);
 
 	if( $userid != $_SESSION['userid'] && $_SESSION['roleid'] == 3 ){
-		header('Location: /index.php?code=2');
+		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
 
 	if( $userid != $_SESSION['userid'] ){
@@ -64,15 +64,15 @@
 		$auth->resetPassword = 0;
 	}
 	elseif( $pass ){
-		header('Location: /account.php?a=login&code=4' . $addon);
+		header('Location: ' . APPLICATION_ROOT_URL . 'account.php?a=login&code=4' . $addon);
 		exit();
 	}
 
 	if( $attempt->save() && $cont->save() && $auth->save() ){
-		header('Location: /account.php?code=0' . $addon);
+		header('Location: ' . APPLICATION_ROOT_URL . 'account.php?code=0' . $addon);
 	}
 	else{
 		//an error occurred during saving.  Probably bad input that wasn't caught above
-		header('Location: /account.php?code=1' . $addon . "&" . http_build_query($data));
+		header('Location: ' . APPLICATION_ROOT_URL . 'account.php?code=1' . $addon . "&" . http_build_query($data));
 	}
 ?>

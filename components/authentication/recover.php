@@ -1,6 +1,6 @@
 <?php
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
-	$require_once( $home . 'components/system/Preload.php' );
+	require_once( $home . 'components/system/Preload.php' );
 
 	$email = isset($_GET['email']) ? $_GET['email'] : null;
 

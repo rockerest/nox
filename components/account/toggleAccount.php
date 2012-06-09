@@ -1,9 +1,9 @@
 <?php
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
-	$require_once( $home . 'components/system/Preload.php' );
+	require_once( $home . 'components/system/Preload.php' );
 
 	if( !$_SESSION['active'] ){
-		header('Location: /index.php?code=2');
+		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
 
 	$self = \model\User::getByID($_SESSION['userid']);
@@ -30,23 +30,23 @@
 	if( $self == $user || $_SESSION['roleid'] < 3 ){
 		if( $user->authentication->disabled ){
 			if( enable($user->userid) ){
-				header('Location: /' . $return . '.php?code=6');
+				header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=6');
 			}
 			else{
-				header('Location: /' . $return . '.php?code=8');
+				header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=8');
 			}
 		}
 		else{
 			if( disable($user->userid) ){
-				header('Location: /' . $return . '.php?code=5');
+				header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=5');
 			}
 			else{
-				header('Location: /' . $return . '.php?code=7');
+				header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=7');
 			}
 		}
 	}
 	else{
-		header('Location: /index.php?code=2');
+		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
 
 	function disable($id){
