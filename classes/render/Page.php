@@ -9,7 +9,7 @@
 
 		public $self;
 
-        public function __construct($page_title, $body_id){
+        public function __construct($page_title, $body_id, $allowed){
 			parent::__construct();
 
 			$this->page_title = $page_title;
