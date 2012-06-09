@@ -1,0 +1,166 @@
+body{
+	color: #545454;
+	position: absolute;
+	
+	background: #FFFFFF;
+}
+
+a{
+	color: #555555;
+	text-decoration: underline;
+}
+
+a:hover{
+	color: #5555CC;
+}
+
+header a{
+	text-decoration: none;
+}
+
+strong{
+	font-weight: bold;
+}
+
+em{
+	font-style: italic;
+}
+
+h3{
+	background-color: #E9EBF6;
+}
+
+form{
+	font-size: 1.5em;
+    line-height: 1.5em;
+    margin: auto;
+    text-align: left;
+    width: 18em;
+}
+
+fieldset{
+	border: .0625em solid #C5CAE8;
+	padding: 1em;
+	
+	float: left;
+	
+	width: 16.9em;
+	min-height: 11em;
+}
+
+legend{
+	padding: .1em .25em;
+	background-color: #C5CAE8;
+}
+
+fieldset, legend{
+	border-radius: .2em; 
+}
+
+form input:not([type="submit"]),
+form select,
+form textarea{
+	font-size: 1em;
+	width: 16em;
+	margin-left: .5em;
+}
+
+form input[type="checkbox"]{
+	margin: .5em;
+	width: auto;
+}
+
+form select{
+	width: 16.4em;
+}
+
+form textarea{
+	font-family: Helvetica, Arial, Tahoma, Geneva, sans-serif;
+	height: 6em;
+}
+
+form input[type="submit"]{
+	float: right;
+	font-size: 1em;
+}
+
+table{
+	width: 100%;
+}
+
+thead th, tbody td, tfoot td{
+	padding: .5em;
+}
+
+tfoot{
+	text-align: right;
+}
+
+thead tr, tfoot tr{
+	background-color: #E9EBF6;
+}
+
+tbody tr:hover{
+	background-color: #C5CAE8;
+}
+
+.gutter{
+	margin-top: -2.95em;
+	margin-bottom: .5em;
+}
+
+.icon-fix{
+	margin-bottom: -.125em;
+	margin-right: .1875em;
+}
+
+h3 .icon-fix, .t_Tooltip .icon-fix{
+	margin-bottom: -.3em;
+}
+
+button img.icon-fix{
+	margin-bottom: -.25em;
+	margin-right: .25em;
+}
+
+#toolbar{
+	margin-top: 2em;
+}
+
+#toolbar a{
+	margin-top: .3em;
+	margin-right: 1em;
+	float: left;
+}
+
+#toolbar button{
+	float: right;
+}
+
+#content{
+	margin-top: .5em;
+}
+
+#page{
+	width: 64em;
+	margin: auto auto auto auto;
+	min-height: 30.5em;
+	
+	padding: 3em 0;
+	
+	background-color: #FFFFFF;
+}
+
+#sticky-wrap{
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -4.1em;
+	
+	background: linear-gradient(-180deg, #ffffff 0%,#f8fafd 15%,#f8fafd 85%,#ffffff 100%);
+}
+
+footer, #push {
+	height: 1em;
+	padding: .5em;
+}

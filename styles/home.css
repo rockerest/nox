@@ -1,0 +1,25 @@
+.decision-r{
+	float: right;
+	
+	width: 45%;
+	height: 35em;
+	
+	padding: .75em;
+	
+	background-color: #E9EBF6;
+}
+
+.decision-l{
+	float: left;
+	
+	width: 45%;
+	height: 35em;
+	
+	padding: .75em;
+	
+	background-color: #E9EBF6;
+}
+
+#request_split img{
+	height: 90%;
+}

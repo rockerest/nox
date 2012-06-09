@@ -1,0 +1,39 @@
+form{
+	font-size: 1em;
+	width: auto;
+}
+
+form.login{
+	width: 19em;
+}
+
+fieldset{
+	border: .0625em solid #C5CAE8;
+	padding: 1em;
+	
+	float: left;
+
+	min-height: 11em;
+}
+
+legend{
+	padding: .1em .25em;
+	background-color: #C5CAE8;
+}
+
+fieldset, legend{
+	border-radius: .2em; 
+}
+
+input[type="checkbox"]#contact{
+	width: auto;
+}
+
+.ui-datepicker-calendar{
+	display: none;
+}
+
+#toolbar button#toggle{
+	float: left;
+}
+

@@ -1,0 +1,9 @@
+<Files *.db>
+	order deny,allow
+	deny from all
+</Files>
+
+<Files *.conf>
+	order deny,allow
+	deny from all
+</Files>

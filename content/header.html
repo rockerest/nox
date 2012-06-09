@@ -1,0 +1,44 @@
+<div id="header-content" class="clear">
+	<hgroup>
+		<h1><img src="images/logo.png" alt="Juggernaut" /></h1>
+		<h2>"I'm the Juggernaut, bitch!"</h2>
+	</hgroup>
+	<div id="menu" class="left-text hide">
+		<?php
+			if( $tmpl->active ){
+			?>
+			<?php
+				if( $_SESSION['roleid'] < 3 ){
+				?>
+		<a href="users.php"><img src="images/icons/16/users.png" alt="users" class="icon-fix" />Users</a>
+				<?php
+				}
+
+				if( $_SESSION['roleid'] < 2 ){
+				?>
+				<?php
+				}
+			}
+		?>
+	</div>
+	<div id="user" class="left-text hide">
+		<a href="logout.php" id="head_logout"><img src="images/icons/16/door--arrow.png" alt="door" class="icon-fix" />Logout</a>
+	</div>
+	<nav>
+		<?php
+			if( $tmpl->active ){
+				//the logged in toolbar
+				?>
+				<a href="home.php" id="head_dashboard" data-tippedID="menu" class="fixedElementTipped-below"><img src="images/icons/16/home.png" alt="dashboard" class="icon-fix" />Home</a>
+				&nbsp;
+				<a href="account.php" data-tippedID="user" class="fixedElementTipped-below"><img src="images/icons/16/<?php echo $tmpl->icon;?>.png" alt="user" class="icon-fix" /><?php echo $tmpl->user->fullName;?></a>
+				&nbsp;
+
+				<?php
+			}
+			else{
+				//the not logged in toolbar
+			}
+		?>
+	</nav>
+</div>

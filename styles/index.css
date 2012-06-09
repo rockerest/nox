@@ -1,0 +1,4 @@
+form#login input[type="submit"], form#create input[type="submit"]{
+	width: 3.5em;
+	margin: 0.5em 0.25em;
+}

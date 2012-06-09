@@ -1,0 +1,11 @@
+footer{
+	color: #555555;
+	
+	line-height: 1em;
+	
+	margin-top: 2em;
+	border-top: .0625em solid #C5CAE8;
+	
+	background: #F1F1F1;
+	background: linear-gradient(-90deg, #E5ECF9 0%, #FFFFFF 100%);
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<base href="/" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+		<link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+
+		<link rel="stylesheet" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css">
+
+		<?php
+			$cssLinks = array(
+								"global",
+								"local",
+								"css3buttons",
+								"tipped",
+								"jquery.ui",
+								$tmpl->headerContent['css']['link'],
+								$tmpl->appContent['css']['link'],
+								$tmpl->footerContent['css']['link']
+							);
+
+			$css = implode(",", $cssLinks);
+		?>
+
+		<link rel="stylesheet" href="components/system/CSS.php?q=<?php echo $css; ?>" />
+		<title>
+			<?php echo $tmpl->title; ?>
+		</title>
+	</head>
+
+	<body id="<?php echo $tmpl->id;?>">
+		<div id="sticky-wrap">
+			<header>
+				<?php echo $tmpl->headerContent['html'] ."\n"; ?>
+			</header>
+
+			<div id="page" class="clear">
+				<section id="content" class="center">
+					<?php echo $tmpl->appContent['html'] . "\n"; ?>
+				</section>
+			</div>
+
+			<div id="push"></div>
+		</div>
+		<footer>
+			<?php echo $tmpl->footerContent['html'] ."\n"; ?>
+		</footer>
+		<noscript>
+			<div id="nojs" style="display: block;">
+				It looks like you don't have Javascript enabled.  This site uses javascript for most functionality, and you will be missing out on a lot of cool features and many abilities without it!
+				<br />
+				It is recommended that you turn Javascript ON in your browser.
+			</div>
+		</noscript>
+
+		<!-- External Scripts -->
+		<?php
+			include_once('jquery/jQuery.php');
+			$jq = new jQuery();
+			echo $jq->all;
+
+			$jsLinks = array(
+								"global",
+								"jquery.ui.custom.min",
+								"excanvas",
+								"spinners",
+								"tipped",
+								"local",
+								$tmpl->headerContent['js']['link'],
+								$tmpl->appContent['js']['link'],
+								$tmpl->footerContent['js']['link']
+							);
+
+			$js = implode(",", $jsLinks);
+		?>
+
+		<script src="components/system/JS.php?q=<?php echo $js; ?>"></script>
+	</body>
+</html>

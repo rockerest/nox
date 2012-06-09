@@ -1,0 +1,45 @@
+header{
+	color: #555555;
+	
+	height: 2.5em;
+	line-height: 2.5em;
+
+	border-bottom: .0625em solid #C5CAE8;
+
+	background: #F1F1F1;
+	background: linear-gradient(-90deg, #FFFFFF 0%, #E5ECF9 100%);
+}
+
+#header-content{
+	height: 100%;
+	width: 64em;
+	margin: auto;
+}
+
+header h1, header h2{
+	color: #192E5E;
+	font-size: 1em;
+    
+	float: left;
+}
+
+header h2{
+	font-size: .65em;
+}
+
+header #menu{
+	text-align: left;
+}
+
+header nav{
+	float: right;
+}
+
+.t_Tooltip_light a{
+	color: #555555;
+}
+
+.t_Tooltip_light a:hover{
+	color: #555555;
+	text-decoration: underline;
+}
