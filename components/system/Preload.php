@@ -1,6 +1,6 @@
 <?php
 	define( 'APPLICATION_ROOT_URL', '/' );
-	define( 'APPLICATION_CONFIGURATION_FILE', 'real_juggernaut.conf' );
+	define( 'APPLICATION_CONFIGURATION_FILE', 'juggernaut.conf' );
 	define( 'APPLICATION_ROOT_PATH', implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, __FILE__), 0, -3 )) . '/');
 	define( 'APPLICATION_INCLUDE_PATH', get_include_path() . PATH_SEPARATOR . implode( PATH_SEPARATOR, array('.', 'components', 'content', 'global', 'scripts', 'images', 'styles') ) );
 
