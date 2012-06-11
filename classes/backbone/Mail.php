@@ -1,5 +1,9 @@
 <?php
 	namespace backbone;
+	/* This class is provided only for fall-back purposes.
+	 * Anyone thinking of using this (or any other simple mailer class) is strongly encouraged
+	 * to use a fully baked toolbox like Swiftmailer (http://swiftmailer.org).
+	 **/
 	class Mail{
 		public static function sendMail( $to, $from, $subject, $body ){
 			$headers = 'From: ' . $from . "\r\n";
