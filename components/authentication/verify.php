@@ -18,13 +18,13 @@
 			$ql->used = 1;
 			$ql->save();
 
-			throw new \backbone\RedirectBrowserException("/home.php?code=0");
+			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'home.php?code=0' );
 		}
 		else{
-			throw new \backbone\RedirectBrowserException('/index.php?code=9');
+			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=9' );
 		}
 	}
 	else{
-		throw new \backbone\RedirectBrowserException('/index.php?code=9');
+		throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=9' );
 	}
 ?>

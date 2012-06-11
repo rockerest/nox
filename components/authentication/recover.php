@@ -24,7 +24,7 @@
 
 				if( \backbone\Mail::sendMail($user->contact->email, 'no-reply-automator@juggernaut.thomasrandolph.info', "Juggernaut System Account Recovery", $body) ){
 					//redirect to login
-					throw new \backbone\RedirectBrowserException("/index.php?code=6");
+					throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=6');
 				}
 			}
 		}

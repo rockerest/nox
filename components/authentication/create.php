@@ -32,18 +32,18 @@
 
 				if( \backbone\Mail::sendMail($user->contact->email, 'no-reply-automator@juggernaut.thomasrandolph.info', "Juggernaut System Database Email Verification", $body) ){
 					//redirect to login
-					throw new \backbone\RedirectBrowserException("/index.php?code=6");
+					throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=6' );
 				}
 			}
 			else{
-				throw new \backbone\RedirectBrowserException("/index.php?a=request&code=8&" . http_build_query($data));
+				throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?a=request&code=8&' . http_build_query($data) );
 			}
 		}
 		else{
-			throw new \backbone\RedirectBrowserException("/index.php?a=request&code=7&" . http_build_query($data));
+			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?a=request&code=7&' . http_build_query($data) );
 		}
 	}
 	else{
-		throw new \backbone\RedirectBrowserException("/index.php?a=request&code=5&" . http_build_query($data));
+		throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?a=request&code=5&' . http_build_query($data) );
 	}
 ?>

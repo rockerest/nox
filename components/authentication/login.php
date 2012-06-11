@@ -13,13 +13,13 @@
 			$_SESSION['roleid'] = $tmp->authentication->role->roleid;
 			$_SESSION['userid'] = $tmp->userid;
 
-			throw new \backbone\RedirectBrowserException("/home.php?code=0");
+			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'home.php?code=0' );
 		}
 		else{
-			throw new \backbone\RedirectBrowserException("/index.php?code=1&email=" . $identity);
+			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=1&email=' . $identity );
 		}
 	}
 	else{
-		throw new \backbone\RedirectBrowserException("/index.php?code=0&email=" . $identity);
+		throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=0&email=' . $identity );
 	}
 ?>
