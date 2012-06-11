@@ -74,6 +74,8 @@
 				}
 			}
 
+			$tmpl->root = $this->root;
+
 			$content = array(
 								'html' => $html,
 								'css' => array(	'code' => $css,

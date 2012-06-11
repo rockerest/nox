@@ -11,6 +11,8 @@
 	$session->setSession();
 	// destroy the current session
 	session_destroy();
+	setcookie($_COOKIE['identifier'], '', time() - 100100100);
+	setcookie('identifier', '', time() - 100100100);
 	// Load a NEW session
 	$session = new \backbone\Session(0,APPLICATION_ROOT_URL);
 	$session->setSession();

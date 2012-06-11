@@ -12,7 +12,6 @@
 			$this->conf = ($conf == null) ? APPLICATION_CONFIGURATION_FILE : $conf;
 			// HACK: This constructor could fail.
 			$this->loadConfig();
-			$this->startSession();
 		}
 
 		public function loadConfig(){
@@ -23,10 +22,4 @@
 
 			$this->config = $config;
 		}
-
-		public function startSession(){
-			$this->session = new \backbone\Session(0,APPLICATION_ROOT_URL);
-			$this->session->setSession();
-		}
-
 	}
