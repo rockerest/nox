@@ -22,10 +22,6 @@
 			$this->sessionId = $this->verifySession( $name );
 		}
 
-		public function setSessionVar($name, $value){
-			$_SESSION[$name] = $value;
-		}
-
 		public function burnCookie( $name ){
 			setcookie( $name, '', time() - 101010 );
 		}

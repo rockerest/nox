@@ -9,9 +9,9 @@
 		$tmp = \model\Authentication::validate($identity, $password);
 
 		if( $tmp ){
-			$tmp->session->setSessionVar('active', true);
-			$tmp->session->setSessionVar('roleid', $tmp->authentication->role->roleid);
-			$tmp->session->setSessionVar('userid', $tmp->userid);
+			$_SESSION['active'] = true;
+			$_SESSION['roleid'] = $tmp->authentication->role->roleid;
+			$_SESSION['userid'] = $tmp->userid;
 
 			throw new \backbone\RedirectBrowserException("/home.php?code=0");
 		}

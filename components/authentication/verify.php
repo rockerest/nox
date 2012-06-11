@@ -11,9 +11,9 @@
 			$user->disabled = 0;
 			$user->save();
 
-			$user->session->setSessionVar('active', true);
-			$user->session->setSessionVar('roleid', $user->authentication->role->roleid);
-			$user->session->setSessionVar('userid', $user->userid);
+			$_SESSION['active'] = true;
+			$_SESSION['roleid'] = $user->authentication->role->roleid;
+			$_SESSION['userid'] = $user->userid;
 
 			$ql->used = 1;
 			$ql->save();
