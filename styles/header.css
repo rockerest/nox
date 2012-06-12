@@ -23,6 +23,10 @@ header h1, header h2{
 	float: left;
 }
 
+header h1 img{
+	margin-top: .25em;
+}
+
 header h2{
 	font-size: .65em;
 }
