@@ -7,7 +7,7 @@
 						3	=> 'User'
 					);
 
-	$page = new \render\Page('Account Management :: Juggernaut', 'account', $allowed);
+	$page = new \render\Page('Account Management :: Nox', 'account', $allowed);
 	$tmpl = new \backbone\Template();
 
 	$page->run();

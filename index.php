@@ -1,7 +1,7 @@
 <?php
 	require_once( 'components/system/Preload.php' );
 
-	$page = new \render\Page("Juggernaut", 'index');
+	$page = new \render\Page("Nox", 'index');
 	$tmpl = new \backbone\Template();
 
 	$page->run();

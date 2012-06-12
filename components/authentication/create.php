@@ -30,7 +30,7 @@
 				include('templates/account_create.html');
 				$body = ob_get_clean();
 
-				if( \backbone\Mail::sendMail($user->contact->email, 'no-reply-automator@juggernaut.thomasrandolph.info', "Juggernaut System Database Email Verification", $body) ){
+				if( \backbone\Mail::sendMail($user->contact->email, 'no-reply-automator@nox.thomasrandolph.info', "Nox System Database Email Verification", $body) ){
 					//redirect to login
 					throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=6' );
 				}

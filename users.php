@@ -6,7 +6,7 @@
 						2	=> 'Leader'
 					);
 
-	$page = new \render\Page("Users :: Juggernaut", 'users', $allowed);
+	$page = new \render\Page("Users :: Nox", 'users', $allowed);
 	$tmpl = new \backbone\Template();
 
 	$page->run();

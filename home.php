@@ -5,7 +5,7 @@
 						-1	=> 'Anyone who is logged in'
 					);
 
-	$page = new \render\Page("Home :: Juggernaut", 'home', $allowed);
+	$page = new \render\Page("Home :: Nox", 'home', $allowed);
 	$tmpl = new \backbone\Template();
 
 	$page->run();
