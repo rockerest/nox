@@ -42,5 +42,3 @@
 						);
 
 	echo $page->build($appContent);
-
-?>

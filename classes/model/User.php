@@ -22,7 +22,7 @@
 		public static function getByAuthenticationIdentity($ident){
 			$base = new \model\Base();
 
-			$auth = Authentication::getByIdentity($ident);
+			$auth = \model\Authentication::getByIdentity($ident);
 
 			if( is_object($auth) ){
 				return \model\User::getByID($auth->userid);
@@ -62,7 +62,7 @@
 		}
 
 		public static function add($fname, $lname, $identity, $pass, $roleid){
-			$okay = Authentication::checkIdentity($identity);
+			$okay = \model\Authentication::checkIdentity($identity);
 
 			if( $okay === 0 ){
 				$user = new \model\User(null, $fname, $lname, null);
@@ -94,7 +94,7 @@
 			$base = new \model\Base();
 
 			//save everything in case we need to put them back in.
-			$contact = model\Contact::toArray(Contact::getByUserID($userid));
+			$contact = \model\Contact::toArray(Contact::getByUserID($userid));
 			$auth = \model\Authentication::toArray(Authentication::getByUserID($userid));
 
 			//get the user object
