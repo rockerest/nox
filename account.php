@@ -9,6 +9,8 @@
 
 	$page = new \render\Page('Account Management :: Nox', 'account', $allowed);
 	$tmpl = new \backbone\Template();
+	$roleDA = new \model\access\RoleAccess();
+	$userDA = new \model\access\UserAccess();
 
 	$page->run();
 	$tmpl->self = $page->self;
@@ -18,12 +20,12 @@
 	$tmpl->action = isset( $_GET['a'] ) ? $_GET['a'] : 'manage';
 
 	if( $userid == $_SESSION['userid'] ){
-		$user = \model\User::getByID($userid);
+		$user = $userDA->getById( $userid );
 	}
 	else{
-		$attempt = \model\User::getByID($userid);
+		$attempt = $userDA->getById( $userid );
 
-		if( $tmpl->self->authentication->roleid == 1 ){
+		if( $tmpl->self->getAuthentication()->getRoleId() == 1 ){
 			$user = $attempt;
 		}
 		else{
@@ -32,11 +34,11 @@
 	}
 
 	//form fields
-	$data['fname'] = isset($_GET['fname']) ? ($_GET['fname'] != null ? $_GET['fname'] : ($tmpl->action == 'manage' ? $user->fname : null)) : ($tmpl->action == 'manage' ? $user->fname : null);
-	$data['lname'] = isset($_GET['lname']) ? ($_GET['lname'] != null ? $_GET['lname'] : ($tmpl->action == 'manage' ? $user->lname : null)) : ($tmpl->action == 'manage' ? $user->lname : null);
-	$data['gender'] = isset($_GET['gender']) ? ($_GET['gender'] != null ? $_GET['gender'] : ($tmpl->action == 'manage' ? $user->gender : null)) : ($tmpl->action == 'manage' ? $user->gender : null);
-	$data['email'] = isset($_GET['email']) ? ($_GET['email'] != null ? $_GET['email'] : ($tmpl->action == 'manage' ? $user->contact->email : ($tmpl->action == 'login' ? $user->authentication->identity : null))) : ($tmpl->action == 'manage' ? $user->contact->email : ($tmpl->action == 'login' ? $user->authentication->identity : null));
-	$data['phone'] = isset($_GET['phone']) ? ($_GET['phone'] != null ? $_GET['phone'] : ($tmpl->action == 'manage' ? $user->contact->friendlyPhone : null)) : ($tmpl->action == 'manage' ? $user->contact->friendlyPhone : null);
+	$data['fname'] = isset($_GET['fname']) ? ($_GET['fname'] != null ? $_GET['fname'] : ($tmpl->action == 'manage' ? $user->getFname() : null)) : ($tmpl->action == 'manage' ? $user->getFname() : null);
+	$data['lname'] = isset($_GET['lname']) ? ($_GET['lname'] != null ? $_GET['lname'] : ($tmpl->action == 'manage' ? $user->getLname() : null)) : ($tmpl->action == 'manage' ? $user->getLname() : null);
+	$data['gender'] = isset($_GET['gender']) ? ($_GET['gender'] != null ? $_GET['gender'] : ($tmpl->action == 'manage' ? $user->getGender() : null)) : ($tmpl->action == 'manage' ? $user->getGender() : null);
+	$data['email'] = isset($_GET['email']) ? ($_GET['email'] != null ? $_GET['email'] : ($tmpl->action == 'manage' ? $user->getContact()->getEmail() : ($tmpl->action == 'login' ? $user->getAuthentication()->getIdentity() : null))) : ($tmpl->action == 'manage' ? $user->getContact()->getEmail() : ($tmpl->action == 'login' ? $user->getAuthentication()->getIdentity() : null));
+	$data['phone'] = isset($_GET['phone']) ? ($_GET['phone'] != null ? $_GET['phone'] : ($tmpl->action == 'manage' ? $user->getContact()->getFriendlyPhone() : null)) : ($tmpl->action == 'manage' ? $user->getContact()->getFriendlyPhone() : null);
 	//end form fields
 
 	//throwback
@@ -78,7 +80,7 @@
 				break;
 	}
 
-	switch( strtolower($user->gender) ){
+	switch( strtolower( $user->getGender() ) ){
 		case 'm':
 			$tmpl->icon = 'user';
 			break;
@@ -92,7 +94,7 @@
 
 	$tmpl->user = $user;
 	$tmpl->data = $data;
-	$tmpl->roles = \model\Role::toArray(\model\Role::getAll());
+	$tmpl->roles = \utilities\Utility::toArray( $roleDA->getAll() );
 
 	$html = $tmpl->build('account.html');
 	$css = $tmpl->build('account.css');

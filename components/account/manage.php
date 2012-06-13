@@ -2,13 +2,15 @@
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
 	require_once( $home . 'components/system/Preload.php' );
 
+	$userDA = new \model\access\UserAccess();
+
 	if( !$_SESSION['active'] ){
 		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
 
 	$userid = isset($_GET['uid']) ? $_GET['uid'] : $_SESSION['userid'];
-	$self = \model\User::getByID($_SESSION['userid']);
-	$attempt = \model\User::getByID($userid);
+	$self = $userDA->getById( $_SESSION['userid'] );
+	$attempt = $userDA->getById( $userid );
 
 	if( $userid != $_SESSION['userid'] && $_SESSION['roleid'] == 3 ){
 		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
@@ -18,8 +20,8 @@
 		$addon = "&uid=" . $userid;
 	}
 
-	$cont = $attempt->contact;
-	$auth = $attempt->authentication;
+	$cont = $attempt->getContact();
+	$auth = $attempt->getAuthentication();
 
 	$data['fname'] = isset($_POST['fname']) ? $_POST['fname'] : null;
 	$data['lname'] = isset($_POST['lname']) ? $_POST['lname'] : null;
@@ -33,35 +35,35 @@
 	$contact = isset($_POST['contact']) ? true : false;
 
 	if( $data['fname'] ){
-		$attempt->fname = $data['fname'];
+		$attempt->setFname( $data['fname'] );
 	}
 
 	if( $data['lname'] ){
-		$attempt->lname = $data['lname'];
+		$attempt->setLname( $data['lname'] );
 	}
 
 	if( $data['gender'] ){
-		$attempt->gender = $data['gender'];
+		$attempt->setGender( $data['gender'] );
 	}
 
 	if( $data['email'] ){
-		$cont->email = $data['email'];
+		$cont->setEmail( $data['email'] );
 	}
 
 	if( $data['phone'] ){
-		$cont->phone = preg_replace("/\D/","",$data['phone']);
+		$cont->setPhone( preg_replace("/\D/","",$data['phone']) );
 	}
 
 	if( $lemail ){
-		$auth->identity = $lemail;
+		$auth->setIdentity( $lemail );
 		if( $contact ){
-			$cont->email = $lemail;
+			$cont->setEmail( $lemail );
 		}
 	}
 
 	if( $pass && ($pass == $passver) ){
-		$auth->password = $pass;
-		$auth->resetPassword = 0;
+		$auth->setPassword( $pass );
+		$auth->setResetPassword( 0 );
 	}
 	elseif( $pass ){
 		header('Location: ' . APPLICATION_ROOT_URL . 'account.php?a=login&code=4' . $addon);

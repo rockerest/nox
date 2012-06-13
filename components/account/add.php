@@ -2,6 +2,8 @@
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
 	require_once( $home . 'components/system/Preload.php' );
 
+	$userDA = new \model\access\UserAccess();
+
 	if( !$_SESSION['active'] ){
 		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
@@ -35,7 +37,7 @@
 		header('Location: ' . APPLICATION_ROOT_URL . 'account.php?a=addnew&code=2&' . http_build_query($data));
 	}
 	else{
-		$new = \model\User::add($data['fname'], $data['lname'], $data['email'], $data['pass'], $roleid);
+		$new = $userDA->add($data['fname'], $data['lname'], $data['email'], $data['pass'], $roleid);
 		if( $new ){
 			header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=1');
 		}

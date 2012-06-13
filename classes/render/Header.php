@@ -1,12 +1,17 @@
 <?php
 	namespace render;
+	use \model\access;
 	class Header{
 		public $self;
 
+		protected $userDA;
+
 		public function __construct( $root ){
 			$this->root = $root;
+			$this->userDA = new \model\access\UserAccess();
+
 			if( isset($_SESSION['active']) ){
-				$this->self = \model\User::getByID($_SESSION['userid']);
+				$this->self = $this->userDA->getByID( $_SESSION['userid'] );
 			}
 		}
 
@@ -19,9 +24,9 @@
 			$rp = 1;
 
 			if( $active ){
-				$tmpl->user = \model\User::getByID($_SESSION['userid']);
+				$tmpl->user = $this->userDA->getByID( $_SESSION['userid'] );
 
-				switch( strtolower($tmpl->user->gender) ){
+				switch( strtolower( $tmpl->user->getGender() ) ){
 					case 'm':
 						$tmpl->icon = 'user';
 						break;
@@ -33,7 +38,7 @@
 						break;
 				}
 
-				$rp = $user->authentication->resetPassword;
+				$rp = $tmpl->user->getAuthentication()->getResetPassword();
 			}
 
 			$css = $tmpl->build('header.css');

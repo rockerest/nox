@@ -2,6 +2,10 @@
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
 	require_once( $home . 'components/system/Preload.php' );
 
+	$userDA	= new \model\access\UserAccess();
+	$authDA	= new \model\access\AuthenticationAccess();
+	$qlDA	= new \model\access\Quick_LoginAccess();
+
 	$password = isset($_POST['password']) ? $_POST['password'] : null;
 	$vp = isset($_POST['vpass']) ? $_POST['vpass'] : null;
 	$data['email'] = isset($_POST['email']) ? $_POST['email'] : null;
@@ -10,18 +14,18 @@
 	$data['lname'] = isset($_POST['lname']) ? $_POST['lname'] : null;
 
 	if( ($password == $vp) && ($data['email'] == $data['vemail']) && ($password != null) && ($data['email'] != null) ){
-		if( \model\Authentication::checkIdentity($data['email']) == 0 ){
+		if( $authDA->checkIdentity( $data['email'] ) == 0 ){
 			//create user
-			$user = \model\User::add($data['fname'],$data['lname'],$data['email'],$password,3);
+			$user = $userDA->add( $data['fname'], $data['lname'], $data['email'], $password, 3 );
 			if( $user ){
-				$auth = $user->authentication;
-				$auth->resetPassword = 0;
-				$auth->disabled = 1;
+				$auth = $user->getAuthentication();
+				$auth->setResetPassword( 0 );
+				$auth->setDisabled( 1 );
 				$auth->save();
 
 				//create login hash
-				$hash = hash('whirlpool', $user->authentication->identity . time() . (time() / 64));
-				if( !\model\Quick_Login::add($hash, $user->userid, time() + 3600, 0) ){
+				$hash = hash('whirlpool', $user->getAuthentication()->getIdentity() . time() . (time() / 64));
+				if( !$qlDA->add( hash, $user->userid, time() + 3600, 0 ) ){
 					// die
 				}
 

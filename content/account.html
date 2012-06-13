@@ -8,10 +8,10 @@
 	}
 
 	if( $tmpl->action == 'manage' ){
-		$self = $tmpl->user->userid == $_SESSION['userid'];
+		$self = $tmpl->user->getUserId() == $_SESSION['userid'];
 	?>
-<h3 class="bump follow message-box center w50"><img src="images/icons/24/custom/user--pencil.png" alt="" class="icon-fix" /><?php echo $tmpl->user->fullName;?></h3>
-<form id="account" class="clear" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->userid;?>">
+<h3 class="bump follow message-box center w50"><img src="images/icons/24/custom/user--pencil.png" alt="" class="icon-fix" /><?php echo $tmpl->user->getFullName();?></h3>
+<form id="account" class="clear" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->getUserId();?>">
 	<fieldset class="push" >
 		<legend>Personal Information</legend>
 		<label for="fname">First Name</label>
@@ -41,9 +41,9 @@
 	</fieldset>
 </form>
 <div class="message-box info center clear" id="toolbar">
-	<a href="account.php?a=login<?php if(!$self){echo "&amp;uid=".$tmpl->user->userid;}?>" id="login" ><img src="images/icons/16/key.png" alt="login credentials" class="icon-fix" />Edit Login Info</a>
+	<a href="account.php?a=login<?php if(!$self){echo "&amp;uid=".$tmpl->user->getUserId();}?>" id="login" ><img src="images/icons/16/key.png" alt="login credentials" class="icon-fix" />Edit Login Info</a>
 	<button type="button" id="submit"><img src="images/icons/16/disk.png" alt="save" class="icon-fix" />Save Changes</button>
-	<?php if($_SESSION['roleid']<3){?><button type="button" id="delete" data-id="<?php echo $tmpl->user->userid;?>" class="negative button push"><img src="images/icons/16/minus.png" alt="delete" class="icon-fix" />Delete User</button><?php }?>
+	<?php if($_SESSION['roleid']<3){?><button type="button" id="delete" data-id="<?php echo $tmpl->user->getUserId();?>" class="negative button push"><img src="images/icons/16/minus.png" alt="delete" class="icon-fix" />Delete User</button><?php }?>
 </div>
 	<?php
 	}
@@ -93,7 +93,7 @@
 			if( $tmpl->roles ){
 				foreach( $tmpl->roles as $role ){
 				?>
-					<option value="<?php echo $role->roleid;?>" title="<?php echo $role->description;?>"><?php echo $role->name;?></option><?php echo '\n';?>
+					<option value="<?php echo $role->getRoleId();?>" title="<?php echo $role->getDescription();?>"><?php echo $role->getName();?></option><?php echo '\n';?>
 				<?php
 				}
 			}
@@ -126,7 +126,7 @@
 	elseif( $tmpl->action == 'login' ){
 	?>
 <h3 class="bump follow message-box center w50"><img src="images/icons/24/custom/key--pencil.png" alt="" class="icon-fix" /> Edit Login</h3>
-<form id="account" class="clear center login" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->userid;?>">
+<form id="account" class="clear center login" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->getuserid();?>">
 	<fieldset class="center" >
 		<legend>Login Information</legend>
 		<label for="lemail">Email Address</label>
@@ -145,7 +145,7 @@
 	</fieldset>
 </form>
 <div class="message-box info center clear" id="toolbar">
-	<a href="account.php<?php if(!$self){echo "?amp;uid=".$tmpl->user->userid;}?>" id="account" ><img src="images/icons/16/<?php echo $tmpl->icon;?>.png" alt="account" class="icon-fix" />Account Information</a>
+	<a href="account.php<?php if(!$self){echo "?amp;uid=".$tmpl->user->getUserId();}?>" id="account" ><img src="images/icons/16/<?php echo $tmpl->icon;?>.png" alt="account" class="icon-fix" />Account Information</a>
 	<button type="button" id="submit"><img src="images/icons/16/disk.png" alt="login" class="icon-fix" />Save Changes</button>
 </div>
 	<?php

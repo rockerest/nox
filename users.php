@@ -8,12 +8,13 @@
 
 	$page = new \render\Page("Users :: Nox", 'users', $allowed);
 	$tmpl = new \backbone\Template();
+	$userDA = new \model\access\UserAccess();
 
 	$page->run();
 	$tmpl->self = $page->self;
 
 	$tmpl->code = isset( $_GET['code'] ) ? $_GET['code'] : -1;
-	$tmpl->users = \model\User::toArray(\model\User::getAll());
+	$tmpl->users = \utilities\Utility::toArray( $userDA->getAll() );
 
 	switch( $tmpl->code ){
 		case 0:

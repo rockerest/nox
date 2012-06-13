@@ -17,7 +17,7 @@
 		case 0:
 				// user logged in successfully
 				$tmpl->alert['type'] = "okay fadeout"; //style the messagebox AND target it to fade out.
-				$tmpl->alert['message'] = 'Welcome, ' . $tmpl->self->fname;
+				$tmpl->alert['message'] = 'Welcome, ' . $tmpl->self->getFname();
 				break;
 		default:
 				break;
