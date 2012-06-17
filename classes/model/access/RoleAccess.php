@@ -1,6 +1,7 @@
 <?php
 	namespace model\access;
-	class RoleAccess extends \model\access\AccessBase{
+	use model\objects;
+	class RoleAccess extends AccessBase{
 		public function __construct( $db = null ){
 			parent::__construct( $db );
 		}
@@ -36,7 +37,7 @@
 		}
 
 		public function add($name, $description){
-			$role = new \model\objects\Role(null, $description, $name );
+			$role = new objects\Role(null, $description, $name, $this );
 			$res = $role->save();
 
 			if( $res ){
@@ -87,7 +88,7 @@
 
 		public function delete( $obj ){
 			//don't allow a role to be deleted if users are still assigned that role
-			$auth = new \model\access\AuthenticationAccess( $this->db );
+			$auth = new AuthenticationAccess( $this->db );
 			if( !$auth->getByRoleId( $obj->getRoleId() ) ){
 				return $this->genericDelete( 'roles', 'roleid', $obj->getRoleId() );
 			}
@@ -101,7 +102,7 @@
 			foreach( $roles as $role ){
 				array_push(
 					$roleList,
-					new \model\objects\Role(
+					new objects\Role(
 						$role['roleid'],
 						$role['description'],
 						$role['name'],

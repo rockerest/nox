@@ -9,11 +9,11 @@
 
 		// Data throughput
 		public function save(){
-			$this->accessors['Main']->save( $this );
+			return $this->accessors['Main']->save( $this );
 		}
 
 		public function delete(){
-			$this->accessors['Main']->delete( $this );
+			return $this->accessors['Main']->delete( $this );
 		}
 	}
 ?>

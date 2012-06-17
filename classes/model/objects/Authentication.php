@@ -1,6 +1,7 @@
 <?php
 	namespace model\objects;
-	class Authentication extends \model\objects\ObjectBase{
+	use model\access;
+	class Authentication extends ObjectBase{
 		protected $authenticationid;
 		protected $userid;
 		protected $roleid;
@@ -10,7 +11,7 @@
 		protected $resetPassword;
 		protected $disabled;
 
-		public function __construct($authenticationid, $userid, $roleid, $identity, $password, $salt, $resetPassword, $disabled, $authenticationDA, $roleDA, $userDA ){
+		public function __construct($authenticationid, $userid, $roleid, $identity, $password, $salt, $resetPassword, $disabled, $authenticationDA = null, $roleDA = null, $userDA = null ){
 			parent::__construct();
 
 			$this->authenticationid	= $authenticationid;
@@ -22,9 +23,9 @@
 			$this->resetPassword	= $resetPassword;
 			$this->disabled			= $disabled;
 
-			$this->accessors['Main'] = $authenticationDA;
-			$this->accessors['Role'] = $roleDA;
-			$this->accessors['User'] = $userDA;
+			$this->accessors['Main'] = isset($authenticationDA) ? $authenticationDA : new access\AuthenticationAccess;
+			$this->accessors['Role'] = isset($roleDA) ? $roleDA : new access\RoleAccess;
+			$this->accessors['User'] = isset($userDA) ? $userDA : new access\UserAccess;
 		}
 
 		// Setters
@@ -94,7 +95,7 @@
 			return $this->password;
 		}
 
-		public function getSalt( $salt ){
+		public function getSalt(){
 			return $this->salt;
 		}
 

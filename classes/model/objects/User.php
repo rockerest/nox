@@ -1,12 +1,13 @@
 <?php
 	namespace model\objects;
-	class User extends \model\objects\ObjectBase{
+	use model\access;
+	class User extends ObjectBase{
 		protected $userid;
 		protected $fname;
 		protected $lname;
 		protected $gender;
 
-		public function __construct($userid, $fname, $lname, $gender, $userDA, $authDA, $contDA ){
+		public function __construct($userid, $fname, $lname, $gender, $userDA = null, $authDA = null, $contDA = null ){
 			parent::__construct();
 
 			$this->userid = $userid;
@@ -14,9 +15,9 @@
 			$this->lname = $lname;
 			$this->gender = $gender;
 
-			$this->accessors['Main'] = $userDA;
-			$this->accessors['Authentication'] = $authDA;
-			$this->accessors['Contact'] = $contDA;
+			$this->accessors['Main'] = isset($userDA) ? $userDA : new access\UserAccess;
+			$this->accessors['Authentication'] = isset($authDA) ? $authDA : new access\AuthenticationAccess;
+			$this->accessors['Contact'] = isset($contDA) ? $contDA : new access\ContactAccess;
 		}
 
 		// Setters

@@ -1,6 +1,7 @@
 <?php
 	namespace model\access;
-	class AuthenticationAccess extends \model\access\AccessBase{
+	use model\objects;
+	class AuthenticationAccess extends AccessBase{
 		public function __construct( $db = null ){
 			parent::__construct( $db );
 		}
@@ -96,9 +97,11 @@
 		}
 
 		public function add( $userid, $identity, $pass, $roleid ){
-			$vals = $this->hash( $pass );
+			$roleDA = new RoleAccess( $this->db );
+			$userDA = new UserAccess( $this->db );
 
-			$authentication = new \model\objects\Authentication(null, $identity, $vals[0], $vals[1], $userid, $roleid, 0, 0 );
+			$vals = $this->hash( $pass );
+			$authentication = new objects\Authentication(null, $userid, $roleid, $identity, $vals[0], $vals[1], 0, 0, $this, $roleDA, $userDA);
 			$res = $authentication->save();
 
 			if( $res ){
@@ -182,7 +185,7 @@
 			foreach( $authentications as $authentication ){
 				array_push(
 					$authenticationList,
-					new \model\objects\Authentication(
+					new objects\Authentication(
 						$authentication['authenticationid'],
 						$authentication['userid'],
 						$authentication['roleid'],
@@ -192,8 +195,8 @@
 						$authentication['resetPassword'],
 						$authentication['disabled'],
 						$this,
-						new \model\access\RoleAccess( $this->db ),
-						new \model\access\UserAccess( $this->db )
+						new RoleAccess( $this->db ),
+						new UserAccess( $this->db )
 					)
 				);
 			}
@@ -203,7 +206,7 @@
 
 		public function hash( $pass ){
 			$salt = substr( hash( 'whirlpool', rand( 100000000000, 999999999999 ) ), 0, 64 );
-			$real_pass = hash( 'whirpool', $salt . $pass );
+			$real_pass = hash( 'whirlpool', $salt . $pass );
 
 			return array( $salt, $real_pass );
 		}

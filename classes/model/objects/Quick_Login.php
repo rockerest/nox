@@ -1,13 +1,14 @@
 <?php
 	namespace model\objects;
-	class Quick_Login extends \model\objects\ObjectBase{
+	use model\access;
+	class Quick_Login extends ObjectBase{
 		protected $quick_loginid;
 		protected $hash;
 		protected $userid;
 		protected $expires;
 		protected $used;
 
-		public function __construct($quick_loginid, $hash, $userid, $expires, $used, $qlDA, $userDA){
+		public function __construct($quick_loginid, $hash, $userid, $expires, $used, $qlDA = null, $userDA = null){
 			parent::__construct();
 
 			$this->quick_loginid = $quick_loginid;
@@ -16,8 +17,8 @@
 			$this->expires = $expires;
 			$this->used = $used;
 
-			$this->accessors['Main'] = $qlDA;
-			$this->accessors['Users'] = $userDA;
+			$this->accessors['Main'] = isset( $qlDA ) ? $qlDA : new access\Quick_LoginAccess;
+			$this->accessors['Users'] = isset( $userDA ) ? $userDA : new access\UserAccess;
 		}
 
 		// Setters

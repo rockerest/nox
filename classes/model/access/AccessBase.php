@@ -26,7 +26,8 @@
 			// UGLY: Purely in theory, this is SQL Injection Vulnerable
 			$sql = "DELETE FROM " . $table . "
 					WHERE " . $index . " = " . $val;
-			return $this->db->q( $sql );
+			$this->db->q( $sql );
+			return $this->db->stat();
 		}
 
 		protected function sendback($objects){

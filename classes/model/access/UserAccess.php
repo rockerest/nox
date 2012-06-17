@@ -1,6 +1,7 @@
 <?php
 	namespace model\access;
-	class UserAccess extends \model\access\AccessBase{
+	use model\objects;
+	class UserAccess extends AccessBase{
 		public function __construct( $db = null ){
 			parent::__construct( $db );
 		}
@@ -69,14 +70,14 @@
 		}
 
 		public function add( $fname, $lname, $identity, $pass, $roleid ){
-			$authDA = new \model\access\AuthenticationAccess( $this->db );
-			$contDA = new \model\access\ContactAccess( $this->db );
+			$authDA = new AuthenticationAccess( $this->db );
+			$contDA = new ContactAccess( $this->db );
 
 			$taken = $authDA->checkIdentity( $identity );
 
 			if( !$taken ){
 				// If the identity is unique, add a new user
-				$user = new \model\objects\User(null, $fname, $lname, null );
+				$user = new objects\User(null, $fname, $lname, null, $this, $authDA, $contDA );
 				$res = $user->save();
 
 				if( $res ){
@@ -164,14 +165,14 @@
 			foreach( $users as $user ){
 				array_push(
 					$userList,
-					new \model\objects\User(
+					new objects\User(
 						$user['userid'],
 						$user['fname'],
 						$user['lname'],
 						$user['gender'],
 						$this,
-						new \model\access\AuthenticationAccess( $this->db ),
-						new \model\access\ContactAccess( $this->db )
+						new AuthenticationAccess( $this->db ),
+						new ContactAccess( $this->db )
 					)
 				);
 			}

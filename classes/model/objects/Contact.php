@@ -1,12 +1,13 @@
 <?php
 	namespace model\objects;
-	class Contact extends \model\objects\ObjectBase{
+	use model\access;
+	class Contact extends ObjectBase{
 		protected $contactid;
 		protected $userid;
 		protected $phone;
 		protected $email;
 
-		public function __construct($contactid, $userid, $phone, $email, $contactDA, $userDA ){
+		public function __construct($contactid, $userid, $phone, $email, $contactDA = null, $userDA = null ){
 			parent::__construct();
 
 			$this->contactid = $contactid;
@@ -14,8 +15,8 @@
 			$this->phone = $phone;
 			$this->email = $email;
 
-			$this->accessors['Main'] = $contactDA;
-			$this->accessors['User'] = $userDA;
+			$this->accessors['Main'] = isset($contactDA) ? $contactDA : new access\ContactAccess;
+			$this->accessors['User'] = isset($userDA) ? $userDA : new access\UserDA;
 		}
 
 		// Setters

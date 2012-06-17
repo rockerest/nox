@@ -1,6 +1,7 @@
 <?php
 	namespace model\access;
-	class ContactAccess extends \model\access\AccessBase{
+	use model\objects;
+	class ContactAccess extends AccessBase{
 		public function __construct( $db = null ){
 			parent::__construct( $db );
 		}
@@ -30,7 +31,9 @@
 		}
 
 		public function add($userid, $email, $phone = null){
-			$contact = new \model\objects\Contact(null, $userid, $phone, $email );
+			$userDA = new UserAccess( $this->db );
+
+			$contact = new objects\Contact(null, $userid, $phone, $email, $this, $userDA );
 			$res = $contact->save();
 
 			if( $res ){
@@ -92,13 +95,13 @@
 			foreach( $contacts as $contact ){
 				array_push(
 					$contactList,
-					new \model\objects\Contact(
+					new objects\Contact(
 						$contact['contactid'],
 						$contact['userid'],
 						$contact['phone'],
 						$contact['email'],
 						$this,
-						new \model\access\UserAccess( $this->db )
+						new UserAccess( $this->db )
 					)
 				);
 			}

@@ -1,6 +1,7 @@
 <?php
 	namespace model\access;
-	class Quick_LoginAccess extends \model\access\AccessBase{
+	use model\objects;
+	class Quick_LoginAccess extends AccessBase{
 		public function __construct( $db = null ){
 			parent::__construct( $db );
 		}
@@ -33,7 +34,9 @@
 		}
 
 		public function add($hash, $userid, $expires, $used){
-			$ql = new \model\objects\Quick_Login(null, $hash, $userid, $expires, $used);
+			$userDA = new UserAccess( $this->db );
+
+			$ql = new objects\Quick_Login( null, $hash, $userid, $expires, $used, $this, $userDA );
 			$res = $ql->save();
 
 			if( $res ){
@@ -99,14 +102,14 @@
 			foreach( $qls as $ql ){
 				array_push(
 					$qlList,
-					new \model\objects\Quick_Login(
+					new objects\Quick_Login(
 						$ql['quick_loginid'],
 						$ql['hash'],
 						$ql['userid'],
 						$ql['expires'],
 						$ql['used'],
 						$this,
-						new \model\access\UserAccess( $this->db )
+						new UserAccess( $this->db )
 					)
 				);
 			}
