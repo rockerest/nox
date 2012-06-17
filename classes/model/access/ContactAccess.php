@@ -51,7 +51,7 @@
 							phone,
 							email
 						)
-						VALUES ( ?, ? )";
+						VALUES ( ?, ?, ? )";
 				$values = array(
 							$obj->getUserId(),
 							$obj->getPhone(),

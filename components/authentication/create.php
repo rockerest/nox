@@ -25,16 +25,16 @@
 
 				//create login hash
 				$hash = hash('whirlpool', $user->getAuthentication()->getIdentity() . time() . (time() / 64));
-				if( !$qlDA->add( hash, $user->userid, time() + 3600, 0 ) ){
+				if( !$qlDA->add( $hash, $user->getUserId(), time() + 3600, 0 ) ){
 					// die
 				}
 
 				//load email template
 				ob_start();
-				include('templates/account_create.html');
+				include( $home . 'components/templates/account_create.html');
 				$body = ob_get_clean();
 
-				if( \backbone\Mail::sendMail($user->contact->email, 'no-reply-automator@nox.thomasrandolph.info', "Nox System Database Email Verification", $body) ){
+				if( \backbone\Mail::sendMail($user->getContact()->getEmail(), 'no-reply-automator@nox.thomasrandolph.info', "Nox System Database Email Verification", $body) ){
 					//redirect to login
 					throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=6' );
 				}

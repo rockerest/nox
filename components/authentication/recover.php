@@ -16,13 +16,13 @@
 
 				//create login hash
 				$hash = hash( 'whirlpool', $user->getAuthentication()->getPassword() . time() . $user->getAuthentication()->getSalt() );
-				if( !$qlDA->add( $hash, $user->userid, time() + 3600, 0 ) ){
+				if( !$qlDA->add( $hash, $user->getUserId(), time() + 3600, 0 ) ){
 					// die
 				}
 
 				//load email template
 				ob_start();
-				include('templates/account_recover.html');
+				include( $home . 'components/templates/account_recover.html');
 				$body = ob_get_clean();
 
 				if( \backbone\Mail::sendMail($user->getContact()->getEmail(), 'no-reply-automator@nox.thomasrandolph.info', "Nox System Account Recovery", $body) ){
