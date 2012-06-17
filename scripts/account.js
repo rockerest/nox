@@ -10,7 +10,7 @@ $('button[data-link="gender"]').click(
 
 $('#submit').click(
 	function(){
-		$('#account').submit();
+		$('#information').submit();
 	}
 );
 

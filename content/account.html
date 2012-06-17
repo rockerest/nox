@@ -11,7 +11,7 @@
 		$self = $tmpl->user->getUserId() == $_SESSION['userid'];
 	?>
 <h3 class="bump follow message-box center w50"><img src="images/icons/24/custom/user--pencil.png" alt="" class="icon-fix" /><?php echo $tmpl->user->getFullName();?></h3>
-<form id="account" class="clear" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->getUserId();?>">
+<form id="information" class="clear" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->getUserId();?>">
 	<fieldset class="push" >
 		<legend>Personal Information</legend>
 		<label for="fname">First Name</label>
@@ -39,6 +39,7 @@
 		<br />
 		<input type="tel" id="phone" name="phone" placeholder="+1-123-456-7890" value="<?php echo $tmpl->data['phone'];?>" pattern="^(\+)?(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$"/>
 	</fieldset>
+	<input type="submit" class="hide" />
 </form>
 <div class="message-box info center clear" id="toolbar">
 	<a href="account.php?a=login<?php if(!$self){echo "&amp;uid=".$tmpl->user->getUserId();}?>" id="login" ><img src="images/icons/16/key.png" alt="login credentials" class="icon-fix" />Edit Login Info</a>
@@ -64,7 +65,7 @@
 		$qs = (substr($qs, -5) == '&amp;') ? substr($qs, 0, -5) : $qs;
 	}
 ?>
-<form id="account" class="clear" method="POST" action="components/account/add.php<?php echo $qs?>">
+<form id="information" class="clear" method="POST" action="components/account/add.php<?php echo $qs?>">
 	<fieldset class="push" >
 		<legend>Required Information</legend>
 		<label for="fname">First Name</label>
@@ -116,6 +117,7 @@
 		<br />
 		<input type="tel" id="phone" name="phone" placeholder="+1-123-456-7890" pattern="^(\+)?(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$"/>
 	</fieldset>
+	<input type="submit" class="hide" />
 </form>
 <div class="message-box info center clear" id="toolbar">
 	<button type="button" id="toggle" data-toggle="0"><img src="images/icons/16/arrow.png" alt="toggle" class="icon-fix" /><span>Show optional fields</span></button>
@@ -126,7 +128,7 @@
 	elseif( $tmpl->action == 'login' ){
 	?>
 <h3 class="bump follow message-box center w50"><img src="images/icons/24/custom/key--pencil.png" alt="" class="icon-fix" /> Edit Login</h3>
-<form id="account" class="clear center login" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->getuserid();?>">
+<form id="information" class="clear center login" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->getuserid();?>">
 	<fieldset class="center" >
 		<legend>Login Information</legend>
 		<label for="lemail">Email Address</label>
@@ -143,6 +145,7 @@
 		<br />
 		<input type="password" id="passver" name="passver" placeholder="New Password Again" />
 	</fieldset>
+	<input type="submit" class="hide" />
 </form>
 <div class="message-box info center clear" id="toolbar">
 	<a href="account.php<?php if(!$self){echo "?amp;uid=".$tmpl->user->getUserId();}?>" id="account" ><img src="images/icons/16/<?php echo $tmpl->icon;?>.png" alt="account" class="icon-fix" />Account Information</a>

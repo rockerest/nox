@@ -14,6 +14,8 @@
 	$tmpl->self = $page->self;
 
 	$tmpl->code = isset( $_GET['code'] ) ? $_GET['code'] : -1;
+	// this page can accept extended error codes.
+	$tmpl->errorcode = isset( $_GET['ec'] ) ? $_GET['ec'] : null;
 	$tmpl->users = \utilities\Utility::toArray( $userDA->getAll() );
 
 	switch( $tmpl->code ){
