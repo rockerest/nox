@@ -31,6 +31,8 @@
 			$tmpl->headerContent = $this->header->generate();
             $tmpl->appContent = $appContent;
 			$tmpl->footerContent = $this->footer->generate();
+
+			$tmpl->root = $this->root;
 			$tmpl->title = $this->page_title;
 			$tmpl->id = $this->body_id;
 
