@@ -2,7 +2,7 @@
 	require_once( 'components/system/Preload.php' );
 
 	$allowed = array(
-						-1	=> 'Anyone who is logged in'
+						0	=> 'Anyone who is logged in'
 					);
 
 	$page = new \render\Page("Home :: Nox", 'home', $allowed);

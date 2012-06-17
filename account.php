@@ -2,9 +2,7 @@
 	require_once( 'components/system/Preload.php' );
 
 	$allowed = array(
-						1	=> 'Admin',
-						2	=> 'Leader',
-						3	=> 'User'
+						0	=> 'Anyone who is logged in',
 					);
 
 	$page = new \render\Page('Account Management :: Nox', 'account', $allowed);

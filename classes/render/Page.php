@@ -6,6 +6,7 @@
 
 		private $page_title;
 		private $body_id;
+		private $allowed;
 
 		public $self;
 
@@ -14,6 +15,7 @@
 
 			$this->page_title = $page_title;
 			$this->body_id = $body_id;
+			$this->allowed = $allowed;
         }
 
 		public function run(){
@@ -24,6 +26,11 @@
 			$this->footer->run();
 
 			$this->self = $this->header->self;
+
+			if( !$this->secure( $this->allowed, $this->self ) ){
+				// redirect to login
+				header('Location: index.php?code=2');
+			}
         }
 
         public function build($appContent){
@@ -32,22 +39,30 @@
             $tmpl->appContent = $appContent;
 			$tmpl->footerContent = $this->footer->generate();
 
-			$tmpl->root = $this->root;
 			$tmpl->title = $this->page_title;
 			$tmpl->id = $this->body_id;
+			$tmpl->root = $this->root;
 
             return $tmpl->build('page.html');
         }
-    }
 
-	function secure($role = 3){
-		if( !$_SESSION['active'] ){
-			header('Location: index.php?code=2');
-		}
-		else{
-			if( $_SESSION['roleid'] > $role ){
-				header('Location: logout.php?fwd=' . urlencode('index.php?code=3'));
+        private function secure( $access = null, $user = null ){
+			if( empty($access) || array_key_exists( -1, $access ) ){
+				return true;
+			}
+			else{
+				if( empty( $user ) ){
+					return false;
+				}
+				else{
+					$roleId = $user->getAuthentication()->getRoleId();
+					if( array_key_exists( $roleId, $access ) || array_key_exists( 0, $access ) ){
+						return true;
+					}
+					else{
+						return false;
+					}
+				}
 			}
 		}
-	}
-?>
+    }
