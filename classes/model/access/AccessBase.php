@@ -12,7 +12,7 @@
 				$this->db = $db;
 			}
 			else{
-				$this->db = new \backbone\Database(	
+				$this->db = new \backbone\Database(
 					$this->config['db']['user'],
 					$this->config['db']['pass'],
 					$this->config['db']['dbname'],
@@ -24,8 +24,8 @@
 
 		public function genericDelete( $table, $index, $val ){
 			// UGLY: Purely in theory, this is SQL Injection Vulnerable
-			$sql = "DELETE FROM " . $table . "
-					WHERE " . $index . " = " . $val;
+			$sql = "DELETE FROM `" . $table . "`
+					WHERE `" . $index . "` = " . $val;
 			$this->db->q( $sql );
 			return $this->db->stat();
 		}

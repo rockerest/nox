@@ -8,9 +8,9 @@
 
 		public function getById( $id ){
 			$sql = "SELECT *
-					FROM roles
+					FROM `roles`
 					WHERE
-						roleid = ?";
+						`roleid` = ?";
 			$values = array( $id );
 			$res = $this->db->qwv($sql, $values);
 
@@ -19,9 +19,9 @@
 
 		public function getByName( $name ){
 			$sql = "SELECT *
-					FROM roles
+					FROM `roles`
 					WHERE
-						name LIKE '%?%'";
+						`name` LIKE '%?%'";
 			$values = array( $name );
 			$res = $this->db->qwv($sql, $values);
 
@@ -30,7 +30,7 @@
 
 		public function getAll(){
 			$sql = "SELECT *
-					FROM roles";
+					FROM `roles`";
 			$res = $this->db->q( $sql );
 
 			return $this->wrap( $res );
@@ -50,9 +50,9 @@
 
 		public function save( $obj ){
 			if( !$obj->getRoleId() ){
-				$sql = "INSERT INTO roles (
-							description,
-							name
+				$sql = "INSERT INTO `roles` (
+							`description`,
+							`name`
 						)
 						VALUES ( ?, ? )";
 				$values = array(
@@ -69,12 +69,12 @@
 				}
 			}
 			else{
-				$sql = "UPDATE roles
+				$sql = "UPDATE `roles`
 						SET
-							description = ?,
-							name = ?
+							`description` = ?,
+							`name` = ?
 						WHERE
-							roleid = ?";
+							`roleid` = ?";
 				$values = array(
 							$obj->getDescription(),
 							$obj->getName(),

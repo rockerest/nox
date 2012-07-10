@@ -8,9 +8,9 @@
 
 		public function getById( $id ){
 			$sql = "SELECT *
-					FROM users
+					FROM `users`
 					WHERE
-						userid = ?";
+						`userid` = ?";
 			$values = array( $id );
 			$res = $this->db->qwv($sql, $values);
 
@@ -21,23 +21,23 @@
 			if( !$term ){
 				$sql = "SELECT *
 						FROM
-							users
+							`users`
 						ORDER BY
-							lname ASC,
-							fname ASC";
+							`lname` ASC,
+							`fname` ASC";
 				$res = $this->db->q($sql);
 			}
 			else{
 				$sql = "SELECT *
 						FROM
-							users
+							`users`
 						WHERE
-							lname LIKE ?
-							OR fname LIKE ?
-							OR CONCAT(fname, ' ', lname) LIKE ?
+							`lname` LIKE ?
+							OR `fname` LIKE ?
+							OR CONCAT(`fname`, ' ', `lname`) LIKE ?
 						ORDER BY
-							lname ASC,
-							fname ASC";
+							`lname` ASC,
+							`fname` ASC";
 				$values = array( '%' . $term . '%', '%' . $term . '%', '%' . $term . '%' );
 				$res = $this->db->qwv( $sql, $values );
 			}
@@ -48,17 +48,17 @@
 		public function getAllWithRestrictions(){
 			$sql = "SELECT *
 					FROM
-						users
+						`users`
 					WHERE
-						userid IN
+						`userid` IN
 						(
 							SELECT
-								userid
+								`userid`
 							FROM
-								authentication
+								`authentications`
 							WHERE
-								resetPassword = 1
-								OR disabled = 1
+								`resetPassword` = 1
+								OR `disabled` = 1
 						)";
 			$res = $this->db->q( $sql );
 
@@ -103,7 +103,7 @@
 			else{
 				return false;
 			}
-			
+
 
 			if( $res ){
 				return $res;
@@ -120,10 +120,10 @@
 
 		public function save( $obj ){
 			if( !$obj->getUserId() ){
-				$sql = "INSERT INTO users (
-							fname,
-							lname,
-							gender
+				$sql = "INSERT INTO `users` (
+							`fname`,
+							`lname`,
+							`gender`
 						)
 						VALUES ( ?, ?, ? )";
 				$values = array(
@@ -141,13 +141,13 @@
 				}
 			}
 			else{
-				$sql = "UPDATE users
+				$sql = "UPDATE `users`
 						SET
-							fname = ?,
-							lname = ?,
-							gender = ?
+							`fname` = ?,
+							`lname` = ?,
+							`gender` = ?
 						WHERE
-							userid = ?";
+							`userid` = ?";
 				$values = array(
 							$obj->getFname(),
 							$obj->getLname(),

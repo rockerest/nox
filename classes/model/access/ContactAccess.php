@@ -9,9 +9,9 @@
 		public function getById( $id ){
 			$sql = "SELECT *
 					FROM
-						contacts
+						`contacts`
 					WHERE
-						contactid = ?";
+						`contactid` = ?";
 			$values = array( $id );
 			$res = $this->db->qwv( $sql, $values );
 
@@ -21,9 +21,9 @@
 		public function getByUserId( $id ){
 			$sql = "SELECT *
 					FROM
-						contacts
+						`contacts`
 					WHERE
-						userid = ?";
+						`userid` = ?";
 			$values = array($id);
 			$res = $this->db->qwv( $sql, $values );
 
@@ -46,10 +46,10 @@
 
 		public function save( $obj ){
 			if( !$obj->getContactId() ){
-				$sql = "INSERT INTO contacts (
-							userid,
-							phone,
-							email
+				$sql = "INSERT INTO `contacts` (
+							`userid`,
+							`phone`,
+							`email`
 						)
 						VALUES ( ?, ?, ? )";
 				$values = array(
@@ -67,13 +67,13 @@
 				}
 			}
 			else{
-				$sql = "UPDATE contacts
+				$sql = "UPDATE `contacts`
 						SET
-							userid = ?,
-							phone = ?,
-							email = ?
+							`userid` = ?,
+							`phone` = ?,
+							`email` = ?
 						WHERE
-							contactid = ?";
+							`contactid` = ?";
 				$values = array(
 							$obj->getUserId(),
 							$obj->getPhone(),
