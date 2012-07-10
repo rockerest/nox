@@ -20,6 +20,12 @@
 		public function generate(){
 			$tmpl = new \backbone\Template();
 
+			//set DMZ pages
+			$dmz_pages = array(
+				$this->root . 'errors.php',
+				$this->root . 'about.php',
+			);
+
 			$tmpl->active = $active = isset($_SESSION['active']);
 			$rp = 1;
 
@@ -66,7 +72,8 @@
 				}
 			}
 			else{
-				if( $script != $this->root . 'errors.php' ){
+				//load DMZ pages
+				if( !in_array($script, $dmz_pages) ){
 					if( $script != $this->root . 'index.php' && !$active ){
 						header('Location: index.php?code=2');
 					}

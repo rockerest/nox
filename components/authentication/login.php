@@ -1,5 +1,5 @@
 <?php
-	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, __FILE__), 0, -3 )) . '/';
+	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, __FILE__), 0, -3 ) ) . '/';
 	require_once( $home . 'components/system/Preload.php' );
 
 	$authDA = new \model\access\AuthenticationAccess();

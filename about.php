@@ -1,11 +1,7 @@
 <?php
 	require_once( 'components/system/Preload.php' );
+
 	$tmpl = new \backbone\Template();
-
-	$allowed = array(
-						-1	=> 'Any visitor'
-					);
-
 	$page = new \render\Page("About Nox", 'about', $allowed);
 
 	$page->run();
