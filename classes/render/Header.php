@@ -26,6 +26,16 @@
 				$this->root . 'about.php',
 			);
 
+			//set taglines
+			$taglines = array(
+				'It\'s a hard Nox life',
+				'Nox your clients\' socks off',
+				'Your new website: Nox\'d off in a second'
+			);
+
+			$num = mt_rand(0, count($taglines) - 1);
+
+			$tmpl->tagline = $taglines[$num];
 			$tmpl->active = $active = isset($_SESSION['active']);
 			$rp = 1;
 
