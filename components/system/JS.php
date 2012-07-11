@@ -12,7 +12,7 @@
 		$folders = array(
 							$home . "global/",
 							$home . "global/blackbird/",
-							$home . "global/tipped/",
+							$home . "global/qtip/",
 							$home . "global/fullcalendar/",
 							$home . "jquery/",
 							$home . "scripts/"

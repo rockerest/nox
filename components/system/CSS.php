@@ -13,7 +13,7 @@
 							$home . "global/",
 							$home . "global/css3buttons/",
 							$home . "global/blackbird/",
-							$home . "global/tipped/",
+							$home . "global/qtip/",
 							$home . "global/fullcalendar/",
 							$home . "styles/",
 							$home . "jquery/"
