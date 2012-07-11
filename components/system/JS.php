@@ -11,7 +11,6 @@
 		$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
 		$folders = array(
 							$home . "global/",
-							$home . "global/blackbird/",
 							$home . "global/qtip/",
 							$home . "global/fullcalendar/",
 							$home . "jquery/",

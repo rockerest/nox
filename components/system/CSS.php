@@ -12,7 +12,6 @@
 		$folders = array(
 							$home . "global/",
 							$home . "global/css3buttons/",
-							$home . "global/blackbird/",
 							$home . "global/qtip/",
 							$home . "global/fullcalendar/",
 							$home . "styles/",
