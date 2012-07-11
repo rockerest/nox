@@ -1,28 +1,30 @@
-//default Tipped setup.  Use another class for custom Tippeds
-Tipped.create('.tipped', {
-	hideOn: [
-				{ element: 'self', event: 'mouseleave' },
-				{ element: 'tooltip', event: 'mouseenter' }
-			],
-	target: 'mouse'
-});
+//default tooltip setup.
+var tooltips = {
+	position:{
+		my: 'bottom center',
+		at: 'top center',
+		target: 'mouse'
+	},
+	style: {
+		classes: 'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
+	}
+}
 
-//html elements (cloned) for default Tipped.
-$('.elementTipped').each(
+$('.tooltip').qtip(
+	$.extend({}, tooltips, {
+	})
+);
+
+//html elements (cloned) for default Tooltip.
+$('.elementTooltip').each(
 	function()
 	{
-		var element = $(this).attr('data-tippedID');
-		Tipped.create(
-			this,
-			$('#' + element).clone(true, true).removeAttr('id')[0],
-			{
-				hideOn: [
-							{ element: 'self', event: 'mouseleave' },
-							{ element: 'tooltip', event: 'mouseenter' }
-						],
-				target: 'mouse'
+		var element = $(this).attr('data-tooltipid');
+		$(this).qtip({
+			content:{
+				text: $('#' + element).clone()
 			}
-		);
+		});
 	}
 );
 

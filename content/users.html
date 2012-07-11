@@ -43,36 +43,36 @@
 				<tr>
 					<td><a href="account.php?uid=<?php echo $user->getUserId();?>"><?php echo $user->getFullName();?></a></td>
 					<td>
-						<a href="mailto:<?php echo $user->getContact()->getEmail();?>"><img src="images/icons/16/mail.png" alt="envelope" class="icon-fix tipped" title="Open new email to <?php echo $user->getFullName();?>"/></a>
+						<a href="mailto:<?php echo $user->getContact()->getEmail();?>"><img src="images/icons/16/mail.png" alt="envelope" class="icon-fix tooltip" title="Open new email to <?php echo $user->getFullName();?>"/></a>
 					</td>
 					<td>
-						<?php if($reduce){?><a href="components/account/reduce.php?uid=<?php echo $user->getUserId();?>&amp;tb=u"><img src="images/icons/16/arrow-270.png" alt="reduce" class="icon-fix tipped" title="Reduce <?php echo $user->getFullName();?>'s Role"/></a><?php }?>
+						<?php if($reduce){?><a href="components/account/reduce.php?uid=<?php echo $user->getUserId();?>&amp;tb=u"><img src="images/icons/16/arrow-270.png" alt="reduce" class="icon-fix tooltip" title="Reduce <?php echo $user->getFullName();?>'s Role"/></a><?php }?>
 						<?php echo $user->getAuthentication()->getRole()->getName();?>
-						<?php if($elevate){?><a href="components/account/elevate.php?uid=<?php echo $user->getUserId();?>&amp;tb=u"><img src="images/icons/16/arrow-090.png" alt="elevate" class="icon-fix tipped" title="Elevate <?php echo $user->getFullName();?>'s Role"/></a><?php }?>
+						<?php if($elevate){?><a href="components/account/elevate.php?uid=<?php echo $user->getUserId();?>&amp;tb=u"><img src="images/icons/16/arrow-090.png" alt="elevate" class="icon-fix tooltip" title="Elevate <?php echo $user->getFullName();?>'s Role"/></a><?php }?>
 					</td>
 					<td>
-						<a href="account.php?uid=<?php echo $user->getUserId();?>"><img src="images/icons/16/pencil.png" alt="edit" title="Edit User" class="tipped" /></a>
+						<a href="account.php?uid=<?php echo $user->getUserId();?>"><img src="images/icons/16/pencil.png" alt="edit" title="Edit User" class="tooltip" /></a>
 						<a href="components/account/toggleAccount.php?uid=<?php echo $user->getUserId();?>&amp;tb=u">
 						<?php
 						if( !$user->getAuthentication()->getDisabled() ){
-							echo '<img src="images/icons/16/door-open.png" alt="disable" title="Disable Login" class="tipped" /></a>';
+							echo '<img src="images/icons/16/door-open.png" alt="disable" title="Disable Login" class="tooltip" /></a>';
 						}
 						else{
-							echo '<img src="images/icons/16/door.png" alt="enable" title="Enable Login" class="tipped" /></a>';
+							echo '<img src="images/icons/16/door.png" alt="enable" title="Enable Login" class="tooltip" /></a>';
 						}
 						?>
 						<a href="components/account/toggleResetPassword.php?uid=<?php echo $user->getUserId();?>&amp;tb=u">
 						<?php
 						if( !$user->getAuthentication()->getResetPassword() ){
-							echo '<img src="images/icons/16/tick-button.png" alt="reset" title="Force Password Change" class="tipped" /></a>';
+							echo '<img src="images/icons/16/tick-button.png" alt="reset" title="Force Password Change" class="tooltip" /></a>';
 						}
 						else{
-							echo '<img src="images/icons/16/exclamation-button.png" alt="reset" title="Accept Current Password" class="tipped" /></a>';
+							echo '<img src="images/icons/16/exclamation-button.png" alt="reset" title="Accept Current Password" class="tooltip" /></a>';
 						}
 						?>
 					</td>
 					<td>
-						<a href="components/account/delete.php?uid=<?php echo $user->getUserId();?>&amp;tb=u"><img src="images/icons/16/minus.png" alt="delete" title="Delete User (permanent)" class="tipped" /></a>
+						<a href="components/account/delete.php?uid=<?php echo $user->getUserId();?>&amp;tb=u"><img src="images/icons/16/minus.png" alt="delete" title="Delete User (permanent)" class="tooltip" /></a>
 					</td>
 				</tr>
 				<?php

@@ -12,26 +12,35 @@ $( '#head_logout' ).hover(
 );
 
 //element default left
-Tipped.create('.tipped-left', {
-	hideOn: [
-				{ element: 'self', event: 'mouseleave' },
-				{ element: 'tooltip', event: 'mouseenter' }
-			],
-	hook: 'leftmiddle'
-});
+$('.tooltip-left').qtip(
+	$.extend({}, tooltips, {
+		position:{
+			my: 'right center',
+			at: 'left center'
+		}
+	})
+);
 
 //element fixed below
-$('.fixedElementTipped-below').each(
+$('.fixedElementTooltip-below').each(
 	function()
 	{
-		var element = $(this).attr('data-tippedID');
-		Tipped.create(
-			this,
-			$('#' + element).clone(true, true).removeAttr('id')[0],
-			{
-				hook: { target:  'bottomleft', tooltip: 'topleft' },
-				skin: 'light'
-			}
+		var element = $(this).attr('data-tooltipid');
+		$(this).qtip(
+			$.extend({}, tooltips, {
+				position:{
+					my: 'top center',
+					at: 'bottom center',
+					target: false
+				},
+				content:{
+					text: $('#' + element).clone()
+				},
+				hide:{
+					fixed: true,
+					delay: 250
+				}
+			})
 		);
 	}
 );

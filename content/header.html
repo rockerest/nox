@@ -33,9 +33,9 @@
 			if( $tmpl->active ){
 				//the logged in toolbar
 				?>
-				<a href="home.php" id="head_dashboard" data-tippedID="menu" class="fixedElementTipped-below"><img src="images/icons/16/home.png" alt="dashboard" class="icon-fix" />Home</a>
+				<a href="home.php" id="head_dashboard" data-tooltipID="menu" class="fixedElementTooltip-below"><img src="images/icons/16/home.png" alt="dashboard" class="icon-fix" />Home</a>
 				&nbsp;
-				<a href="account.php" data-tippedID="user" class="fixedElementTipped-below"><img src="images/icons/16/<?php echo $tmpl->icon;?>.png" alt="user" class="icon-fix" /><?php echo $tmpl->user->getFullName();?></a>
+				<a href="account.php" data-tooltipID="user" class="fixedElementTooltip-below"><img src="images/icons/16/<?php echo $tmpl->icon;?>.png" alt="user" class="icon-fix" /><?php echo $tmpl->user->getFullName();?></a>
 				&nbsp;
 
 				<?php
