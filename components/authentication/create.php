@@ -5,6 +5,7 @@
 	$userDA	= new \model\access\UserAccess();
 	$authDA	= new \model\access\AuthenticationAccess();
 	$qlDA	= new \model\access\Quick_LoginAccess();
+	$mail	= new \utilities\SwiftMailLoader();
 
 	$password = isset($_POST['password']) ? $_POST['password'] : null;
 	$vp = isset($_POST['vpass']) ? $_POST['vpass'] : null;
