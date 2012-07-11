@@ -4,6 +4,7 @@
 
 	$authDA	= new \model\access\AuthenticationAccess();
 	$qlDA	= new \model\access\Quick_LoginAccess();
+	$mail	= new \utilities\SwiftMailLoader();
 
 	$email = isset($_GET['email']) ? $_GET['email'] : null;
 
@@ -23,9 +24,16 @@
 				//load email template
 				ob_start();
 				include( $home . 'components/templates/account_recover.html');
-				$body = ob_get_clean();
+				$body		= ob_get_clean();
+				$subject	= "Nox System Account Recovery";
+				$to			= $user->getContact()->getEmail();
+				$from		= 'no-reply-automator@nox.thomasrandolph.info';
 
-				if( \backbone\Mail::sendMail($user->getContact()->getEmail(), 'no-reply-automator@nox.thomasrandolph.info', "Nox System Account Recovery", $body) ){
+				$message	= $mail->newMessage( $subject, $body )
+								->setTo( $to )
+								->setFrom( $from );
+
+				if( $mail->sendMessage( $message ) ){
 					//redirect to login
 					throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=6');
 				}

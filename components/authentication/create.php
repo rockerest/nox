@@ -32,9 +32,16 @@
 				//load email template
 				ob_start();
 				include( $home . 'components/templates/account_create.html');
-				$body = ob_get_clean();
+				$body		= ob_get_clean();
+				$subject	= 'Nox System Database Email Verification';
+				$to			= $user->getContact()->getEmail();
+				$from		= 'no-reply-automator@nox.thomasrandolph.info';
 
-				if( \backbone\Mail::sendMail($user->getContact()->getEmail(), 'no-reply-automator@nox.thomasrandolph.info', "Nox System Database Email Verification", $body) ){
+				$message	= $mail->newMessage( $subject, $body )
+								->setTo( $to )
+								->setFrom( $from );
+
+				if( $mail->sendMessage( $message ) ){
 					//redirect to login
 					throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=6' );
 				}
