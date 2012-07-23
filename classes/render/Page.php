@@ -13,7 +13,7 @@
         public function __construct($page_title, $body_id, $allowed = null ){
 			parent::__construct();
 
-			$this->page_title = $page_title;
+			$this->page_title = $page_title . ' :: ' . $this->config['application']['name'];
 			$this->body_id = $body_id;
 			$this->allowed = $allowed;
         }

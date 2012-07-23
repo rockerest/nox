@@ -5,7 +5,7 @@
 						0	=> 'Anyone who is logged in',
 					);
 
-	$page = new \render\Page('Account Management :: Nox', 'account', $allowed);
+	$page = new \render\Page('Account Management', 'account', $allowed);
 	$tmpl = new \backbone\Template();
 	$roleDA = new \model\access\RoleAccess();
 	$userDA = new \model\access\UserAccess();

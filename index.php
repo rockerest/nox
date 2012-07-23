@@ -1,7 +1,7 @@
 <?php
 	require_once( 'components/system/Preload.php' );
 
-	$page = new \render\Page("Nox", 'index', $allowed);
+	$page = new \render\Page("Access Portal", 'index', $allowed);
 	$tmpl = new \backbone\Template();
 
 	$page->run();

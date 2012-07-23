@@ -6,7 +6,7 @@
 						2	=> 'Leader'
 					);
 
-	$page = new \render\Page("Users :: Nox", 'users', $allowed);
+	$page = new \render\Page("Users", 'users', $allowed);
 	$tmpl = new \backbone\Template();
 	$userDA = new \model\access\UserAccess();
 
