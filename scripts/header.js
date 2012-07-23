@@ -29,8 +29,8 @@ $('.fixedElementTooltip-below').each(
 		$(this).qtip(
 			$.extend({}, tooltips, {
 				position:{
-					my: 'top center',
-					at: 'bottom center',
+					my: 'top left',
+					at: 'bottom left',
 					target: false
 				},
 				content:{
