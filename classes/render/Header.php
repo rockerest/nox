@@ -60,7 +60,11 @@
 
 				// test for gravatar
 				$atar = curl_init( $grav );
-				curl_setopt( $atar, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt_array( $atar, array(
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_NOBODY => true
+				));
+
 				curl_exec( $atar );
 				$code = curl_getinfo( $atar, CURLINFO_HTTP_CODE );
 				curl_close( $atar );
