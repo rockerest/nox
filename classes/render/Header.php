@@ -41,18 +41,31 @@
 
 			if( $active ){
 				$tmpl->user = $this->userDA->getByID( $_SESSION['userid'] );
+				$authEmail = $tmpl->user->getAuthentication()->getIdentity();
 
 				switch( strtolower( $tmpl->user->getGender() ) ){
 					case 'm':
-						$tmpl->icon = 'user';
+						$icon = 'user';
 						break;
 					case 'f':
-						$tmpl->icon = 'user-female';
+						$icon = 'user-female';
 						break;
 					default:
-						$tmpl->icon = 'user-silhouette';
+						$icon = 'user-silhouette';
 						break;
 				}
+
+				$grav = "https://secure.gravatar.com/avatar/" . md5( strtolower( trim( $authEmail ) ) ) . "?s=16&d=404";
+				$local = "/images/icons/16/" . $icon . ".png";
+
+				// test for gravatar
+				$atar = curl_init( $grav );
+				curl_setopt( $atar, CURLOPT_RETURNTRANSFER, true);
+				curl_exec( $atar );
+				$code = curl_getinfo( $atar, CURLINFO_HTTP_CODE );
+				curl_close( $atar );
+
+				$tmpl->icon = $code == '404' ? $local : $grav;
 
 				$rp = $tmpl->user->getAuthentication()->getResetPassword();
 			}
