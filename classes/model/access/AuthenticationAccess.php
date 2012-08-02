@@ -9,11 +9,11 @@
 		public function validate( $identity, $password ){
 			//Select the salt for the attempted user identity
 			$sql = "SELECT
-						`salt`
+						salt
 					FROM
-						`authentications`
+						authentications
 					WHERE
-						`identity` = ?";
+						identity = ?";
 			$values = array( $identity );
 			$res = $this->db->qwv( $sql, $values );
 
@@ -24,10 +24,10 @@
 			// Get the user that matches the correct identity AND salted, hashed password
 			$sql = "SELECT *
 					FROM
-						`authentications`
+						authentications
 					WHERE
-						`identity` = ?
-						AND `password` = ?";
+						identity = ?
+						AND password = ?";
 			$values = array( $identity, $salted );
 			$res = $this->db->qwv( $sql, $values );
 
@@ -49,11 +49,11 @@
 
 		public function checkIdentity( $identity ){
 			$sql = "SELECT
-						`authenticationid`
+						authenticationid
 					FROM
-						`authentications`
+						authentications
 					WHERE
-						`identity` = ?";
+						identity = ?";
 			$values = array( $identity );
 			$res = $this->db->qwv( $sql, $values );
 
@@ -63,9 +63,9 @@
 		public function getById( $id ){
 			$sql = "SELECT *
 					FROM
-						`authentications`
+						authentications
 					WHERE
-						`authenticationid` = ?";
+						authenticationid = ?";
 			$values = array( $id );
 			$res = $this->db->qwv( $sql, $values );
 
@@ -75,9 +75,9 @@
 		public function getByIdentity( $identity ){
 			$sql = "SELECT *
 					FROM
-						`authentications`
+						authentications
 					WHERE
-						`identity` = ?";
+						identity = ?";
 			$values = array( $identity );
 			$res = $this->db->qwv( $sql, $values );
 
@@ -87,9 +87,9 @@
 		public function getByUserId( $id ){
 			$sql = "SELECT *
 					FROM
-						`authentications`
+						authentications
 					WHERE
-						`userid` = ?";
+						userid = ?";
 			$values = array( $id );
 			$res = $this->db->qwv( $sql, $values );
 
@@ -115,14 +115,14 @@
 		public function save( $obj ){
 			if( !$obj->getAuthenticationId() ){
 				if( $obj->allSet() ){
-					$sql = "INSERT INTO `authentications` (
-								`userid`,
-								`roleid`,
-								`identity`,
-								`password`,
-								`salt`,
-								`resetPassword`,
-								`disabled`
+					$sql = "INSERT INTO authentications (
+								userid,
+								roleid,
+								identity,
+								password,
+								salt,
+								resetPassword,
+								disabled
 							)
 							VALUES ( ?, ?, ?, ?, ?, ?, ? )";
 					$values = array(
@@ -149,17 +149,17 @@
 			}
 			else{
 				if( $obj->allSet() ){
-					$sql = "UPDATE `authentications`
+					$sql = "UPDATE authentications
 							SET
-								`userid` = ?,
-								`roleid` = ?,
-								`identity` = ?,
-								`password` = ?,
-								`salt` = ?,
-								`resetPassword` = ?,
-								`disabled` = ?
+								userid = ?,
+								roleid = ?,
+								identity = ?,
+								password = ?,
+								salt = ?,
+								resetPassword = ?,
+								disabled = ?
 							WHERE
-								`authenticationid` = ?";
+								authenticationid = ?";
 					$values = array(
 								$obj->getUserId(),
 								$obj->getRoleId(),

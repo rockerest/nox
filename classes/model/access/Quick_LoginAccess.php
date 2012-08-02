@@ -8,9 +8,9 @@
 
 		public function getById( $id ){
 			$sql = "SELECT *
-					FROM `quick_logins`
+					FROM quick_logins
 					WHERE
-						`quick_loginid` = ?";
+						quick_loginid = ?";
 			$values = array( $id );
 			$ql = $this->db->qwv($sql, $values);
 
@@ -19,11 +19,11 @@
 
 		public function getByHash( $hash ){
 			$sql = "SELECT *
-					FROM `quick_logins`
+					FROM quick_logins
 					WHERE
-						`hash` = ?
-						AND `used` = 0
-						AND `expires` > ?";
+						hash = ?
+						AND used = 0
+						AND expires > ?";
 			$values = array(
 						$hash,
 						time()
@@ -49,11 +49,11 @@
 
 		public function save( $obj ){
 			if( !$obj->getQuick_LoginId() ){
-				$sql = "INSERT INTO `quick_logins` (
-							`hash`,
-							`userid`,
-							`expires`,
-							`used`
+				$sql = "INSERT INTO quick_logins (
+							hash,
+							userid,
+							expires,
+							used
 						)
 						VALUES ( ?, ?, ?, ? )";
 				$values = array(
@@ -72,14 +72,14 @@
 				}
 			}
 			else{
-				$sql = "UPDATE `quick_logins`
+				$sql = "UPDATE quick_logins
 						SET
-							`hash` = ?,
-							`userid` = ?,
-							`expires` = ?,
-							`used` = ?
+							hash = ?,
+							userid = ?,
+							expires = ?,
+							used = ?
 						WHERE
-							`quick_loginid` = ?";
+							quick_loginid = ?";
 				$values = array(
 							$obj->getHash(),
 							$obj->getUserId(),
