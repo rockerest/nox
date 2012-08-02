@@ -13,11 +13,11 @@
 			}
 			else{
 				$this->db = new \backbone\Database(
-					$this->config['db']['user'],
-					$this->config['db']['pass'],
-					$this->config['db']['dbname'],
-					$this->config['db']['host'],
-					'mysql'
+					$this->config->db->user,
+					$this->config->db->pass,
+					$this->config->db->dbname,
+					$this->config->db->host,
+					$this->config->db->type
 				);
 			}
 		}

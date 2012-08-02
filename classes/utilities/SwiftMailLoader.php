@@ -18,13 +18,13 @@
 					break;
 
 				case 'Smtp':
-					$this->transport	= \Swift_SmtpTransport::newInstance( $this->config['smtp']['host'], $this->config['smtp']['port'] )
-											->setUsername( $this->config['smtp']['user'] )
-											->setPassword( $this->config['smtp']['pass'] );
+					$this->transport	= \Swift_SmtpTransport::newInstance( $this->config->smtp->host, $this->config->smtp->port )
+											->setUsername( $this->config->smtp->user )
+											->setPassword( $this->config->smtp->pass );
 					break;
 
 				case 'Sendmail':
-					$this->transport	= \Swift_SendmailTransport::newInstance( $this->config['sendmail']['path'] );
+					$this->transport	= \Swift_SendmailTransport::newInstance( $this->config->sendmail->path );
 					break;
 			}
 

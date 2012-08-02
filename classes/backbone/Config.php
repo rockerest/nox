@@ -15,11 +15,7 @@
 		}
 
 		public function loadConfig(){
-			$options = file( APPLICATION_ROOT_PATH . "components/system/" . $this->conf, FILE_USE_INCLUDE_PATH);
-			foreach( $options as $conf_entry ){
-				eval($conf_entry);
-			}
-
-			$this->config = $config;
+			$file = file_get_contents( APPLICATION_ROOT_PATH . "components/system/" . $this->conf, FILE_USE_INCLUDE_PATH);
+			$this->config = json_decode( $file );
 		}
 	}
