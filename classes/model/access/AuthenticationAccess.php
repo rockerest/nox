@@ -101,7 +101,7 @@
 			$userDA = new UserAccess( $this->db );
 
 			$vals = $this->hash( $pass );
-			$authentication = new objects\Authentication(null, $userid, $roleid, $identity, $vals[0], $vals[1], 0, 0, $this, $roleDA, $userDA);
+			$authentication = new objects\Authentication(null, $userid, $roleid, $identity, $vals[1], $vals[0], 0, 0, $this, $roleDA, $userDA);
 			$res = $authentication->save();
 
 			if( $res ){
