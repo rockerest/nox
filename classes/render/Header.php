@@ -6,8 +6,9 @@
 
 		protected $userDA;
 
-		public function __construct( $root ){
+		public function __construct( $root, $config ){
 			$this->root = $root;
+			$this->config = $config;
 			$this->userDA = new \model\access\UserAccess();
 
 			if( isset($_SESSION['active']) ){
@@ -20,11 +21,11 @@
 		public function generate(){
 			$tmpl = new \backbone\Template();
 
+			$dmz_pages = array();
 			//set DMZ pages
-			$dmz_pages = array(
-				$this->root . 'errors.php',
-				$this->root . 'about.php',
-			);
+			foreach( $this->config->dmz as $file ){
+				$dmz_pages[] = $this->root . $file;
+			}
 
 			//set taglines
 			$taglines = array(
@@ -108,7 +109,7 @@
 						header('Location: home.php');
 					}
 					elseif( $script == $this->root . 'index.php' && !$active ){
-						//allow to go to login or error handler page
+						//allow to go to login or dmz pages
 					}
 				}
 			}
