@@ -3,9 +3,10 @@
 /*	Database.php
  *	Programmed by Tom Randolph
  *	11 March 2010
- *	Last Updated: 27 May 2012
+ *	Last Updated: 01 Aug 2012
  *	====================================
  *
+ *	v01082012	- workaround for MSSQL not providing LastInsertID
  *  v27052012	- added MS SQL Server dsn option
  *	v01112010	- added some documentation and prep() function
  *	v08082010	- removed explicit direct binding
@@ -182,6 +183,8 @@
 		private $status = array();
 
 		public function  __construct($user,$pass,$db,$loc,$type){
+			// store the type dynamically so we can grab it for last()
+			$this->type = $type;
 			switch($type){
 				case 'mysql':
 					$dsn = 'mysql:dbname='.$db.';host='.$loc;
@@ -357,8 +360,22 @@
 		}
 
 		//last returns the id of most recent insert
+		// NOTE: [Tom Randolph @ 2012-08-01 22:50:33] As usual, MS chooses to not provide this feature.
+		//			This function does a special query on an MSSQL database to get the last insert id.
 		public function last(){
-			return $this->dbh->lastInsertId();
+			if( !in_array($this->type, array('mongo','sqlserver') ) ){
+				return $this->dbh->lastInsertId();
+			}
+			elseif( $this->type == 'sqlserver' ){
+				$sql = "SELECT @@IDENTITY as id";
+				$res = $this->q( $sql );
+				if( count( $res ) == 1 ){
+					return $res[0]['id'];
+				}
+				else{
+					return false;
+				}
+			}
 		}
 	}
 ?>
