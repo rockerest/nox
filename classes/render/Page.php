@@ -13,13 +13,13 @@
         public function __construct($page_title, $body_id, $allowed = null ){
 			parent::__construct();
 
-			$this->page_title = $page_title . ' :: ' . $this->config['application']['name'];
+			$this->page_title = $page_title . ' :: ' . $this->config->application->name;
 			$this->body_id = $body_id;
 			$this->allowed = $allowed;
         }
 
 		public function run(){
-			$this->header = new \render\Header( $this->root );
+			$this->header = new \render\Header( $this->root, $this->config );
 			$this->footer = new \render\Footer();
 
 			$this->header->run();
