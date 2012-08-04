@@ -33,6 +33,10 @@
 								->setTo( $to )
 								->setFrom( $from );
 
+				//strip HTML and format to be at least readable.
+				$plain = strip_tags( preg_replace( '#(</p>)|(<br />)|(<br/>)#i', "\n", preg_replace( "#<a href=[\"|'](.*?)[\"|'].*?>(.*?)</a>#i", "$2 $1", $body ) ) );
+				$message->addPart( $plain, 'text/plain' );
+
 				if( $mail->sendMessage( $message ) ){
 					//redirect to login
 					throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=6');
