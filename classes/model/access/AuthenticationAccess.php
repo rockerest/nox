@@ -103,7 +103,7 @@
 					WHERE
 						roleid = ?";
 			$values = array( $id );
-			$res = $this->db->qwv( $sql, $value );
+			$res = $this->db->qwv( $sql, $values );
 
 			return $this->wrap( $res );
 		}
