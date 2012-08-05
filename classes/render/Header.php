@@ -92,7 +92,7 @@
 			 */
 
 			$uri = $_SERVER['REQUEST_URI'];
-			$script = preg_replace('#[/\\\]#', DIRECTORY_SEPARATOR, $_SERVER['SCRIPT_NAME']);
+			$script = $_SERVER['SCRIPT_NAME'];
 
 			if( $rp && $active ){
 				if( $uri != $this->root . 'account.php?a=login&code=5' ){
