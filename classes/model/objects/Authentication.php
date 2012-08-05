@@ -37,12 +37,12 @@
 			return $this;
 		}
 
-		public function setUserid( $userid ){
+		public function setUserId( $userid ){
 			$this->userid = $userid;
 			return $this;
 		}
 
-		public function setRoleid( $roleid ){
+		public function setRoleId( $roleid ){
 			$this->roleid = $roleid;
 			return $this;
 		}
@@ -79,11 +79,11 @@
 			return $this->authenticationid;
 		}
 
-		public function getUserid(){
+		public function getUserId(){
 			return $this->userid;
 		}
 
-		public function getRoleid(){
+		public function getRoleId(){
 			return $this->roleid;
 		}
 

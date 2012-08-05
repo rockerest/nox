@@ -96,6 +96,18 @@
 			return $this->wrap($res);
 		}
 
+		public function getByRoleId( $id ){
+			$sql = "SELECT *
+					FROM
+						authentications
+					WHERE
+						roleid = ?";
+			$values = array( $id );
+			$res = $this->db->qwv( $sql, $value );
+
+			return $this->wrap( $res );
+		}
+
 		public function add( $userid, $identity, $pass, $roleid ){
 			$roleDA = new RoleAccess( $this->db );
 			$userDA = new UserAccess( $this->db );
