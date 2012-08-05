@@ -2,7 +2,7 @@
 	require_once( 'components/system/Preload.php' );
 
 	$tmpl = new \backbone\Template();
-	$page = new \render\Page("About", 'about', $allowed);
+	$page = new \render\Page("About", 'about' );
 
 	$page->run();
 

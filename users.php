@@ -2,8 +2,7 @@
 	require_once( 'components/system/Preload.php' );
 
 	$allowed = array(
-						1	=> 'Admin',
-						2	=> 'Leader'
+						1	=> 'Admin'
 					);
 
 	$page = new \render\Page("Users", 'users', $allowed);

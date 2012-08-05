@@ -4,7 +4,7 @@
 	$tmpl = new \backbone\Template();
 	$tmpl->code = isset( $_GET['code'] ) ? $_GET['code'] : 200;
 
-	$page = new \render\Page("HTTP Status " . $tmpl->code . " Page", 'errors', $allowed);
+	$page = new \render\Page("HTTP Status " . $tmpl->code . " Page", 'errors' );
 
 	$page->run();
 
