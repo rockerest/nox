@@ -39,9 +39,6 @@
 	$data['phone'] = isset($_GET['phone']) ? ($_GET['phone'] != null ? $_GET['phone'] : ($tmpl->action == 'manage' ? $user->getContact()->getFriendlyPhone() : null)) : ($tmpl->action == 'manage' ? $user->getContact()->getFriendlyPhone() : null);
 	//end form fields
 
-	//throwback
-	$tmpl->tb = isset($_GET['tb']) ? $_GET['tb'] : null;
-
 	switch( $tmpl->code ){
 		case 0:
 				// Account updated successfully

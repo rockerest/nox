@@ -7,23 +7,12 @@
 	if( !$_SESSION['active'] ){
 		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
-	elseif( $_SESSION['roleid'] > 2 ){
+	elseif( $_SESSION['roleid'] > 1 ){
 		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
 
 	$self = $userDA->getById( $_SESSION['userid'] );
 	$uid = isset($_GET['uid']) ? $_GET['uid'] : null;
-	$tb = isset($_GET['tb']) ? $_GET['tb'] : null;
-
-	//determine return script
-	switch( $tb ){
-		case 'u':
-			$return = 'users';
-			break;
-		default:
-			$return = 'home';
-			break;
-	}
 
 	if( $uid ){
 		$user = $userDA->getById( $uid );
@@ -34,10 +23,10 @@
 
 	if( $_SESSION['roleid'] == 1 ){
 		if( $user->delete() ){
-			header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=3');
+			header('Location: ' . APPLICATION_ROOT_URL . 'users.php?code=3');
 		}
 		else{
-			header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=4&ec=CASCADE_DELETE_FAIL--' . $user->getUserId() );
+			header('Location: ' . APPLICATION_ROOT_URL . 'users.php?code=4&ec=CASCADE_DELETE_FAIL--' . $user->getUserId() );
 		}
 	}
 	else{

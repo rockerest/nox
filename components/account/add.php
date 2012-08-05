@@ -7,7 +7,7 @@
 	if( !$_SESSION['active'] ){
 		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
-	elseif( $_SESSION['roleid'] > 2 ){
+	elseif( $_SESSION['roleid'] > 1 ){
 		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
 
@@ -18,19 +18,7 @@
 	$data['gender'] = isset($_POST['gender']) ? $_POST['gender'] : null;
 	$data['phone'] = isset($_POST['phone']) ? $_POST['phone'] : null;
 
-	$roleid = isset($_POST['rid']) ? $_POST['rid'] : 3;
-
-	$tb = isset($_GET['tb']) ? $_GET['tb'] : null;
-
-	//determine return script
-	switch( $tb ){
-		case 'u':
-			$return = 'users';
-			break;
-		default:
-			$return = 'home';
-			break;
-	}
+	$roleid = isset($_POST['rid']) ? $_POST['rid'] : 2;
 
 	if( !$data['fname'] || !$data['lname'] || !$data['email'] || !$data['pass'] ){
 		array_shift($data);
@@ -39,7 +27,7 @@
 	else{
 		$new = $userDA->add($data['fname'], $data['lname'], $data['email'], $data['pass'], $roleid);
 		if( $new ){
-			header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=1');
+			header('Location: ' . APPLICATION_ROOT_URL . 'users.php?code=1');
 		}
 		else{
 			header('Location: ' . APPLICATION_ROOT_URL . 'account.php?a=addnew&code=3&' . http_build_query($data));

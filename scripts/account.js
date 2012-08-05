@@ -16,7 +16,7 @@ $('#submit').click(
 
 $('#delete').click(
 	function(){
-		go_here('components/account/delete.php?uid=' + $(this).attr('data-id') + '&tb=u');
+		go_here('components/account/delete.php?uid=' + $(this).attr('data-id') );
 	}
 );
 

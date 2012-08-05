@@ -52,20 +52,9 @@
 	?>
 <h3 class="bump follow message-box center w50"><img src="images/icons/24/custom/user--plus.png" alt="" class="icon-fix" /> New User</h3>
 <?php
-	$qs = ($gid || $tmpl->tb) ? "?" : null;
-
-	$params = array('gid' => $gid, 'tb' => $tmpl->tb);
-
-	if( $qs ){
-		foreach( $params as $n => $v ){
-			if( $v ){
-				$qs .= "$n=$v&amp;";
-			}
-		}
-		$qs = (substr($qs, -5) == '&amp;') ? substr($qs, 0, -5) : $qs;
-	}
+	$qs = $gid ? "?gid=" . $gid : null;
 ?>
-<form id="information" class="clear" method="POST" action="components/account/add.php<?php echo $qs?>">
+<form id="information" class="clear" method="POST" action="components/account/add.php<?php echo $qs;?>">
 	<fieldset class="push" >
 		<legend>Required Information</legend>
 		<label for="fname">First Name</label>
