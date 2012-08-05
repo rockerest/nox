@@ -16,7 +16,7 @@
 	$tmpl->code = isset( $_GET['code'] ) ? $_GET['code'] : -1;
 	// this page can accept extended error codes.
 	$tmpl->errorcode = isset( $_GET['ec'] ) ? $_GET['ec'] : null;
-	$tmpl->users = \utilities\Utility::toArray( $userDA->getAll() );
+	$tmpl->users = \utilities\Converter::toArray( $userDA->getAll() );
 
 	switch( $tmpl->code ){
 		case 0:
@@ -73,6 +73,36 @@
 				// accept current password failed
 				$tmpl->alert['type'] = "error";
 				$tmpl->alert['message'] = "Attempting to remove the prompt for the user to change their password at next login failed.";
+				break;
+		case 13:
+				// elevating the user's role succeeded
+				$tmpl->alert['type'] = "okay";
+				$tmpl->alert['message'] = "Elevating the user's role succeeded.";
+				break;
+		case 14:
+				// elevating the user's role failed
+				$tmpl->alert['type'] = "error";
+				$tmpl->alert['message'] = "Elevating the user's role failed.";
+				break;
+		case 15:
+				// elevating the user's role failed because the person trying to do it isn't allowed to
+				$tmpl->alert['type'] = "error";
+				$tmpl->alert['message'] = "It's not possible to elevate the user's role at this time.";
+				break;
+		case 16:
+				// reducing the user's role succeeded
+				$tmpl->alert['type'] = "okay";
+				$tmpl->alert['message'] = "Reducing the user's role succeeded.";
+				break;
+		case 17:
+				// reducing the user's role failed
+				$tmpl->alert['type'] = "error";
+				$tmpl->alert['message'] = "Reducing the user's role failed.";
+				break;
+		case 18:
+				// reducing the user's role failed because the person trying to do it isn't allowed to
+				$tmpl->alert['type'] = "error";
+				$tmpl->alert['message'] = "It's not possible to reduce the user's role at this time.";
 				break;
 		default:
 				break;

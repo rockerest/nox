@@ -89,7 +89,7 @@
 
 	$tmpl->user = $user;
 	$tmpl->data = $data;
-	$tmpl->roles = \utilities\Utility::toArray( $roleDA->getAll() );
+	$tmpl->roles = \utilities\Converter::toArray( $roleDA->getAll() );
 
 	$html = $tmpl->build('account.html');
 	$css = $tmpl->build('account.css');
