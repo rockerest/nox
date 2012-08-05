@@ -11,7 +11,7 @@
 			$sql = "SELECT
 						salt
 					FROM
-						authentications
+						" . $this->uiPre . "authentications
 					WHERE
 						identity = ?";
 			$values = array( $identity );
@@ -24,7 +24,7 @@
 			// Get the user that matches the correct identity AND salted, hashed password
 			$sql = "SELECT *
 					FROM
-						authentications
+						" . $this->uiPre . "authentications
 					WHERE
 						identity = ?
 						AND password = ?";
@@ -51,7 +51,7 @@
 			$sql = "SELECT
 						authenticationid
 					FROM
-						authentications
+						" . $this->uiPre . "authentications
 					WHERE
 						identity = ?";
 			$values = array( $identity );
@@ -63,7 +63,7 @@
 		public function getById( $id ){
 			$sql = "SELECT *
 					FROM
-						authentications
+						" . $this->uiPre . "authentications
 					WHERE
 						authenticationid = ?";
 			$values = array( $id );
@@ -75,7 +75,7 @@
 		public function getByIdentity( $identity ){
 			$sql = "SELECT *
 					FROM
-						authentications
+						" . $this->uiPre . "authentications
 					WHERE
 						identity = ?";
 			$values = array( $identity );
@@ -87,7 +87,7 @@
 		public function getByUserId( $id ){
 			$sql = "SELECT *
 					FROM
-						authentications
+						" . $this->uiPre . "authentications
 					WHERE
 						userid = ?";
 			$values = array( $id );
@@ -99,7 +99,7 @@
 		public function getByRoleId( $id ){
 			$sql = "SELECT *
 					FROM
-						authentications
+						" . $this->uiPre . "authentications
 					WHERE
 						roleid = ?";
 			$values = array( $id );
@@ -127,7 +127,7 @@
 		public function save( $obj ){
 			if( !$obj->getAuthenticationId() ){
 				if( $obj->allSet() ){
-					$sql = "INSERT INTO authentications (
+					$sql = "INSERT INTO " . $this->uiPre . "authentications (
 								userid,
 								roleid,
 								identity,
@@ -161,7 +161,7 @@
 			}
 			else{
 				if( $obj->allSet() ){
-					$sql = "UPDATE authentications
+					$sql = "UPDATE " . $this->uiPre . "authentications
 							SET
 								userid = ?,
 								roleid = ?,

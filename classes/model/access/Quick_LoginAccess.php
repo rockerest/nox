@@ -8,7 +8,8 @@
 
 		public function getById( $id ){
 			$sql = "SELECT *
-					FROM quick_logins
+					FROM
+						" . $this->uiPre . "quick_logins
 					WHERE
 						quick_loginid = ?";
 			$values = array( $id );
@@ -19,7 +20,8 @@
 
 		public function getByHash( $hash ){
 			$sql = "SELECT *
-					FROM quick_logins
+					FROM
+						" . $this->uiPre . "quick_logins
 					WHERE
 						hash = ?
 						AND used = 0
@@ -49,7 +51,7 @@
 
 		public function save( $obj ){
 			if( !$obj->getQuick_LoginId() ){
-				$sql = "INSERT INTO quick_logins (
+				$sql = "INSERT INTO " . $this->uiPre . "quick_logins (
 							hash,
 							userid,
 							expires,
@@ -72,7 +74,7 @@
 				}
 			}
 			else{
-				$sql = "UPDATE quick_logins
+				$sql = "UPDATE " . $this->uiPre . "quick_logins
 						SET
 							hash = ?,
 							userid = ?,
@@ -94,7 +96,7 @@
 		}
 
 		public function delete( $obj ){
-			return $this->genericDelete( 'quick_logins', 'quick_loginid', $obj->getQuick_LoginId() );
+			return $this->genericDelete( $this->uiPre . 'quick_logins', 'quick_loginid', $obj->getQuick_LoginId() );
 		}
 
 		public function wrap($qls){

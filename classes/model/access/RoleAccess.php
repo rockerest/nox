@@ -8,7 +8,8 @@
 
 		public function getById( $id ){
 			$sql = "SELECT *
-					FROM roles
+					FROM
+						" . $this->uiPre . "roles
 					WHERE
 						roleid = ?";
 			$values = array( $id );
@@ -19,7 +20,8 @@
 
 		public function getByName( $name ){
 			$sql = "SELECT *
-					FROM roles
+					FROM
+						" . $this->uiPre . "roles
 					WHERE
 						name LIKE '%?%'";
 			$values = array( $name );
@@ -30,7 +32,8 @@
 
 		public function getAll(){
 			$sql = "SELECT *
-					FROM roles";
+					FROM
+						" . $this->uiPre . "roles";
 			$res = $this->db->q( $sql );
 
 			return $this->wrap( $res );
@@ -50,7 +53,7 @@
 
 		public function save( $obj ){
 			if( !$obj->getRoleId() ){
-				$sql = "INSERT INTO roles (
+				$sql = "INSERT INTO " . $this->uiPre . "roles (
 							description,
 							name
 						)
@@ -69,7 +72,8 @@
 				}
 			}
 			else{
-				$sql = "UPDATE roles
+				$sql = "UPDATE
+							" . $this->uiPre . "roles
 						SET
 							description = ?,
 							name = ?
@@ -90,7 +94,7 @@
 			//don't allow a role to be deleted if users are still assigned that role
 			$auth = new AuthenticationAccess( $this->db );
 			if( !$auth->getByRoleId( $obj->getRoleId() ) ){
-				return $this->genericDelete( 'roles', 'roleid', $obj->getRoleId() );
+				return $this->genericDelete( $this->uiPre . 'roles', 'roleid', $obj->getRoleId() );
 			}
 			else{
 				return false;

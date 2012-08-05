@@ -9,7 +9,7 @@
 		public function getById( $id ){
 			$sql = "SELECT *
 					FROM
-						contacts
+						" . $this->uiPre . "contacts
 					WHERE
 						contactid = ?";
 			$values = array( $id );
@@ -21,7 +21,7 @@
 		public function getByUserId( $id ){
 			$sql = "SELECT *
 					FROM
-						contacts
+						" . $this->uiPre . "contacts
 					WHERE
 						userid = ?";
 			$values = array($id);
@@ -46,7 +46,7 @@
 
 		public function save( $obj ){
 			if( !$obj->getContactId() ){
-				$sql = "INSERT INTO contacts (
+				$sql = "INSERT INTO " . $this->uiPre . "contacts (
 							userid,
 							phone,
 							email
@@ -67,7 +67,7 @@
 				}
 			}
 			else{
-				$sql = "UPDATE contacts
+				$sql = "UPDATE " . $this->uiPre . "contacts
 						SET
 							userid = ?,
 							phone = ?,
@@ -87,7 +87,7 @@
 		}
 
 		public function delete( $obj ){
-			return $this->genericDelete( 'contacts', 'contactid', $obj->getContactId() );
+			return $this->genericDelete( $this->uiPre . 'contacts', 'contactid', $obj->getContactId() );
 		}
 
 		public function wrap($contacts){

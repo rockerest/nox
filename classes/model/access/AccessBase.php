@@ -1,9 +1,9 @@
 <?php
 	namespace model\access;
 	abstract class AccessBase extends \backbone\Config{
-		protected $db;
-
-		protected $accessors;
+		protected 	$db,
+					$accessors,
+					$uiPre;
 
 		public function __construct( $db = null ){
 			parent::__construct();
@@ -20,11 +20,13 @@
 					$this->config->db->type
 				);
 			}
+
+			$this->uiPre = $this->config->db->ui->prefix;
 		}
 
 		public function genericDelete( $table, $index, $val ){
 			// UGLY: Purely in theory, this is SQL Injection Vulnerable
-			$sql = "DELETE FROM " . $table . "
+			$sql = "DELETE FROM " . $this->uiPre . $table . "
 					WHERE " . $index . " = " . $val;
 			$this->db->q( $sql );
 			return $this->db->stat();

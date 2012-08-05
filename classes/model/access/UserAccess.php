@@ -8,7 +8,8 @@
 
 		public function getById( $id ){
 			$sql = "SELECT *
-					FROM users
+					FROM
+						" . $this->uiPre . "users
 					WHERE
 						userid = ?";
 			$values = array( $id );
@@ -21,7 +22,7 @@
 			if( !$term ){
 				$sql = "SELECT *
 						FROM
-							users
+							" . $this->uiPre . "users
 						ORDER BY
 							lname ASC,
 							fname ASC";
@@ -30,7 +31,7 @@
 			else{
 				$sql = "SELECT *
 						FROM
-							users
+							" . $this->uiPre . "users
 						WHERE
 							lname LIKE ?
 							OR fname LIKE ?
@@ -48,14 +49,14 @@
 		public function getAllWithRestrictions(){
 			$sql = "SELECT *
 					FROM
-						users
+						" . $this->uiPre . "users
 					WHERE
 						userid IN
 						(
 							SELECT
 								userid
 							FROM
-								authentications
+								" . $this->uiPre . "authentications
 							WHERE
 								resetPassword = 1
 								OR disabled = 1
@@ -115,12 +116,12 @@
 
 		public function delete( $obj ){
 			// Cross your fingers and hope the CASCADE DELETE takes care of the rest
-			return $this->genericDelete( 'users', 'userid', $obj->getUserId() );
+			return $this->genericDelete( $this->uiPre . 'users', 'userid', $obj->getUserId() );
 		}
 
 		public function save( $obj ){
 			if( !$obj->getUserId() ){
-				$sql = "INSERT INTO users (
+				$sql = "INSERT INTO " . $this->uiPre . "users (
 							fname,
 							lname,
 							gender
@@ -141,7 +142,7 @@
 				}
 			}
 			else{
-				$sql = "UPDATE users
+				$sql = "UPDATE " . $this->uiPre . "users
 						SET
 							fname = ?,
 							lname = ?,
