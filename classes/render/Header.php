@@ -12,7 +12,7 @@
 			$this->userDA = new \model\access\UserAccess();
 
 			if( isset($_SESSION['active']) ){
-				$this->self = $this->userDA->getByID( $_SESSION['userid'] );
+				$this->self = $this->userDA->getById( $_SESSION['userid'] );
 			}
 		}
 
@@ -41,7 +41,7 @@
 			$rp = 1;
 
 			if( $active ){
-				$tmpl->user = $this->userDA->getByID( $_SESSION['userid'] );
+				$tmpl->user = $this->userDA->getById( $_SESSION['userid'] );
 				$authEmail = $tmpl->user->getAuthentication()->getIdentity();
 
 				switch( strtolower( $tmpl->user->getGender() ) ){
