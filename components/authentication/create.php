@@ -34,7 +34,7 @@
 				ob_start();
 				include( $home . 'components/templates/account_create.html');
 				$body		= ob_get_clean();
-				$subject	= 'Nox System Database Email Verification';
+				$subject	= 'Nox System Email Verification';
 				$to			= $user->getContact()->getEmail();
 				$from		= 'no-reply-automator@nox.thomasrandolph.info';
 

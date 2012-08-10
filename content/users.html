@@ -44,6 +44,7 @@
 					<td><a href="account.php?uid=<?php echo $user->getUserId();?>"><?php echo $user->getFullName();?></a></td>
 					<td>
 						<a href="mailto:<?php echo $user->getContact()->getEmail();?>"><img src="images/icons/16/mail.png" alt="envelope" class="icon-fix tooltip" title="Open new email to <?php echo $user->getFullName();?>"/></a>
+						<a href="components/authentication/resendVerification.php?uid=<?php echo $user->getUserId();?>"><img src="images/icons/16/mail-forward.png" alt="forward mail" class="icon-fix tooltip" title="Resend email verification to <?php echo $user->getFullName();?>"/></a>
 					</td>
 					<td>
 						<?php if($reduce){?><a href="components/account/reduce.php?uid=<?php echo $user->getUserId();?>"><img src="images/icons/16/arrow-270.png" alt="reduce" class="icon-fix tooltip" title="Reduce <?php echo $user->getFullName();?>'s Role"/></a><?php }?>

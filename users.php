@@ -103,6 +103,21 @@
 				$tmpl->alert['type'] = "error";
 				$tmpl->alert['message'] = "It's not possible to reduce the user's role at this time.";
 				break;
+		case 19:
+				// resending verification email succeeded.
+				$tmpl->alert['type'] = "okay";
+				$tmpl->alert['message'] = "Verification email resent.";
+				break;
+		case 20:
+				// resending email verification failed
+				$tmpl->alert['type'] = "error";
+				$tmpl->alert['message'] = "Verification email could not be sent.";
+				break;
+		case 21:
+				// either you're not allowed to resend the verification, or that user doesn't exist
+				$tmpl->alert['type'] = "error";
+				$tmpl->alert['message'] = "You can't send an email to that user at this time.";
+				break;
 		default:
 				break;
 	}
