@@ -10,82 +10,111 @@
 
 <h3 class="bump follow message-box center w50"><img src="images/icons/24/custom/users.png" alt="" class="icon-fix" />All Users</h3>
 <?php
+	if( $tmpl->action == 'become' ){
+		if( isset( $_SESSION['realUserId'] ) ){
+		?>
+<div class="error message-box bump follow center w50">
+	You can't impersonate a user while you're already impersonating a user!
+	<br />
+	Userception!
+	<br />
+	<a href="components/account/be.php">Go back to being just you</a> before you become another user!
+</div>
+		<?php
+		}
+		else{
+		?>
+<div class="info message-box bump follow center w50">
+	<div class="alert message-box follow center">
+		Did you know you can also just click <span class="bold">Impersonate</span> (<img src="images/icons/16/mask.png" alt="" class="icon-fix" />) under <span class="bold">Tools</span>?
+	</div>
+	Start typing: <input type="text" placeholder="a user's name" />
+</div>
+		<?php
+		}
+	}
+
 	if( $tmpl->users ){
 	?>
-	<table class="w60 center">
-		<thead>
+<table class="w60 center">
+	<thead>
+		<tr>
+			<th>User Name</th>
+			<th>Contact</th>
+			<th>Role</th>
+			<th>Tools</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td colspan="5">
+				<a href="account.php?a=addnew" class="float-r"><img src="images/icons/16/user--plus.png" alt="add user" class="icon-fix" />Add User</a>
+			</td>
+		</tr>
+	</tfoot>
+	<tbody>
+	<?php
+		foreach($tmpl->users as $user){
+			$reduce		= $tmpl->permit->reduceRole( $tmpl->self, $user );
+			$elevate	= $tmpl->permit->elevateRole( $tmpl->self, $user );
+			$impersonate= $tmpl->permit->impersonate( $tmpl->self, $user );
+
+			$userid = $user->getUserId();
+			$fullName = $user->getFullName();
+			?>
 			<tr>
-				<th>User Name</th>
-				<th>Contact</th>
-				<th>Role</th>
-				<th>Tools</th>
-				<th>Delete</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="5">
-					<a href="account.php?a=addnew" class="float-r"><img src="images/icons/16/user--plus.png" alt="add user" class="icon-fix" />Add User</a>
+				<td><a href="account.php?uid=<?php echo $userid;?>"><?php echo $fullName;?></a></td>
+				<td>
+					<a href="mailto:<?php echo $user->getContact()->getEmail();?>"><img src="images/icons/16/mail.png" alt="envelope" class="icon-fix tooltip" title="Open new email to <?php echo $fullName;?>"/></a>
+					<a href="components/authentication/resendVerification.php?uid=<?php echo $userid;?>"><img src="images/icons/16/mail-forward.png" alt="forward mail" class="icon-fix tooltip" title="Resend email verification to <?php echo $fullName;?>"/></a>
+				</td>
+				<td>
+					<?php if($reduce){?><a href="components/account/reduce.php?uid=<?php echo $userid;?>"><img src="images/icons/16/arrow-270.png" alt="reduce" class="icon-fix tooltip" title="Reduce <?php echo $fullName;?>'s Role"/></a><?php }?>
+					<?php echo $user->getAuthentication()->getRole()->getName();?>
+					<?php if($elevate){?><a href="components/account/elevate.php?uid=<?php echo $userid;?>"><img src="images/icons/16/arrow-090.png" alt="elevate" class="icon-fix tooltip" title="Elevate <?php echo $fullName;?>'s Role"/></a><?php }?>
+				</td>
+				<td>
+					<a href="account.php?uid=<?php echo $userid;?>"><img src="images/icons/16/pencil.png" alt="edit" title="Edit User" class="tooltip" /></a>
+					<a href="components/account/toggleAccount.php?uid=<?php echo $userid;?>">
+					<?php
+					if( !$user->getAuthentication()->getDisabled() ){
+						echo '<img src="images/icons/16/door-open.png" alt="disable" title="Disable Login" class="tooltip" /></a>';
+					}
+					else{
+						echo '<img src="images/icons/16/door.png" alt="enable" title="Enable Login" class="tooltip" /></a>';
+					}
+					?>
+					<a href="components/account/toggleResetPassword.php?uid=<?php echo $userid;?>">
+					<?php
+					if( !$user->getAuthentication()->getResetPassword() ){
+						echo '<img src="images/icons/16/tick-button.png" alt="reset" title="Force Password Change" class="tooltip" /></a>';
+					}
+					else{
+						echo '<img src="images/icons/16/exclamation-button.png" alt="reset" title="Accept Current Password" class="tooltip" /></a>';
+					}
+
+					if( $impersonate ){
+					?>
+					<a href="components/account/be.php?uid=<?php echo $userid;?>"><img src="images/icons/16/mask.png" alt="impersonate" title="Impersonate <?php echo $fullName;?>" class="tooltip" /></a>
+					<?php
+					}
+					?>
+				</td>
+				<td>
+					<a href="components/account/delete.php?uid=<?php echo $userid;?>"><img src="images/icons/16/minus.png" alt="delete" title="Delete User (permanent)" class="tooltip" /></a>
 				</td>
 			</tr>
-		</tfoot>
-		<tbody>
-		<?php
-			foreach($tmpl->users as $user){
-				$elevate = ($user->getAuthentication()->getRoleId() == 3) ? true : false;
-				$reduce = ($user->getAuthentication()->getRoleId() == 2) ? true : false;
-
-				if( $_SESSION['roleid'] == 1 ){
-					$elevate = true;
-					$reduce = true;
-				}
-				?>
-				<tr>
-					<td><a href="account.php?uid=<?php echo $user->getUserId();?>"><?php echo $user->getFullName();?></a></td>
-					<td>
-						<a href="mailto:<?php echo $user->getContact()->getEmail();?>"><img src="images/icons/16/mail.png" alt="envelope" class="icon-fix tooltip" title="Open new email to <?php echo $user->getFullName();?>"/></a>
-						<a href="components/authentication/resendVerification.php?uid=<?php echo $user->getUserId();?>"><img src="images/icons/16/mail-forward.png" alt="forward mail" class="icon-fix tooltip" title="Resend email verification to <?php echo $user->getFullName();?>"/></a>
-					</td>
-					<td>
-						<?php if($reduce){?><a href="components/account/reduce.php?uid=<?php echo $user->getUserId();?>"><img src="images/icons/16/arrow-270.png" alt="reduce" class="icon-fix tooltip" title="Reduce <?php echo $user->getFullName();?>'s Role"/></a><?php }?>
-						<?php echo $user->getAuthentication()->getRole()->getName();?>
-						<?php if($elevate){?><a href="components/account/elevate.php?uid=<?php echo $user->getUserId();?>"><img src="images/icons/16/arrow-090.png" alt="elevate" class="icon-fix tooltip" title="Elevate <?php echo $user->getFullName();?>'s Role"/></a><?php }?>
-					</td>
-					<td>
-						<a href="account.php?uid=<?php echo $user->getUserId();?>"><img src="images/icons/16/pencil.png" alt="edit" title="Edit User" class="tooltip" /></a>
-						<a href="components/account/toggleAccount.php?uid=<?php echo $user->getUserId();?>">
-						<?php
-						if( !$user->getAuthentication()->getDisabled() ){
-							echo '<img src="images/icons/16/door-open.png" alt="disable" title="Disable Login" class="tooltip" /></a>';
-						}
-						else{
-							echo '<img src="images/icons/16/door.png" alt="enable" title="Enable Login" class="tooltip" /></a>';
-						}
-						?>
-						<a href="components/account/toggleResetPassword.php?uid=<?php echo $user->getUserId();?>">
-						<?php
-						if( !$user->getAuthentication()->getResetPassword() ){
-							echo '<img src="images/icons/16/tick-button.png" alt="reset" title="Force Password Change" class="tooltip" /></a>';
-						}
-						else{
-							echo '<img src="images/icons/16/exclamation-button.png" alt="reset" title="Accept Current Password" class="tooltip" /></a>';
-						}
-						?>
-					</td>
-					<td>
-						<a href="components/account/delete.php?uid=<?php echo $user->getUserId();?>"><img src="images/icons/16/minus.png" alt="delete" title="Delete User (permanent)" class="tooltip" /></a>
-					</td>
-				</tr>
-				<?php
-			}
-			?>
-		</tbody>
-	</table>
+			<?php
+		}
+		?>
+	</tbody>
+</table>
 	<?php
 	}
 	else{
 	?>
-	<p>No users found</p>
+<p>No users found</p>
 	<?php
 	}
 ?>

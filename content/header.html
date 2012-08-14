@@ -1,41 +1,51 @@
 <div id="header-content" class="clear">
 	<hgroup>
 		<h1>
-			<a href="<?php echo $tmpl->root;?>">
+			<a href="<?php echo $tmpl->data['root'];?>">
 				<img src="images/logo.png" alt="Nox" />
 			</a>
 		</h1>
-		<h2><?php echo $tmpl->tagline; ?></h2>
+		<h2><?php echo $tmpl->data['tagline']; ?></h2>
 	</hgroup>
 	<div id="menu" class="left-text hide">
 		<?php
-			if( $tmpl->active ){
-			?>
-			<?php
-				if( $_SESSION['roleid'] < 3 ){
+			if( $tmpl->user['active'] ){
+				if( $_SESSION['roleid'] == 1 ){
 				?>
 		<a href="users.php"><img src="images/icons/16/users.png" alt="users" class="icon-fix" />Users</a>
-				<?php
-				}
-
-				if( $_SESSION['roleid'] < 2 ){
-				?>
 				<?php
 				}
 			}
 		?>
 	</div>
 	<div id="user" class="left-text hide">
+		<?php
+			if( $tmpl->user['active'] ){
+				if( $_SESSION['roleid'] == 1 ){
+				?>
+		<a href="users.php?action=become"><img src="images/icons/16/mask.png" alt="" class="icon-fix" />Become User</a>
+		<br />
+				<?php
+				}
+
+				if( isset($_SESSION['realUserId']) ){
+				?>
+		<a href="components/account/be.php"><img src="<?php echo $tmpl->user['realIcon'];?>" alt="" class="icon-fix" />Become Me Again</a>
+		<br />
+				<?php
+				}
+			}
+		?>
 		<a href="logout.php" id="head_logout"><img src="images/icons/16/door--arrow.png" alt="door" class="icon-fix" />Logout</a>
 	</div>
 	<nav>
 		<?php
-			if( $tmpl->active ){
+			if( $tmpl->user['active'] ){
 				//the logged in toolbar
 				?>
 				<a href="home.php" id="head_dashboard" data-tooltipID="menu" class="fixedElementTooltip-below"><img src="images/icons/16/home.png" alt="dashboard" class="icon-fix" />Home</a>
 				&nbsp;
-				<a href="account.php" data-tooltipID="user" class="fixedElementTooltip-below"><img src="<?php echo $tmpl->icon;?>" alt="user" class="icon-fix" /><?php echo $tmpl->user->getFullName();?></a>
+				<a href="account.php" data-tooltipID="user" class="fixedElementTooltip-below"><img src="<?php echo $tmpl->user['icon'];?>" alt="user" class="icon-fix" /><?php echo $tmpl->user['fullName'];?></a>
 				&nbsp;
 
 				<?php

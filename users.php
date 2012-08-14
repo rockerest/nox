@@ -10,18 +10,25 @@
 	$userDA = new \model\access\UserAccess();
 
 	$page->run();
-	$tmpl->self = $page->self;
+	$tmpl->self		= $page->self;
 
-	$tmpl->code = isset( $_GET['code'] ) ? $_GET['code'] : -1;
+	$tmpl->action	= isset( $_GET['action'] ) ? $_GET['action'] : null;
+	$tmpl->code		= isset( $_GET['code'] ) ? $_GET['code'] : -1;
 	// this page can accept extended error codes.
-	$tmpl->errorcode = isset( $_GET['ec'] ) ? $_GET['ec'] : null;
-	$tmpl->users = \utilities\Converter::toArray( $userDA->getAll() );
+	$tmpl->errorcode= isset( $_GET['ec'] ) ? $_GET['ec'] : null;
+	$tmpl->users	= \utilities\Converter::toArray( $userDA->getAll() );
+	$tmpl->permit	= new \business\Permission();
 
 	switch( $tmpl->code ){
 		case 0:
 				// filler error
 				$tmpl->alert['type'] = "error";
 				$tmpl->alert['message'] = "I'm sorry Dave, I can't let you do that.";
+				break;
+		case 1:
+				// User added successfully
+				$tmpl->alert['type'] = "okay";
+				$tmpl->alert['message'] = "The new user was added successfully.";
 				break;
 		case 3:
 				// User was deleted successfully
@@ -120,6 +127,10 @@
 				break;
 		default:
 				break;
+	}
+
+	if( $tmpl->action == 'become' && (!$_SESSION['active'] || $_SESSION['roleid'] != 1) ){
+		unset( $tmpl->action );
 	}
 
 	$html = $tmpl->build('users.html');

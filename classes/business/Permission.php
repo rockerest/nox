@@ -39,4 +39,14 @@
 				return false;
 			}
 		}
+
+		public function impersonate( $user, $them ){
+			$uRi = $user->getAuthentication()->getRoleId();
+			if( $uRi > $them->getAuthentication()->getRoleId() || $uRi == 1 ){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
 	}

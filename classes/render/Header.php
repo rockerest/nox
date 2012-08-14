@@ -2,7 +2,8 @@
 	namespace render;
 	use \model\access;
 	class Header{
-		public $self;
+		public	$self,
+				$realSelf;
 
 		protected $userDA;
 
@@ -13,6 +14,12 @@
 
 			if( isset($_SESSION['active']) ){
 				$this->self = $this->userDA->getById( $_SESSION['userid'] );
+
+				if( isset( $_SESSION['realUserId'] ) ){
+					$this->realSelf = $this->userDA->getById( $_SESSION['realUserId'] );
+				}
+
+
 			}
 		}
 
@@ -36,48 +43,17 @@
 
 			$num = mt_rand(0, count($taglines) - 1);
 
-			$tmpl->tagline = $taglines[$num];
-			$tmpl->active = $active = isset($_SESSION['active']);
+			$tmpl->data['tagline'] = $taglines[$num];
+			$tmpl->user['active'] = $active = isset($_SESSION['active']);
 			$rp = 1;
 
 			if( $active ){
-				$tmpl->user = $this->userDA->getById( $_SESSION['userid'] );
-				$authEmail = $tmpl->user->getAuthentication()->getIdentity();
-
-				switch( strtolower( $tmpl->user->getGender() ) ){
-					case 'm':
-						$icon = 'user';
-						break;
-					case 'f':
-						$icon = 'user-female';
-						break;
-					default:
-						$icon = 'user-silhouette';
-						break;
+				$tmpl->user['icon'] = $this->self->getIconUrl();
+				if( isset( $_SESSION['realUserId'] ) ){
+					$tmpl->user['realIcon'] = $this->realSelf->getIconUrl();
 				}
-
-				$grav = "https://secure.gravatar.com/avatar/" . md5( strtolower( trim( $authEmail ) ) ) . "?s=16&d=404";
-				$local = "/images/icons/16/" . $icon . ".png";
-
-				// test for gravatar
-				$atar = curl_init( $grav );
-				curl_setopt_array( $atar, array(
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_NOBODY => true
-				));
-
-				curl_exec( $atar );
-				$code = curl_getinfo( $atar, CURLINFO_HTTP_CODE );
-				curl_close( $atar );
-
-				$tmpl->icon = $code == '404' ? $local : $grav;
-
-				$rp = $tmpl->user->getAuthentication()->getResetPassword();
+				$rp = $this->self->getAuthentication()->getResetPassword();
 			}
-
-			$css = $tmpl->build('header.css');
-			$html = $tmpl->build('header.html');
-			$js = $tmpl->build('header.js');
 
 			/*
 			 * force SSL
@@ -114,7 +90,12 @@
 				}
 			}
 
-			$tmpl->root = $this->root;
+			$tmpl->data['root'] = $this->root;
+			$tmpl->user['fullName'] = $this->self->getFullName();
+
+			$css = $tmpl->build('header.css');
+			$html = $tmpl->build('header.html');
+			$js = $tmpl->build('header.js');
 
 			$content = array(
 								'html' => $html,
