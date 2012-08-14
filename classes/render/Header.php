@@ -18,8 +18,6 @@
 				if( isset( $_SESSION['realUserId'] ) ){
 					$this->realSelf = $this->userDA->getById( $_SESSION['realUserId'] );
 				}
-
-
 			}
 		}
 
@@ -53,6 +51,7 @@
 					$tmpl->user['realIcon'] = $this->realSelf->getIconUrl();
 				}
 				$rp = $this->self->getAuthentication()->getResetPassword();
+				$tmpl->user['fullName'] = $this->self->getFullName();
 			}
 
 			/*
@@ -91,7 +90,6 @@
 			}
 
 			$tmpl->data['root'] = $this->root;
-			$tmpl->user['fullName'] = $this->self->getFullName();
 
 			$css = $tmpl->build('header.css');
 			$html = $tmpl->build('header.html');
