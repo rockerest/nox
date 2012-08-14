@@ -2,8 +2,12 @@
 	namespace model\access;
 	use model\objects;
 	class AuthenticationAccess extends AccessBase{
+		protected $tableName;
+
 		public function __construct( $db = null ){
 			parent::__construct( $db );
+
+			$this->tableName = $this->uiPre . "authentications";
 		}
 
 		public function validate( $identity, $password ){
@@ -11,7 +15,7 @@
 			$sql = "SELECT
 						salt
 					FROM
-						" . $this->uiPre . "authentications
+						" . $this->tableName . "
 					WHERE
 						identity = ?";
 			$values = array( $identity );
@@ -24,7 +28,7 @@
 			// Get the user that matches the correct identity AND salted, hashed password
 			$sql = "SELECT *
 					FROM
-						" . $this->uiPre . "authentications
+						" . $this->tableName . "
 					WHERE
 						identity = ?
 						AND password = ?";
@@ -51,7 +55,7 @@
 			$sql = "SELECT
 						authenticationid
 					FROM
-						" . $this->uiPre . "authentications
+						" . $this->tableName . "
 					WHERE
 						identity = ?";
 			$values = array( $identity );
@@ -63,7 +67,7 @@
 		public function getById( $id ){
 			$sql = "SELECT *
 					FROM
-						" . $this->uiPre . "authentications
+						" . $this->tableName . "
 					WHERE
 						authenticationid = ?";
 			$values = array( $id );
@@ -75,7 +79,7 @@
 		public function getByIdentity( $identity ){
 			$sql = "SELECT *
 					FROM
-						" . $this->uiPre . "authentications
+						" . $this->tableName . "
 					WHERE
 						identity = ?";
 			$values = array( $identity );
@@ -87,7 +91,7 @@
 		public function getByUserId( $id ){
 			$sql = "SELECT *
 					FROM
-						" . $this->uiPre . "authentications
+						" . $this->tableName . "
 					WHERE
 						userid = ?";
 			$values = array( $id );
@@ -99,7 +103,7 @@
 		public function getByRoleId( $id ){
 			$sql = "SELECT *
 					FROM
-						" . $this->uiPre . "authentications
+						" . $this->tableName . "
 					WHERE
 						roleid = ?";
 			$values = array( $id );
@@ -127,7 +131,7 @@
 		public function save( $obj ){
 			if( !$obj->getAuthenticationId() ){
 				if( $obj->allSet() ){
-					$sql = "INSERT INTO " . $this->uiPre . "authentications (
+					$sql = "INSERT INTO " . $this->tableName . " (
 								userid,
 								roleid,
 								identity,
@@ -161,7 +165,7 @@
 			}
 			else{
 				if( $obj->allSet() ){
-					$sql = "UPDATE " . $this->uiPre . "authentications
+					$sql = "UPDATE " . $this->tableName . "
 							SET
 								userid = ?,
 								roleid = ?,

@@ -2,14 +2,18 @@
 	namespace model\access;
 	use model\objects;
 	class UserAccess extends AccessBase{
+		protected $tableName;
+
 		public function __construct( $db = null ){
 			parent::__construct( $db );
+
+			$this->tableName = $this->uiPre . "users";
 		}
 
 		public function getById( $id ){
 			$sql = "SELECT *
 					FROM
-						" . $this->uiPre . "users
+						" . $this->tableName . "
 					WHERE
 						userid = ?";
 			$values = array( $id );
@@ -22,7 +26,7 @@
 			if( !$term ){
 				$sql = "SELECT *
 						FROM
-							" . $this->uiPre . "users
+							" . $this->tableName . "
 						ORDER BY
 							lname ASC,
 							fname ASC";
@@ -31,7 +35,7 @@
 			else{
 				$sql = "SELECT *
 						FROM
-							" . $this->uiPre . "users
+							" . $this->tableName . "
 						WHERE
 							lname LIKE ?
 							OR fname LIKE ?
@@ -49,7 +53,7 @@
 		public function getAllWithRestrictions(){
 			$sql = "SELECT *
 					FROM
-						" . $this->uiPre . "users
+						" . $this->tableName . "
 					WHERE
 						userid IN
 						(
@@ -116,12 +120,12 @@
 
 		public function delete( $obj ){
 			// Cross your fingers and hope the CASCADE DELETE takes care of the rest
-			return $this->genericDelete( $this->uiPre . 'users', 'userid', $obj->getUserId() );
+			return $this->genericDelete( $this->tableName, 'userid', $obj->getUserId() );
 		}
 
 		public function save( $obj ){
 			if( !$obj->getUserId() ){
-				$sql = "INSERT INTO " . $this->uiPre . "users (
+				$sql = "INSERT INTO " . $this->tableName . " (
 							fname,
 							lname,
 							gender
@@ -142,7 +146,7 @@
 				}
 			}
 			else{
-				$sql = "UPDATE " . $this->uiPre . "users
+				$sql = "UPDATE " . $this->tableName . "
 						SET
 							fname = ?,
 							lname = ?,

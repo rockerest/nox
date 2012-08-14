@@ -2,14 +2,18 @@
 	namespace model\access;
 	use model\objects;
 	class Quick_LoginAccess extends AccessBase{
+		protected $tableName;
+
 		public function __construct( $db = null ){
 			parent::__construct( $db );
+
+			$this->tableName = $this->uiPre . "quick_logins";
 		}
 
 		public function getById( $id ){
 			$sql = "SELECT *
 					FROM
-						" . $this->uiPre . "quick_logins
+						" . $this->tableName . "
 					WHERE
 						quick_loginid = ?";
 			$values = array( $id );
@@ -21,7 +25,7 @@
 		public function getByHash( $hash ){
 			$sql = "SELECT *
 					FROM
-						" . $this->uiPre . "quick_logins
+						" . $this->tableName . "
 					WHERE
 						hash = ?
 						AND used = 0
@@ -51,7 +55,7 @@
 
 		public function save( $obj ){
 			if( !$obj->getQuick_LoginId() ){
-				$sql = "INSERT INTO " . $this->uiPre . "quick_logins (
+				$sql = "INSERT INTO " . $this->tableName . " (
 							hash,
 							userid,
 							expires,
@@ -74,7 +78,7 @@
 				}
 			}
 			else{
-				$sql = "UPDATE " . $this->uiPre . "quick_logins
+				$sql = "UPDATE " . $this->tableName . "
 						SET
 							hash = ?,
 							userid = ?,
@@ -96,7 +100,7 @@
 		}
 
 		public function delete( $obj ){
-			return $this->genericDelete( $this->uiPre . 'quick_logins', 'quick_loginid', $obj->getQuick_LoginId() );
+			return $this->genericDelete( $this->tableName, 'quick_loginid', $obj->getQuick_LoginId() );
 		}
 
 		public function wrap($qls){
