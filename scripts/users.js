@@ -5,6 +5,14 @@ $("#username").autocomplete({
         $("#userid").val( ui.item.userid );
         $("#username").val( ui.item.fullName );
 
+        $( "<img />" ).prop({
+            "src" : "images/icons/16/animated/ui-progress-bar-indeterminate.gif",
+            "alt" : "loading"
+        })
+        .css({
+            "margin" : "4px 1px -4px -18px"
+        }).insertAfter( $("#username") );
+
         go_here( 'components/account/be.php?uid=' + ui.item.userid );
 
         return false;
