@@ -4,10 +4,7 @@
 
 	$userDA = new \model\access\UserAccess();
 
-	if( !$_SESSION['active'] ){
-		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
-	}
-	elseif( $_SESSION['roleid'] > 1 ){
+	if( !$_SESSION['active'] || $_SESSION['roleid'] > 1 ){
 		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
 	}
 
