@@ -2,7 +2,7 @@
 	class jQuery{
 		private $jquery;
 		private $jqueryui;
-		public function __construct( $v = "1.7.2", $uiv = "1.8.18" ){
+		public function __construct( $v = "1.8.0", $uiv = "1.8.23" ){
 			$this->jquery = "<!--    Load Javascript Library - jQuery	-->\n<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/$v/jquery.min.js\"></script>";
 			$this->jqueryui = "<!--	Load jQuery User Interface		-->\n<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jqueryui/$uiv/jquery-ui.min.js\"></script>";
 		}
