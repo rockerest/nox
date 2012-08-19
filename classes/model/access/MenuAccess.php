@@ -95,7 +95,7 @@
                             active,
                             authenticated
                         )
-                        VALUES ( ?, ?, ? )";
+                        VALUES ( ?, ?, ?, ?, ? )";
                 $values = array(
                             $obj->getRoleId(),
                             $obj->getTitle(),
@@ -145,7 +145,7 @@
             $list = array();
             foreach( $items as $i ){
                 array_push(
-                    $roleList,
+                    $list,
                     new objects\Menu(
                         $i['menuid'],
                         $i['roleid'],

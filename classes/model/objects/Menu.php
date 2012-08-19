@@ -9,7 +9,7 @@
                     $active,
                     $authenticated;
 
-        public function __construct($menuid, $roleid, $title, $loc, $active, $auth, $menuDA = null ){
+        public function __construct($menuid, $roleid, $title, $loc, $active, $auth, $menuDA = null, $miDA = null ){
             parent::__construct();
 
             $this->menuid = $menuid;
@@ -20,6 +20,7 @@
             $this->authenticated = $auth;
 
             $this->accessors['Main'] = isset($menuDA) ? $menuDA : new access\MenuAccess;
+            $this->accessors['Menu_Item'] = isset($miDA) ? $miDA : new access\Menu_ItemAccess;
         }
 
         // Setters
@@ -79,5 +80,10 @@
 
         public function getAuthenticated(){
             return $this->authenticated;
+        }
+
+        // Extrapolated Getters
+        public function getMenu_Item(){
+            return $this->accessors['Menu_Item']->getByMenuId( $this->getMenuId() );
         }
     }

@@ -5,7 +5,7 @@
 		public	$self,
 				$realSelf;
 
-		protected	$userDA;
+		protected	$userDA,
 					$menuDA;
 
 		public function __construct( $root, $config ){
@@ -57,7 +57,7 @@
 				$tmpl->user->fullName = $this->self->getFullName();
 			}
 
-			$menus = utilities\Converter::toArray( $this->menuDA->getByLocation( 'header' ) );
+			$menus = \utilities\Converter::toArray( $this->menuDA->getByLocation( 'header' ) );
 			$filteredMenus = array();
 			foreach( $menus as $m ){
 				if( $this->permit->viewMenu( $m, $this->self ) ){

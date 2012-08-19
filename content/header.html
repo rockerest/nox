@@ -10,49 +10,40 @@
 	<?php
 		foreach( $tmpl->data->menus as $menu ){
 		?>
-	<div id="<?php echo $menu->getTitle();?>" class="left-text hide">
-		<?php
-			echo "Menu Items Are Here";
-		?>
-	</div>
+		<div id="<?php echo $menu->getTitle();?>" class="left-text hide">
+			<?php
+				$items = utilities\Converter::toArray( $menu->getMenu_Item() );
+				$output = array();
+
+				if( $menu->getTitle() == 'user' && isset($_SESSION['realUserId']) ){
+					$output[] = '<a href="components/account/be.php"><img src="' . $tmpl->user->realIcon . '" alt="" class="icon-fix" />Become Me Again</a>';
+				}
+
+				foreach( $items as $i ){
+					$string = '';
+					if( !is_null( $i->getHref() ) ){
+						$string .= '<a href="' . $i->getHref() . '">';
+					}
+
+					if( !is_null( $i->getIcon() ) ){
+						$string .= '<img src="' . $i->getIcon() . '" alt="" class="icon-fix" />';
+					}
+
+					$string .= $i->getDisplay();
+
+					if( !is_null( $i->getHref() ) ){
+						$string .= '</a>';
+					}
+
+					$output[] = $string;
+				}
+
+				echo implode("\n<br />\n", $output) . "\n";
+			?>
+		</div>
 		<?php
 		}
 	?>
-	<div id="menu" class="left-text hide">
-		<?php
-			if( $tmpl->user->active ){
-				if( $_SESSION['roleid'] == 1 ){
-				?>
-		<a href="users.php"><img src="images/icons/16/users.png" alt="" class="icon-fix" />Users</a>
-		<br />
-				<?php
-				}
-				?>
-		<a href="about.php"><img src="images/icons/16/question-frame.png" alt="" class="icon-fix" />About</a>
-				<?php
-			}
-		?>
-	</div>
-	<div id="user" class="left-text hide">
-		<?php
-			if( $tmpl->user->active ){
-				if( $_SESSION['roleid'] == 1 ){
-				?>
-		<a href="users.php?action=become"><img src="images/icons/16/mask.png" alt="" class="icon-fix" />Become User</a>
-		<br />
-				<?php
-				}
-
-				if( isset($_SESSION['realUserId']) ){
-				?>
-		<a href="components/account/be.php"><img src="<?php echo $tmpl->user->realIcon;?>" alt="" class="icon-fix" />Become Me Again</a>
-		<br />
-				<?php
-				}
-			}
-		?>
-		<a href="logout.php"><img src="images/icons/16/door--arrow.png" alt="door" class="icon-fix" />Logout</a>
-	</div>
 	<nav>
 		<?php
 			if( $tmpl->user->active ){
@@ -60,7 +51,7 @@
 				?>
 				<a href="home.php" data-tooltipID="menu" class="fixedElementTooltip-below"><img src="images/icons/16/home.png" alt="dashboard" class="icon-fix" />Home</a>
 				&nbsp;
-				<a href="account.php" data-tooltipID="user" class="fixedElementTooltip-below"><img src="<?php echo $tmpl->user['icon'];?>" alt="user" class="icon-fix" /><?php echo $tmpl->user->fullName;?></a>
+				<a href="account.php" data-tooltipID="user" class="fixedElementTooltip-below"><img src="<?php echo $tmpl->user->icon;?>" alt="user" class="icon-fix" /><?php echo $tmpl->user->fullName;?></a>
 				&nbsp;
 
 				<?php
