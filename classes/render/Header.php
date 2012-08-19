@@ -5,12 +5,15 @@
 		public	$self,
 				$realSelf;
 
-		protected $userDA;
+		protected	$userDA;
+					$menuDA;
 
 		public function __construct( $root, $config ){
 			$this->root = $root;
 			$this->config = $config;
 			$this->userDA = new \model\access\UserAccess();
+			$this->menuDA = new \model\access\MenuAccess();
+			$this->permit = new \business\Permission();
 
 			if( isset($_SESSION['active']) ){
 				$this->self = $this->userDA->getById( $_SESSION['userid'] );
@@ -41,18 +44,27 @@
 
 			$num = mt_rand(0, count($taglines) - 1);
 
-			$tmpl->data['tagline'] = $taglines[$num];
-			$tmpl->user['active'] = $active = isset($_SESSION['active']);
+			$tmpl->data->tagline = $taglines[$num];
+			$tmpl->user->active = $active = isset($_SESSION['active']);
 			$rp = 1;
 
 			if( $active ){
-				$tmpl->user['icon'] = $this->self->getIconUrl();
+				$tmpl->user->icon = $this->self->getIconUrl();
 				if( isset( $_SESSION['realUserId'] ) ){
-					$tmpl->user['realIcon'] = $this->realSelf->getIconUrl();
+					$tmpl->user->realIcon = $this->realSelf->getIconUrl();
 				}
 				$rp = $this->self->getAuthentication()->getResetPassword();
-				$tmpl->user['fullName'] = $this->self->getFullName();
+				$tmpl->user->fullName = $this->self->getFullName();
 			}
+
+			$menus = utilities\Converter::toArray( $this->menuDA->getByLocation( 'header' ) );
+			$filteredMenus = array();
+			foreach( $menus as $m ){
+				if( $this->permit->viewMenu( $m, $this->self ) ){
+					$filteredMenus[] = $m;
+				}
+			}
+			$tmpl->data->menus = $filteredMenus;
 
 			/*
 			 * force SSL
@@ -89,7 +101,7 @@
 				}
 			}
 
-			$tmpl->data['root'] = $this->root;
+			$tmpl->data->root = $this->root;
 
 			$css = $tmpl->build('header.css');
 			$html = $tmpl->build('header.html');

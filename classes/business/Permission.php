@@ -49,4 +49,20 @@
 				return false;
 			}
 		}
+
+		public function viewMenu( $menu, $user = null ){
+			if( !is_null( $user ) ){
+				$uRi = $user->getAuthentication()->getRoleId();
+
+				if( $menu->getAuthenticated() ){
+					return ( $menu->getRoleId() == $uRi );
+				}
+				else{
+					return false;
+				}
+			}
+			else{
+				return ( $menu->getAuthenticated() == 0 );
+			}
+		}
 	}
