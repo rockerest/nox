@@ -5,7 +5,7 @@ $("#username").autocomplete({
         $("#userid").val( ui.item.userid );
         $("#username").val( ui.item.fullName );
 
-        $( "<img />" ).prop({
+        $( "<img>" ).prop({
             "src" : "images/icons/16/animated/ui-progress-bar-indeterminate.gif",
             "alt" : "loading"
         })
