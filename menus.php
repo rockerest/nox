@@ -5,24 +5,24 @@
                         1   => 'Admin'
                     );
 
-    $page = new \render\Page("Menus", 'menus', $allowed);
-    $tmpl = new \backbone\Template();
+    $page   = new \render\Page("Menus", 'menus', $allowed);
+    $tmpl   = new \backbone\Template();
     $menuDA = new \model\access\MenuAccess();
 
     $page->run();
-    $tmpl->self     = $page->self;
+    $tmpl->user->self       = $page->self;
 
-    $tmpl->action   = isset( $_GET['action'] ) ? $_GET['action'] : null;
-    $tmpl->code     = isset( $_GET['code'] ) ? $_GET['code'] : -1;
+    $tmpl->control->action  = isset( $_GET['action'] ) ? $_GET['action'] : null;
+    $tmpl->control->code    = isset( $_GET['code'] ) ? $_GET['code'] : -1;
 
-    $tmpl->menus    = \utilities\Converter::toArray( $menuDA->getAll() );
-    $tmpl->permit   = new \business\Permission();
+    $tmpl->data->menus      = \utilities\Converter::toArray( $menuDA->getAll() );
+    $tmpl->data->permit     = new \business\Permission();
 
-    switch( $tmpl->code ){
+    switch( $tmpl->control->code ){
         case 0:
                 // filler error
-                $tmpl->alert['type'] = "error";
-                $tmpl->alert['message'] = "I'm sorry Dave, I can't let you do that.";
+                $tmpl->control->alert['type'] = "error";
+                $tmpl->control->alert['message'] = "I'm sorry Dave, I can't let you do that.";
                 break;
         default:
                 break;
