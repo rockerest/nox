@@ -5,7 +5,11 @@
 				<img src="images/logo.png" alt="Nox" />
 			</a>
 		</h1>
-		<h2><?php echo $tmpl->data->tagline; ?></h2>
+		<h2>
+			<a href="<?php echo $tmpl->data->root;?>">
+				<?php echo $tmpl->data->tagline; ?>
+			</a>
+		</h2>
 	</hgroup>
 	<?php
 		foreach( $tmpl->data->menus as $menu ){
