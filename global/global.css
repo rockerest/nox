@@ -223,6 +223,10 @@
 		.float-l{float: left;}
 		.float-r{float: right;}
 		
+		.absolute{position: absolute;}
+		.fixed{position: fixed;}
+		.relative{position: relative;}
+		
 		.quote{
 			margin-left: 4em;
 			margin-right: 4em;
