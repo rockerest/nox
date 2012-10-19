@@ -6,13 +6,23 @@
 
 	set_include_path( APPLICATION_INCLUDE_PATH );
 
+	spl_autoload_register('nox_autoloader');
+
+	$tc = new \backbone\Config( APPLICATION_CONFIGURATION_FILE, APPLICATION_ROOT_PATH );
+	$config = $tc->getConfig();
+	unset( $tc );
+
+	$session = new \backbone\Session(0,APPLICATION_ROOT_URL);
+	$session->setSession();
+
 	function nox_autoloader( $path ){
 		// Do a little cleaning
 		// swap back/forward slashes
 		$slash = str_replace( '\\', '/', $path );
 
 		$locations = array(
-			'classes/'
+			'classes/',
+			'vendors/'
 		);
 
 		foreach( $locations as $u ){
@@ -22,8 +32,3 @@
 			}
 		}
 	}
-
-	spl_autoload_register('nox_autoloader');
-
-	$session = new \backbone\Session(0,APPLICATION_ROOT_URL);
-	$session->setSession();
