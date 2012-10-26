@@ -1,17 +1,20 @@
 <?php
 	namespace backbone;
 	class Config{
-		private $filename;
-
 		protected $config;
+
 		protected $root;
-		protected $session;
+		protected $conf;
 
 		public function __construct( $conf = null, $root = null ){
 			$this->root = ($root == null) ? APPLICATION_ROOT_URL : $root;
 			$this->conf = ($conf == null) ? APPLICATION_CONFIGURATION_FILE : $conf;
 			// HACK: This constructor could fail.
 			$this->loadConfig();
+		}
+
+		public function getConfig(){
+			return $this->config;
 		}
 
 		public function loadConfig(){

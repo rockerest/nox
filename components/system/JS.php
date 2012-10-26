@@ -14,7 +14,7 @@
 							$home . "global/qtip/",
 							$home . "global/fullcalendar/",
 							$home . "jquery/",
-							$home . "scripts/"
+							$home . "js/"
 						);
 		foreach ( $folders as $folder ){
 			if ( file_exists($folder . $filename) ){
