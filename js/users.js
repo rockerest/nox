@@ -13,7 +13,7 @@ $("#username").autocomplete({
             "margin" : "4px 1px -4px -18px"
         }).insertAfter( $("#username") );
 
-        go_here( 'components/account/be.php?uid=' + ui.item.userid );
+        Browser.go( 'components/account/be.php?uid=' + ui.item.userid );
 
         return false;
     }
