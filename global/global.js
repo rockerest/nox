@@ -1,12 +1,5 @@
 // Utilities
 (function( Utils, undefined ){
-
-	// Navigation helper
-	Utils.go = function(loc){
-		window.location=loc;
-		return false;
-	};
-
 	// querystring parser
 	Utils.getUrlVars = function(){
 		var map = {};
@@ -73,12 +66,16 @@
 		// to keep up the idea that this function returns a result
 		return primary;
 	};
-	window.Utils = Utils;
-
 }( window.Utils = window.Utils || {} ));
 
 // Browser Wrappers
 (function( Browser, undefined ){
+
+	// Navigation helper
+	Browser.go = function(loc){
+		window.location=loc;
+		return false;
+	};
 
 	// set up the Cookie jar
 	(function( Cookies, undefined ){
@@ -156,6 +153,4 @@
 			return selfString;
 		};
 	};
-	window.Browser = Browser;
-
 }( window.Browser = window.Browser || {} ));
