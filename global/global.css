@@ -1,5 +1,12 @@
 /* CSS Reset
-	/* http://meyerweb.com/eric/tools/css/reset/ 
+	*/
+	*{
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	/* http://meyerweb.com/eric/tools/css/reset/
 	   v2.0 | 20110126
 	   License: none (public domain)
 	*/
@@ -13,8 +20,8 @@
 	dl, dt, dd, ol, ul, li,
 	fieldset, form, label, legend,
 	table, caption, tbody, tfoot, thead, tr, th, td,
-	article, aside, canvas, details, embed, 
-	figure, figcaption, footer, header, hgroup, 
+	article, aside, canvas, details, embed,
+	figure, figcaption, footer, header, hgroup,
 	menu, nav, output, ruby, section, summary,
 	time, mark, audio, video {
 		margin: 0;
@@ -24,31 +31,31 @@
 		font: inherit;
 		vertical-align: baseline;
 	}
-	
+
 	/* HTML5 display-role reset for older browsers */
-	article, aside, details, figcaption, figure, 
+	article, aside, details, figcaption, figure,
 	footer, header, hgroup, menu, nav, section {
 		display: block;
 	}
-	
+
 	body {
 		line-height: 1;
 	}
-	
+
 	ol, ul {
 		list-style: none;
 	}
-	
+
 	blockquote, q {
 		quotes: none;
 	}
-	
+
 	blockquote:before, blockquote:after,
 	q:before, q:after {
 		content: '';
 		content: none;
 	}
-	
+
 	table {
 		border-collapse: collapse;
 		border-spacing: 0;
@@ -58,16 +65,16 @@
 
 /* Element Styles		*/
 /*						*/
-	
+
 	/* Personal Resets  */
 	html{
 		font-family: Helvetica, Arial, Tahoma, Geneva, sans-serif;
 	}
-	
+
 	body{
 		color: #000000;
 		background: #FFFFFF;
-		
+
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -110,17 +117,17 @@
 		font-size: 13px;
 		background: #CC3333;
 		color: #FFFFFF;
-		
+
 		position: fixed;
 		bottom: 0em;
 		left: 10%;
-		
+
 		margin: 0em auto 0em auto;
 		padding: 1em;
-		
+
 		width: 80%;
 		z-index: 100000;
-		
+
 		border-radius: 1em 1em 0 0;
 	}
 /*	End IDed Styles	*/
@@ -141,50 +148,50 @@
 			zoom: 1; /* For IE 6/7 (trigger hasLayout) */
 		}
 	/* End Clearfix */
-	
+
 	/* Message Boxes */
 		.message-box{
 			padding: .6em;
-			
+
 			color:#545454;
 		}
 
 		.clean{
 			background-color: #efefef;
-			
+
 			border-top: .125em solid #dedede;
 			border-bottom: .125em solid #dedede;
 		}
 
 		.info{
 			background-color: #f7fafd;
-			
+
 			border-top: .125em solid #b5d3ff;
 			border-bottom: .125em solid #b5d3ff;
 		}
 
 		.okay{
 			background-color: #d7f7c4;
-			
+
 			border-top: .125em solid #82cb2f;
 			border-bottom: .125em solid #82cb2f;
 		}
-			
+
 		.alert{
 			background-color: #fef5be;
-			
+
 			border-top: .125em solid #fdd425;
 			border-bottom: .125em solid #fdd425;
 		}
-			
+
 		.error{
 			background-color: #ffcdd1;
-			
+
 			border-top: .125em solid #e10c0c;
 			border-bottom: .125em solid #e10c0c;
 		}
 	/* End Message Boxes */
-	
+
 	/* Text color, styling, decoration */
 		.italics{font-style: italic;}
 		.bold{font-weight: bold;}
@@ -196,7 +203,7 @@
 		.sup{vertical-align: super;}
 		.quote{font-style: italic;}
 	/* End text color, styling, decoration */
-	
+
 	/* Positioning */
 		.left{
 			margin-right: auto;
@@ -210,7 +217,7 @@
 			margin-right: 0;
 			margin-left: auto;
 		}
-		
+
 		.bump{margin-top: 1em;}
 		.follow{margin-bottom: 1em;}
 		.nudge{margin-left: 1em;}
@@ -219,28 +226,28 @@
 		.center-text{text-align: center;}
 		.left-text{text-align: left;}
 		.right-text{text-align: right;}
-		
+
 		.float-l{float: left;}
 		.float-r{float: right;}
-		
+
 		.absolute{position: absolute;}
 		.fixed{position: fixed;}
 		.relative{position: relative;}
-		
+
 		.quote{
 			margin-left: 4em;
 			margin-right: 4em;
 		}
 	/* End positioning */
-	
+
 	/* Sizing */
 		.huge{font-size: 1.5em;}
 		.large{font-size: 1.25em;}
 		.small{font-size: .75em;}
 		.tiny{font-size: .5em;}
-		
+
 		.sub, .sup{font-size: .5em;}
-		
+
 		.w10{width: 10%;}
 		.w20{width: 20%;}
 		.w25{width: 25%;}
@@ -254,23 +261,23 @@
 		.w90{width: 90%;}
 		.w100{width: 100%;}
 	/* End sizing */
-	
+
 	/* Spacing */
 		.tall{line-height: 1.3em;}
 		.short{line-height: .75em;}
 	/* End spacing */
-	
+
 	/* UI */
 		.pointer{cursor: pointer;}
 		.arrow{cursor: default;}
 	/* End UI */
-	
+
 	/* Display and visibility */
 		.hide{display: none;}
 		.table{display: table;}
 		.cell{display: table-cell;}
 		.iblock{display: inline-block;}
 	/* End display and visibility */
-	
+
 /*	End Class Styles	*/
 /*						*/
