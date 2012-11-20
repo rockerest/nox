@@ -1,5 +1,5 @@
 $( '#title' ).click(function(){
-	go_here('index.php');
+	Browser.go('index.php');
 });
 
 $( '#head_logout' ).hover(
