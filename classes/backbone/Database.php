@@ -304,11 +304,11 @@
 		}
 
 		public function getq(){
-			return $this->prepq->queryString;
+			return $this->prepq;
 		}
 
 		public function getqwv(){
-			return $this->prepqwv->queryString;
+			return $this->prepqwv;
 		}
 
 		private function logStat($msg, $bool){
