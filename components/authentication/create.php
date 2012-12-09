@@ -38,7 +38,7 @@
 				$to			= $user->getContact()->getEmail();
 				$from		= 'no-reply-automator@nox.thomasrandolph.info';
 
-				$message	= $mail->newMessage( $subject, $body )
+				$message	= $mail->newMessage( $subject, $body, 'text/html' )
 								->setTo( $to )
 								->setFrom( $from );
 
