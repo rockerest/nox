@@ -10,7 +10,7 @@
 	<?php
 		foreach( $tmpl->data->menus as $menu ){
 		?>
-		<div id="<?php echo $menu->getTitle();?>" class="left-text hide">
+		<div id="<?php echo $menu->getTitle();?>" class="left-text hide popup-menu">
 			<?php
 				$items = utilities\Converter::toArray( $menu->getMenu_Item() );
 				$output = array();

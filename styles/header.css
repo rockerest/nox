@@ -17,6 +17,11 @@ header{
 	margin: auto;
 }
 
+.popup-menu{
+	line-height: 1.25em;
+	font-size: 1.5em;
+}
+
 header h1, header h2{
 	color: #192E5E;
 	font-size: 1em;

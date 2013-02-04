@@ -1,7 +1,7 @@
 body{
 	color: #545454;
 	position: absolute;
-	
+
 	background: #FFFFFF;
 }
 
@@ -41,9 +41,9 @@ form{
 fieldset{
 	border: .0625em solid #C5CAE8;
 	padding: 1em;
-	
+
 	float: left;
-	
+
 	width: 16.9em;
 	min-height: 11em;
 }
@@ -54,7 +54,7 @@ legend{
 }
 
 fieldset, legend{
-	border-radius: .2em; 
+	border-radius: .2em;
 }
 
 form input:not([type="submit"]),
@@ -145,9 +145,9 @@ button img.icon-fix{
 	width: 64em;
 	margin: auto auto auto auto;
 	min-height: 30.5em;
-	
+
 	padding: 3em 0;
-	
+
 	background-color: #FFFFFF;
 }
 
@@ -156,11 +156,11 @@ button img.icon-fix{
 	height: auto !important;
 	height: 100%;
 	margin: 0 auto -4.1em;
-	
+
 	background: linear-gradient(-180deg, #ffffff 0%,#f8fafd 15%,#f8fafd 85%,#ffffff 100%);
 }
 
 footer, #push {
-	height: 1em;
+	height: 2.1em;
 	padding: .5em;
 }

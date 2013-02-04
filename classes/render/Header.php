@@ -29,6 +29,11 @@
 		public function generate(){
 			$tmpl = new \backbone\Template();
 
+			// set empty objects
+			$tmpl->data
+			= $tmpl->user
+			= new \stdClass();
+
 			$dmz_pages = array();
 			//set DMZ pages
 			foreach( $this->config->dmz as $file ){
