@@ -55,7 +55,9 @@
         public function getAll(){
             $sql = $this->filter("SELECT *
                     FROM
-                        " . $this->tableName);
+                        " . $this->tableName . "
+                    WHERE
+                        1 = 1");
             $res = $this->db->q( $sql );
 
             return $this->wrap( $res );

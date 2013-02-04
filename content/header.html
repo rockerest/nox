@@ -5,7 +5,11 @@
 				<img src="images/logo.png" alt="Nox" />
 			</a>
 		</h1>
-		<h2><?php echo $tmpl->data->tagline; ?></h2>
+		<h2>
+			<a href="<?php echo $tmpl->data->root;?>">
+				<?php echo $tmpl->data->tagline; ?>
+			</a>
+		</h2>
 	</hgroup>
 	<?php
 		foreach( $tmpl->data->menus as $menu ){
@@ -49,9 +53,18 @@
 			if( $tmpl->user->active ){
 				//the logged in toolbar
 				?>
-				<a href="home.php" data-tooltipID="menu" class="fixedElementTooltip-below"><img src="images/icons/16/home.png" alt="dashboard" class="icon-fix" />Home</a>
+				<a href="home.php" data-tooltipID="menu" class="fixedElementTooltip-below"><img src="images/icons/16/home.png" alt="" class="icon-fix" />Home</a>
 				&nbsp;
-				<a href="account.php" data-tooltipID="user" class="fixedElementTooltip-below"><img src="<?php echo $tmpl->user->icon;?>" alt="user" class="icon-fix" /><?php echo $tmpl->user->fullName;?></a>
+				<?php
+				if( $_SESSION['roleid'] == 1 ){
+					// add the admin-only menu items
+					?>
+				<span data-tooltipID="manage" class="fixedElementTooltip-below arrow"><img src="images/icons/16/wrench.png" alt="" class="icon-fix" />Manage</a></span>
+				&nbsp;
+					<?php
+				}
+				?>
+				<a href="account.php" data-tooltipID="user" class="fixedElementTooltip-below"><img src="<?php echo $tmpl->user->icon;?>" alt="" class="icon-fix" /><?php echo $tmpl->user->fullName;?></a>
 				&nbsp;
 
 				<?php

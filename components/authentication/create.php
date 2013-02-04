@@ -17,7 +17,7 @@
 	if( ($password == $vp) && ($data['email'] == $data['vemail']) && ($password != null) && ($data['email'] != null) ){
 		if( $authDA->checkIdentity( $data['email'] ) == 0 ){
 			//create user
-			$user = $userDA->add( $data['fname'], $data['lname'], $data['email'], $password, 3 );
+			$user = $userDA->add( $data['fname'], $data['lname'], $data['email'], $password, 2 );
 			if( $user ){
 				$auth = $user->getAuthentication();
 				$auth->setResetPassword( 0 );
