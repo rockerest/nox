@@ -16,7 +16,7 @@
 		?>
 		<div id="<?php echo $menu->getTitle();?>" class="left-text hide popup-menu">
 			<?php
-				$items = utilities\Converter::toArray( $menu->getMenu_Item() );
+				$items = $menu->getOrderedLinks();
 				$output = array();
 
 				if( $menu->getTitle() == 'user' && isset($_SESSION['realUserId']) ){
@@ -24,6 +24,7 @@
 				}
 
 				foreach( $items as $i ){
+					$i = $i->getItem();
 					$string = '';
 					if( !is_null( $i->getHref() ) ){
 						$string .= '<a href="' . $i->getHref() . '">';

@@ -1,15 +1,25 @@
 <?php
 	namespace business;
-	use utilities;
-	use model\access;
+	use model;
+	use Doctrine\ORM;
+
 	class Permission{
+		protected $em;
+
+        public function __construct( Doctrine\ORM\EntityManager $em = null ){
+            if( $em == null ){
+                $docrineFactory = new model\Access();
+                $em = $docrineFactory->getEntityManager();
+            }
+
+            $this->em = $em;
+        }
+
 		public function elevateRole( $user, $them ){
-			$authDA = new access\AuthenticationAccess;
+			if( $user && $them ){
+				$tRi = $them->getAuthentication()->getRole()->getId();
 
-			if( ( $user = utilities\Converter::toObject( $user, 'model\\objects\\User' ) ) && ( $them = utilities\Converter::toObject( $them, 'model\\objects\\User' ) ) ){
-				$tRi = $them->getAuthentication()->getRoleId();
-
-				if( ($tRi > $user->getAuthentication()->getRoleId()) && ($tRi > 1) ){
+				if( ($tRi > $user->getAuthentication()->getRole()->getId()) && ($tRi > 1) ){
 					return true;
 				}
 				else{
@@ -22,13 +32,14 @@
 		}
 
 		public function reduceRole( $user, $them ){
-			$authDA = new access\AuthenticationAccess;
+			if( $user && $them ){
+				$tRi = $them->getAuthentication()->getRole()->getId();
+				$authRepo = $this->em->getRepository('model\entities\Authentication');
 
-			if( ( $user = utilities\Converter::toObject( $user, 'model\\objects\\User' ) ) && ( $them = utilities\Converter::toObject( $them, 'model\\objects\\User' ) ) ){
-				$tRi = $them->getAuthentication()->getRoleId();
-				$usersAtLevel = $authDA->getByRoleId( $tRi );
+				$auths = $authRepo->findBy( array(	"roleid" => $tRi,
+													"disabled" => false ) );
 
-				if( ($tRi >= $user->getAuthentication()->getRoleId()) && (count( $usersAtLevel ) > 1) ){
+				if( ($tRi >= $user->getAuthentication()->getRole()->getId()) && (count( $auths ) > 1) ){
 					return true;
 				}
 				else{
@@ -41,8 +52,8 @@
 		}
 
 		public function impersonate( $user, $them ){
-			$uRi = $user->getAuthentication()->getRoleId();
-			if( $uRi > $them->getAuthentication()->getRoleId() || $uRi == 1 ){
+			$uRi = $user->getAuthentication()->getRole()->getId();
+			if( $uRi > $them->getAuthentication()->getRole()->getId() || $uRi == 1 ){
 				return true;
 			}
 			else{
@@ -52,10 +63,10 @@
 
 		public function viewMenu( $menu, $user = null ){
 			if( !is_null( $user ) ){
-				$uRi = $user->getAuthentication()->getRoleId();
+				$uRi = $user->getAuthentication()->getRole()->getId();
 
 				if( $menu->getAuthenticated() ){
-					return ( $menu->getRoleId() == $uRi );
+					return ( $menu->getRole()->getId() == $uRi );
 				}
 				else{
 					return false;

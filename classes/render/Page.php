@@ -55,7 +55,7 @@
 					return false;
 				}
 				else{
-					$roleId = $user->getAuthentication()->getRoleId();
+					$roleId = $user->getAuthentication()->getRole()->getId();
 					if( array_key_exists( $roleId, $access ) || array_key_exists( 0, $access ) ){
 						return true;
 					}

@@ -1,0 +1,100 @@
+<?php
+    namespace model\entities;
+    use Doctrine\ORM\EntityRepository;
+
+    /**
+     * @Entity
+     * @Table(name="users")
+     */
+    class User{
+        /**
+         * @Id
+         * @Column(type="integer") @GeneratedValue
+         */
+        private $id;
+
+        /**
+         * @Column(type="string", length=64)
+         */
+        private $fname;
+
+        /**
+         * @Column(type="string", length=64)
+         */
+        private $lname;
+
+        /**
+         * @Column(type="string", length=1)
+         */
+        private $gender;
+
+        /**
+         * @OneToOne(targetEntity="Authentication", mappedBy="user")
+         */
+        private $authentication;
+
+        /**
+         * @OneToMany(targetEntity="Contact", mappedBy="user")
+         */
+        private $contacts;
+
+        public function __construct() {
+            $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+        }
+
+        /**
+         * GETTERS
+         */
+
+        public function getId(){
+            return $this->id;
+        }
+
+        public function getFname(){
+            return $this->fname;
+        }
+
+        public function getLname(){
+            return $this->lname;
+        }
+
+        public function getFullName(){
+            return $this->getFname() . " " . $this->getLname();
+        }
+
+        public function getGender(){
+            return $this->gender;
+        }
+
+        public function getAuthentication(){
+            return $this->authentication;
+        }
+
+        public function getContacts(){
+            return $this->contacts;
+        }
+
+        /**
+         * SETTERS
+         */
+
+        public function setFname( $fname ){
+            $this->fname = $fname;
+        }
+
+        public function setLname( $lname ){
+            $this->lname = $lname;
+        }
+
+        public function setGender( $gender ){
+            $this->gender = $gender;
+        }
+
+        public function setAuthentication( $authentication ){
+            $this->authentication = $authentication;
+        }
+
+        public function setContacts( $contacts ){
+            $this->contacts = $contacts;
+        }
+    }

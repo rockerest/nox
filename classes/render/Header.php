@@ -1,38 +1,48 @@
 <?php
 	namespace render;
-	use \model\access;
+
 	class Header{
 		public	$self,
 				$realSelf;
 
-		protected	$userDA,
-					$menuDA;
+		protected	$em,
+					$businessPermission,
+					$businessUser;
 
-		public function __construct( $root, $config ){
-			$this->root = $root;
+		public function __construct( $root, $config, $em = null ){
+			$this->em = $em;
+            $this->root = $root;
 			$this->config = $config;
-			$this->userDA = new \model\access\UserAccess();
-			$this->menuDA = new \model\access\MenuAccess();
-			$this->permit = new \business\Permission();
+		}
+
+		public function run(){
+			if( $this->em == null ){
+                $docrineFactory = new \model\Access();
+                $this->em = $docrineFactory->getEntityManager();
+            }
+
+            $this->businessUser			= new \business\User();
+			$this->businessPermission	= new \business\Permission();
+
+            $userRepo = $this->em->getRepository('model\entities\User');
 
 			if( isset($_SESSION['active']) ){
-				$this->self = $this->userDA->getById( $_SESSION['userid'] );
+				$this->self = $userRepo->find( $_SESSION['userid'] );
 
 				if( isset( $_SESSION['realUserId'] ) ){
-					$this->realSelf = $this->userDA->getById( $_SESSION['realUserId'] );
+					$this->realSelf = $userRepo->find( $_SESSION['realUserId'] );
 				}
 			}
 		}
 
-		public function run(){}
-
 		public function generate(){
 			$tmpl = new \backbone\Template();
 
+			$menuRepo	= $this->em->getRepository( 'model\entities\Menu' );
+
 			// set empty objects
-			$tmpl->data
-			= $tmpl->user
-			= new \stdClass();
+			$tmpl->data = new \stdClass();
+			$tmpl->user = new \stdClass();
 
 			$dmz_pages = array();
 			//set DMZ pages
@@ -54,18 +64,18 @@
 			$rp = 1;
 
 			if( $active ){
-				$tmpl->user->icon = $this->self->getIconUrl();
+				$tmpl->user->icon = $this->businessUser->getIconUrl( $this->self );
 				if( isset( $_SESSION['realUserId'] ) ){
-					$tmpl->user->realIcon = $this->realSelf->getIconUrl();
+					$tmpl->user->realIcon = $this->businessUser->getIconUrl( $this->realSelf );
 				}
 				$rp = $this->self->getAuthentication()->getResetPassword();
 				$tmpl->user->fullName = $this->self->getFullName();
 			}
 
-			$menus = \utilities\Converter::toArray( $this->menuDA->getByLocation( 'header' ) );
+			$menus = $menuRepo->findBy( array( "location" => "header" ) );
 			$filteredMenus = array();
 			foreach( $menus as $m ){
-				if( $this->permit->viewMenu( $m, $this->self ) ){
+				if( $this->businessPermission->viewMenu( $m, $this->self ) ){
 					$filteredMenus[] = $m;
 				}
 			}
@@ -98,7 +108,7 @@
 						header('Location: index.php?code=2');
 					}
 					elseif( $script == $this->root . 'index.php' && $active ){
-						header('Location: home.php');
+						header('Location: queue.php');
 					}
 					elseif( $script == $this->root . 'index.php' && !$active ){
 						//allow to go to login or dmz pages
