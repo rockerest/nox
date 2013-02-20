@@ -6,7 +6,7 @@
 	class Permission{
 		protected $em;
 
-        public function __construct( Doctrine\ORM\EntityManager $em = null ){
+        public function __construct( \Doctrine\ORM\EntityManager $em = null ){
             if( $em == null ){
                 $docrineFactory = new model\Access();
                 $em = $docrineFactory->getEntityManager();
@@ -36,7 +36,7 @@
 				$tRi = $them->getAuthentication()->getRole()->getId();
 				$authRepo = $this->em->getRepository('model\entities\Authentication');
 
-				$auths = $authRepo->findBy( array(	"roleid" => $tRi,
+				$auths = $authRepo->findBy( array(	"role" => $tRi,
 													"disabled" => false ) );
 
 				if( ($tRi >= $user->getAuthentication()->getRole()->getId()) && (count( $auths ) > 1) ){

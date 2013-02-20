@@ -34,6 +34,11 @@
          */
         private $user;
 
+        public function __construct(){
+            $this->setUsed( 0 );
+            $this->setExpires( "@" . (time() + 86400) );
+        }
+
         /**
          * GETTERS
          */
@@ -64,17 +69,21 @@
 
         public function setHash( $hash ){
             $this->hash = $hash;
+            return $this;
         }
 
         public function setExpires( $time ){
-            $this->expires = $time instanceof \DateTime ? $time : new DateTime( $time );
+            $this->expires = $time instanceof \DateTime ? $time : new \DateTime( $time );
+            return $this;
         }
 
         public function setUsed( $used ){
-            $this->used;
+            $this->used = $used;
+            return $this;
         }
 
         public function setUser( $user ){
-            $this->user;
+            $this->user = $user;
+            return $this;
         }
     }

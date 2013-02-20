@@ -2,29 +2,21 @@
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
 	require_once( $home . 'components/system/Preload.php' );
 
-	$userDA = new \model\access\UserAccess();
-	$authDA = new \model\access\AuthenticationAccess();
+	$acc	= new \model\Access();
+	$em		= $acc->getEntityManager();
+
+	$userRepo = $em->getRepository( 'model\entities\User' );
 
 	if( !$_SESSION['active'] ){
-		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
+		throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=2' );
 	}
 
-	$self = $userDA->getById( $_SESSION['userid'] );
-	$uid = isset($_GET['uid']) ? $_GET['uid'] : null;
-	$tb = isset($_GET['tb']) ? $_GET['tb'] : null;
-
-	//determine return script
-	switch( $tb ){
-		case 'u':
-			$return = 'users';
-			break;
-		default:
-			$return = 'home';
-			break;
-	}
+	$self	= $userRepo->find( $_SESSION['userid'] );
+	$uid	= isset($_GET['uid']) ? $_GET['uid'] : null;
+	$tb		= isset($_GET['tb']) ? $_GET['tb'] : null;
 
 	if( $uid ){
-		$user = $userDA->getById( $uid );
+		$user = $userRepo->find( $uid );
 	}
 	else{
 		$user = false;
@@ -34,24 +26,24 @@
 		$auth = $user->getAuthentication();
 		if( $auth->getResetPassword() ){
 			$auth->setResetPassword( 0 );
-			if( $auth->save() ){
-				header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=10');
+			if( $acc->persistFlushRefresh( $auth ) ){
+				throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'users.php?code=10' );
 			}
 			else{
-				header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=12');
+				throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'users.php?code=12' );
 			}
 		}
 		else{
 			$auth->setResetPassword( 1 );
-			if( $auth->save() ){
-				header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=9');
+			if( $acc->persistFlushRefresh( $auth ) ){
+				throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'users.php?code=9' );
 			}
 			else{
-				header('Location: ' . APPLICATION_ROOT_URL . $return . '.php?code=11');
+				throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'users.php?code=11' );
 			}
 		}
 	}
 	else{
-		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
+		throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=2' );
 	}
 ?>

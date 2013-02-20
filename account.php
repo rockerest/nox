@@ -7,23 +7,26 @@
 
 	$page = new \render\Page('Account Management', 'account', $allowed);
 	$tmpl = new \backbone\Template();
-	$roleDA = new \model\access\RoleAccess();
-	$userDA = new \model\access\UserAccess();
+
+	$doctrineFactory	= new \model\Access();
+	$em					= $doctrineFactory->getEntityManager();
+    $userRepo			= $em->getRepository( 'model\entities\User' );
+    $roleRepo			= $em->getRepository( 'model\entities\Role' );
 
 	$page->run();
-	$tmpl->self = $page->self;
+	$tmpl->self		= $page->self;
 
-	$tmpl->code = isset( $_GET['code'] ) ? $_GET['code'] : -1;
-	$userid = isset( $_GET['uid'] ) ? $_GET['uid'] : $_SESSION['userid'];
-	$tmpl->action = isset( $_GET['a'] ) ? $_GET['a'] : 'manage';
+	$tmpl->code		= isset( $_GET['code'] ) ? $_GET['code'] : -1;
+	$userid			= isset( $_GET['uid'] ) ? $_GET['uid'] : $_SESSION['userid'];
+	$tmpl->action	= isset( $_GET['a'] ) ? $_GET['a'] : 'manage';
 
 	if( $userid == $_SESSION['userid'] ){
-		$user = $userDA->getById( $userid );
+		$user = $userRepo->find( $userid );
 	}
 	else{
-		$attempt = $userDA->getById( $userid );
+		$attempt = $userRepo->find( $userid );
 
-		if( $tmpl->self->getAuthentication()->getRoleId() == 1 ){
+		if( $tmpl->self->getAuthentication()->getRole()->getId() == 1 ){
 			$user = $attempt;
 		}
 		else{
@@ -35,8 +38,8 @@
 	$data['fname'] = isset($_GET['fname']) ? ($_GET['fname'] != null ? $_GET['fname'] : ($tmpl->action == 'manage' ? $user->getFname() : null)) : ($tmpl->action == 'manage' ? $user->getFname() : null);
 	$data['lname'] = isset($_GET['lname']) ? ($_GET['lname'] != null ? $_GET['lname'] : ($tmpl->action == 'manage' ? $user->getLname() : null)) : ($tmpl->action == 'manage' ? $user->getLname() : null);
 	$data['gender'] = isset($_GET['gender']) ? ($_GET['gender'] != null ? $_GET['gender'] : ($tmpl->action == 'manage' ? $user->getGender() : null)) : ($tmpl->action == 'manage' ? $user->getGender() : null);
-	$data['email'] = isset($_GET['email']) ? ($_GET['email'] != null ? $_GET['email'] : ($tmpl->action == 'manage' ? $user->getContact()->getEmail() : ($tmpl->action == 'login' ? $user->getAuthentication()->getIdentity() : null))) : ($tmpl->action == 'manage' ? $user->getContact()->getEmail() : ($tmpl->action == 'login' ? $user->getAuthentication()->getIdentity() : null));
-	$data['phone'] = isset($_GET['phone']) ? ($_GET['phone'] != null ? $_GET['phone'] : ($tmpl->action == 'manage' ? $user->getContact()->getFriendlyPhone() : null)) : ($tmpl->action == 'manage' ? $user->getContact()->getFriendlyPhone() : null);
+	$data['email'] = isset($_GET['email']) ? ($_GET['email'] != null ? $_GET['email'] : ($tmpl->action == 'manage' ? $user->getContacts()[0]->getEmail() : ($tmpl->action == 'login' ? $user->getAuthentication()->getIdentity() : null))) : ($tmpl->action == 'manage' ? $user->getContacts()[0]->getEmail() : ($tmpl->action == 'login' ? $user->getAuthentication()->getIdentity() : null));
+	$data['phone'] = isset($_GET['phone']) ? ($_GET['phone'] != null ? $_GET['phone'] : ($tmpl->action == 'manage' ? $user->getContacts()[0]->getFriendlyPhone() : null)) : ($tmpl->action == 'manage' ? $user->getContacts()[0]->getFriendlyPhone() : null);
 	//end form fields
 
 	switch( $tmpl->code ){
@@ -56,9 +59,9 @@
 				$tmpl->alert['message'] = "You must complete all of the fields in the \"Required Information\" set.";
 				break;
 		case 3:
-				// An unknown error occurred (new account)
+				// The new account identity is already in use
 				$tmpl->alert['type'] = "error";
-				$tmpl->alert['message'] = "An unknown error occurred while attempting to create the account.";
+				$tmpl->alert['message'] = "That identity is invalid.  Please choose another one.";
 				break;
 		case 4:
 				// The passwords (changing password) didn't match
@@ -89,7 +92,7 @@
 
 	$tmpl->user = $user;
 	$tmpl->data = $data;
-	$tmpl->roles = \utilities\Converter::toArray( $roleDA->getAll() );
+	$tmpl->roles = $roleRepo->findAll();
 
 	$html = $tmpl->build('account.html');
 	$css = $tmpl->build('account.css');

@@ -2,22 +2,24 @@
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
 	require_once( $home . 'components/system/Preload.php' );
 
-	$userDA = new \model\access\UserAccess();
+	$acc		= new \model\Access();
+	$em			= $acc->getEntityManager();
+	$userRepo	= $em->getRepository( 'model\entities\User' );
 
 	if( !$_SESSION['active'] || $_SESSION['roleid'] > 1 ){
-		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
+		throw new \backbone\RedirectBrowserException( 'Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2' );
 	}
 
-	$uid = isset( $_GET['uid'] ) ? $_GET['uid'] : ( isset( $_SESSION['realUserId'] ) ? $_SESSION['realUserId'] : $_SESSION['userid'] );
-	$user = $userDA->getById( $uid );
+	$uid	= isset( $_GET['uid'] ) ? $_GET['uid'] : ( isset( $_SESSION['realUserId'] ) ? $_SESSION['realUserId'] : $_SESSION['userid'] );
+	$user	= $userRepo->find( $uid );
 
 	if( empty( $_GET['uid'] ) ){
 		beSelf();
-		header( 'Location: ' . APPLICATION_ROOT_URL . 'users.php' );
+		throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'users.php' );
 	}
 	else{
 		beSomeone( $user );
-		header( 'Location: ' . APPLICATION_ROOT_URL . 'users.php' );
+		throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'users.php' );
 	}
 
 	function beSomeone( $user ){
@@ -31,8 +33,8 @@
 			$_SESSION['realUserId'] = $_SESSION['userid'];
 
 			//store the fake stuff
-			$_SESSION['roleid'] = $user->getAuthentication()->getRoleId();
-			$_SESSION['userid'] = $user->getUserId();
+			$_SESSION['roleid'] = $user->getAuthentication()->getRole()->getId();
+			$_SESSION['userid'] = $user->getId();
 		}
 	}
 

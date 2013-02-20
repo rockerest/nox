@@ -16,7 +16,7 @@
 			$_SESSION['roleid'] = $tmp->getAuthentication()->getRole()->getId();
 			$_SESSION['userid'] = $tmp->getId();
 
-			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'queue.php?code=0' );
+			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'home.php?code=0' );
 		}
 		else{
 			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'index.php?code=1&email=' . $identity );

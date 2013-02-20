@@ -71,9 +71,16 @@
 
         public function setPhone( $phone ){
             $this->phone = $phone;
+            return $this;
         }
 
         public function setEmail( $email ){
             $this->email = $email;
+            return $this;
+        }
+
+        public function setUser( $user ){
+            $this->user = $user;
+            return $this;
         }
     }

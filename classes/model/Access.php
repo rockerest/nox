@@ -22,7 +22,7 @@
                     'dbname'    => $this->config->db->dbname
                 );
 
-                $devMode = true;
+                $devMode = false;
             }
 
             $setup = Setup::createAnnotationMetadataConfiguration( $paths, $devMode );
@@ -31,6 +31,14 @@
 
         public function getEntityManager(){
             return $this->em;
+        }
+
+        public function persistFlushRefresh( $entity ){
+            $this->em->persist( $entity );
+            $this->em->flush();
+            $this->em->refresh( $entity );
+
+            return $entity;
         }
     }
 ?>

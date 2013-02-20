@@ -17,8 +17,8 @@
 
 		public function run(){
 			if( $this->em == null ){
-                $docrineFactory = new \model\Access();
-                $this->em = $docrineFactory->getEntityManager();
+                $doctrineFactory = new \model\Access();
+                $this->em = $doctrineFactory->getEntityManager();
             }
 
             $this->businessUser			= new \business\User();
@@ -108,7 +108,7 @@
 						header('Location: index.php?code=2');
 					}
 					elseif( $script == $this->root . 'index.php' && $active ){
-						header('Location: queue.php');
+						header('Location: home.php');
 					}
 					elseif( $script == $this->root . 'index.php' && !$active ){
 						//allow to go to login or dmz pages

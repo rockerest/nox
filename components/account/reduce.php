@@ -2,31 +2,37 @@
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
 	require_once( $home . 'components/system/Preload.php' );
 
-	$userDA = new \model\access\UserAccess();
-	$permit = new \business\Permission();
+	$acc		= new \model\Access();
+	$em			= $acc->getEntityManager();
+
+	$permit 	= new \business\Permission( $em );
+	$userRepo	= $em->getRepository( 'model\entities\User' );
+	$roleRepo	= $em->getRepository( 'model\entities\Role' );
 
 	if( !$_SESSION['active'] ){
-		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
+		throw new \backbone\RedirectBrowserException( 'Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2' );
 	}
 	elseif( $_SESSION['roleid'] > 1 ){
-		header('Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2');
+		throw new \backbone\RedirectBrowserException( 'Location: ' . APPLICATION_ROOT_URL . 'index.php?code=2' );
 	}
 
-	$userid = isset($_GET['uid']) ? $_GET['uid'] : $_SESSION['userid'];
-	$self = $userDA->getById( $_SESSION['userid'] );
-	$attempt = $userDA->getById( $userid );
+	$userid		= isset($_GET['uid']) ? $_GET['uid'] : $_SESSION['userid'];
+	$self		= $userRepo->find( $_SESSION['userid'] );
+	$attempt	= $userRepo->find( $userid );
 
-	$tAuth = $attempt->getAuthentication();
+	$auth		= $attempt->getAuthentication();
 
 	if( $permit->reduceRole( $self, $attempt ) ){
-		$tAuth->setRoleId( $tAuth->getRoleId() + 1 );
-		if( $tAuth->save() ){
-			header( 'Location: ' . APPLICATION_ROOT_URL . 'users.php?code=16' );
+		$role	= $roleRepo->find( $auth->getRole()->getId() + 1 );
+		$auth->setRole( $role );
+
+		if( $acc->persistFlushRefresh( $auth ) ){
+			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'users.php?code=16' );
 		}
 		else{
-			header( 'Location: ' . APPLICATION_ROOT_URL . 'users.php?code=17' );
+			throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'users.php?code=17' );
 		}
 	}
 	else{
-		header( 'Location: ' . APPLICATION_ROOT_URL . 'users.php?code=18' );
+		throw new \backbone\RedirectBrowserException( APPLICATION_ROOT_URL . 'users.php?code=18' );
 	}

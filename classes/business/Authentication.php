@@ -60,4 +60,3 @@
             return hash( 'whirlpool', $salt . $password );
         }
     }
-?>

@@ -7,15 +7,21 @@
 
     $page   = new \render\Page("Menus", 'menus', $allowed);
     $tmpl   = new \backbone\Template();
-    $menuDA = new \model\access\MenuAccess();
+
+    $doctrineFactory    = new \model\Access();
+    $menuRepo           = $doctrineFactory->getEntityManager()->getRepository( 'model\entities\Menu' );
 
     $page->run();
+    $tmpl->user             = $tmpl->control
+                            = $tmpl->data
+                            = new \stdClass();
+
     $tmpl->user->self       = $page->self;
 
     $tmpl->control->action  = isset( $_GET['action'] ) ? $_GET['action'] : null;
     $tmpl->control->code    = isset( $_GET['code'] ) ? $_GET['code'] : -1;
 
-    $tmpl->data->menus      = \utilities\Converter::toArray( $menuDA->getAll() );
+    $tmpl->data->menus      = $menuRepo->findAll();
     $tmpl->data->permit     = new \business\Permission();
 
     switch( $tmpl->control->code ){

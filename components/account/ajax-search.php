@@ -2,7 +2,9 @@
     $home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
     require_once( $home . 'components/system/Preload.php' );
 
-    $userDA = new \model\access\UserAccess();
+    $doctrineFactory    = new \model\Access();
+    $em                 = $doctrineFactory->getEntityManager();
+    $userRepo           = $em->getRepository( 'model\entities\User' );
 
     if( !$_SESSION['active'] || $_SESSION['roleid'] > 1 ){
         echo json_encode( array( "security" => "not authorized" ) );
@@ -14,13 +16,12 @@
         echo json_encode( array( "search" => "empty" ) );
     }
     else{
-        $possibilities = \utilities\Converter::toArray( $userDA->search( $term ) );
-
+        $possibilities = $userRepo->search( $term );
         $arr = array();
         foreach( $possibilities as $user ){
             $t              = new stdClass();
             $t->fullName    = $user->getFullName();
-            $t->userid      = $user->getUserId();
+            $t->userid      = $user->getId();
             $t->display     = preg_replace( "/($term)/i", "<span class=\"highlight\">$1</span>", $user->getFullName() );
 
             $arr[]          = $t;

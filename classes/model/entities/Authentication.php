@@ -1,6 +1,5 @@
 <?php
     namespace model\entities;
-    use Doctrine\ORM\EntityRepository;
 
     /**
      * @Entity
@@ -50,6 +49,11 @@
          */
         private $role;
 
+        public function __construct(){
+            $this->setDisabled( false );
+            $this->setResetPassword( false );
+        }
+
         /**
          * GETTERS
          */
@@ -92,29 +96,36 @@
 
         public function setIdentity( $identity ){
             $this->identity = $identity;
+            return $this;
         }
 
         public function setPassword( $password ){
             $this->password = $password;
+            return $this;
         }
 
         public function setSalt( $salt ){
             $this->salt = $salt;
+            return $this;
         }
 
         public function setResetPassword( $resetPassword ){
             $this->resetPassword = $resetPassword;
+            return $this;
         }
 
         public function setDisabled( $disabled ){
             $this->disabled = $disabled;
+            return $this;
         }
 
         public function setUser( $user ){
             $this->user = $user;
+            return $this;
         }
 
         public function setRole( $role ){
             $this->role = $role;
+            return $this;
         }
     }

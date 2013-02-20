@@ -54,13 +54,13 @@
 
                 $name = $menu->getTitle();
             ?>
-            <tr data-href="menus.php?mid=<?php echo $menu->getMenuId();?>">
-                <td><a href="menus.php?mid=<?php echo $menu->getMenuId();?>"><?php echo $name;?></a></td>
+            <tr data-href="menus.php?mid=<?php echo $menu->getId();?>">
+                <td><a href="menus.php?mid=<?php echo $menu->getId();?>"><?php echo $name;?></a></td>
                 <td><?php echo $menu->getLocation();?></td>
                 <td>
-                    <a href="components/menus/toggleMenu.php?mid=<?php echo $menu->getMenuId();?>">
+                    <a href="components/menus/toggleMenu.php?mid=<?php echo $menu->getId();?>">
                         <img src="images/icons/16/<?php echo $activity['icon'];?>.png" alt="<?php echo $activity['alt'];?>" class="icon-fix tooltip" title="Make <?php echo $name, " ", $activity['tooltip'];?>" /></a>
-                    <a href="components/menus/toggleMenuAuthenticated.php?mid=<?php echo $menu->getMenuId();?>">
+                    <a href="components/menus/toggleMenuAuthenticated.php?mid=<?php echo $menu->getId();?>">
                         <img src="images/icons/16/<?php echo $auth['icon'];?>.png" alt="<?php echo $auth['alt'];?>" class="icon-fix tooltip" title="Make <?php echo $name, " ", $auth['tooltip'];?>" />
                     </a>
                 </td>

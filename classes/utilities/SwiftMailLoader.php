@@ -1,9 +1,6 @@
 <?php
 	namespace utilities;
 
-	//Get Swiftmailer
-	require( APPLICATION_ROOT_PATH . 'vendors/Swiftmailer/lib/swift_required.php');
-
 	class SwiftMailLoader extends \backbone\Config{
 		private $transport;
 		private $mailer;

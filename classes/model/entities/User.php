@@ -1,9 +1,8 @@
 <?php
     namespace model\entities;
-    use Doctrine\ORM\EntityRepository;
 
     /**
-     * @Entity
+     * @Entity(repositoryClass="model\repositories\UserRepository")
      * @Table(name="users")
      */
     class User{
@@ -29,12 +28,12 @@
         private $gender;
 
         /**
-         * @OneToOne(targetEntity="Authentication", mappedBy="user")
+         * @OneToOne(targetEntity="Authentication", mappedBy="user", cascade="persist")
          */
         private $authentication;
 
         /**
-         * @OneToMany(targetEntity="Contact", mappedBy="user")
+         * @OneToMany(targetEntity="Contact", mappedBy="user", cascade="persist")
          */
         private $contacts;
 
@@ -80,21 +79,26 @@
 
         public function setFname( $fname ){
             $this->fname = $fname;
+            return $this;
         }
 
         public function setLname( $lname ){
             $this->lname = $lname;
+            return $this;
         }
 
         public function setGender( $gender ){
             $this->gender = $gender;
+            return $this;
         }
 
         public function setAuthentication( $authentication ){
             $this->authentication = $authentication;
+            return $this;
         }
 
         public function setContacts( $contacts ){
             $this->contacts = $contacts;
+            return $this;
         }
     }

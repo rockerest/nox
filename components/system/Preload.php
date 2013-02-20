@@ -6,7 +6,7 @@
 
 	set_include_path( APPLICATION_INCLUDE_PATH );
 
-	require_once( APPLICATION_ROOT_PATH . "/vendor/autoload.php" );
+	require_once( APPLICATION_ROOT_PATH . "vendor/autoload.php" );
 	spl_autoload_register('nox_autoloader');
 
 	$tc = new \backbone\Config( APPLICATION_CONFIGURATION_FILE, APPLICATION_ROOT_PATH );
