@@ -38,13 +38,13 @@
         private $disabled;
 
         /**
-         * @OneToOne(targetEntity="User", inversedBy="authentication")
+         * @OneToOne(targetEntity="User", inversedBy="authentication", cascade={"persist"})
          * @JoinColumn(name="userid", referencedColumnName="id")
          */
         private $user;
 
         /**
-         * @ManyToOne(targetEntity="Role")
+         * @ManyToOne(targetEntity="Role", cascade={"persist"})
          * @JoinColumn(name="roleid", referencedColumnName="id")
          */
         private $role;

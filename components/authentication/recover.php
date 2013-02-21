@@ -2,31 +2,34 @@
 	$home = implode( DIRECTORY_SEPARATOR, array_slice( explode(DIRECTORY_SEPARATOR, $_SERVER["SCRIPT_FILENAME"]), 0, -3 ) ) . '/';
 	require_once( $home . 'components/system/Preload.php' );
 
-	$authDA	= new \model\access\AuthenticationAccess();
-	$qlDA	= new \model\access\Quick_LoginAccess();
-	$mail	= new \utilities\SwiftMailLoader();
+	$acc			= new \model\Access();
+	$em				= $acc->getEntityManager();
+	$authRepo		= $em->getRepository( 'model\entities\Authentication' );
 
-	$email = isset($_GET['email']) ? $_GET['email'] : null;
+	$businessQl		= new \business\QuickLogin( $em );
+	$mail			= new \utilities\SwiftMailLoader();
+
+	$email			= isset($_GET['email']) ? $_GET['email'] : null;
 
 	if( $email ){
-		$auth = $authDA->getByIdentity( $email );
+		$auth = $authRepo->findOneBy( array( 'identity' => $email ) );
 		if( $auth ){
 			$user = $auth->getUser();
 			if( $user ){
-				$authDA->forcePasswordChangeByUserId( $user->getUserId() );
+				$auth->setResetPassword( 1 );
 
-				//create login hash
-				$hash = hash( 'whirlpool', $user->getAuthentication()->getPassword() . time() . $user->getAuthentication()->getSalt() );
-				if( !$qlDA->add( $hash, $user->getUserId(), time() + 3600, 0 ) ){
-					// die
-				}
+				$ql = new \model\entities\QuickLogin();
+				$ql	->setHash( $businessQl->createHash( $auth->getIdentity() ) )
+					->setUser( $user );
+
+				$acc->persistFlushRefresh( $ql );
 
 				//load email template
 				ob_start();
 				include( $home . 'components/templates/account_recover.html');
 				$body		= ob_get_clean();
 				$subject	= "Nox System Account Recovery";
-				$to			= $user->getContact()->getEmail();
+				$to			= $user->getContacts()[0]->getEmail();
 				$from		= 'no-reply-automator@nox.thomasrandolph.info';
 
 				$message	= $mail->newMessage( $subject, $body, 'text/html' )

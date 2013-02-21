@@ -22,7 +22,7 @@
                     'dbname'    => $this->config->db->dbname
                 );
 
-                $devMode = false;
+                $devMode = true;
             }
 
             $setup = Setup::createAnnotationMetadataConfiguration( $paths, $devMode );

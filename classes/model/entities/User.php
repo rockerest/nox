@@ -33,7 +33,7 @@
         private $authentication;
 
         /**
-         * @OneToMany(targetEntity="Contact", mappedBy="user", cascade="persist")
+         * @OneToMany(targetEntity="Contact", mappedBy="user")
          */
         private $contacts;
 
