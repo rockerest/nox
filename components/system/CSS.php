@@ -14,6 +14,7 @@
 							$home . "global/css3buttons/",
 							$home . "global/qtip/",
 							$home . "global/fullcalendar/",
+							$home . "global/notyfy/",
 							$home . "styles/",
 							$home . "jquery/"
 						);

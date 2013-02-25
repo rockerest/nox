@@ -13,6 +13,7 @@
 							$home . "global/",
 							$home . "global/qtip/",
 							$home . "global/fullcalendar/",
+							$home . "global/notyfy/",
 							$home . "jquery/",
 							$home . "js/"
 						);
