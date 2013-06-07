@@ -180,17 +180,14 @@ $(function(){
             return false;
         },
         search: function( e, ui ){
-            $( "<img>" ).prop({
-                "src" : "images/icons/16/animated/ui-progress-bar-indeterminate.gif",
-                "alt" : "loading"
-            })
-            .css({
-                "margin" : "4px 1px -4px -20px"
-            })
-            .insertAfter( this );
+            $( this )
+                .next( "img" )
+                .show();
         },
         response: function( e, ui ){
-            $( this ).next( "img" ).remove();
+            $( this )
+                .next( "img" )
+                .hide();
         }
     })
     .data( "ui-autocomplete" )._renderItem = function( ul, item ){
