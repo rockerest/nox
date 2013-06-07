@@ -175,20 +175,25 @@ $(function(){
             $("#userid").val( ui.item.userid );
             $("#username").val( ui.item.fullName );
 
+            Browser.go( 'components/account/be.php?uid=' + ui.item.userid );
+
+            return false;
+        },
+        search: function( e, ui ){
             $( "<img>" ).prop({
                 "src" : "images/icons/16/animated/ui-progress-bar-indeterminate.gif",
                 "alt" : "loading"
             })
             .css({
-                "margin" : "4px 1px -4px -18px"
-            }).insertAfter( $("#username") );
-
-            Browser.go( 'components/account/be.php?uid=' + ui.item.userid );
-
-            return false;
+                "margin" : "4px 1px -4px -20px"
+            })
+            .insertAfter( this );
+        },
+        response: function( e, ui ){
+            $( this ).next( "img" ).remove();
         }
     })
-    .data( "autocomplete" )._renderItem = function( ul, item ){
+    .data( "ui-autocomplete" )._renderItem = function( ul, item ){
         return $("<li></li>")
             .data( "item.autocomplete", item )
             .append( "<a>" + item.display + "</a>" )
