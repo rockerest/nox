@@ -51,6 +51,22 @@ Utils.namespace( "nox.Ui" );
         })
     };
 
+    Ui.fadeout = function(){
+        var faders = $('.fadeout');
+
+        faders.each(
+            function( index ){
+                var time = $(this).attr('data-fadetime');
+                if( Utils.isInt(time) ){
+                    $( this ).fadeOut(time);
+                }
+                else{
+                    $( this ).fadeOut(3500);
+                }
+            }
+        );
+    }
+
     Ui.alert = function( name ){
         Ui.overloadAlert( name, {} );
     };
