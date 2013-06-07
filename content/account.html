@@ -11,7 +11,7 @@
 		$self = $tmpl->user->getId() == $_SESSION['userid'];
 	?>
 <h3 class="bump follow message-box center w50"><img src="images/icons/24/custom/user--pencil.png" alt="" class="icon-fix" /><?php echo $tmpl->user->getFullName();?></h3>
-<form id="information" class="clear" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->getId();?>">
+<form id="information" class="clear center manage" method="POST" action="components/account/manage.php?uid=<?php echo $tmpl->user->getId();?>">
 	<fieldset class="push" >
 		<legend>Personal Information</legend>
 		<label for="fname">First Name</label>

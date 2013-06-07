@@ -7,10 +7,14 @@ form.login{
 	width: 19em;
 }
 
+form.manage{
+	width: 39.3em;
+}
+
 fieldset{
 	border: .0625em solid #C5CAE8;
 	padding: 1em;
-	
+
 	float: left;
 
 	min-height: 11em;
@@ -22,7 +26,7 @@ legend{
 }
 
 fieldset, legend{
-	border-radius: .2em; 
+	border-radius: .2em;
 }
 
 input[type="checkbox"]#contact{
