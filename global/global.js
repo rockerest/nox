@@ -248,13 +248,13 @@
 
     // querystring parser
     Browser.getUrlVars = function(){
-        var map = {},
-            parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-                function(m,key,value)
-                {
-                    map[key] = value;
-                }
-            );
+        var map = {};
+
+        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+            function(m,key,value){
+                map[key] = value;
+            }
+        );
 
         return map;
     };
