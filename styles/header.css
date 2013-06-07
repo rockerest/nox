@@ -22,6 +22,10 @@ header{
 	font-size: 1.5em;
 }
 
+.popup-menu a{
+	text-decoration: none;
+}
+
 header h1, header h2{
 	color: #192E5E;
 	font-size: 1em;
