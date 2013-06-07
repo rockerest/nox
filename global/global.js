@@ -106,6 +106,10 @@
         return false;
     };
 
+    Utils.isInt = function( integer ){
+        return ( (parseFloat(value) == parseInt(value) ) && !isNaN(value) );
+    };
+
 }( window.Utils = window.Utils || {} ));
 
 // Browser Wrappers

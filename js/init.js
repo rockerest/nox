@@ -4,7 +4,7 @@ var fadeout = function(){
     faders.each(
         function( index ){
             var time = $(this).attr('data-fadetime');
-            if( is_int(time) ){
+            if( Utils.isInt(time) ){
                 $( this ).fadeOut(time);
             }
             else{
@@ -12,15 +12,6 @@ var fadeout = function(){
             }
         }
     );
-}
-
-var is_int = function(value){
-    if( (parseFloat(value) == parseInt(value) ) && !isNaN(value) ){
-        return true;
-    }
-    else{
-        return false;
-    }
 }
 
 Utils.namespace( "window.nox" );
