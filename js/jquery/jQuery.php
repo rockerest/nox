@@ -1,22 +1,22 @@
 <?php
-	class jQuery{
-		private $jquery;
-		private $jqueryui;
-		public function __construct( $v = "1.9.1", $uiv = "1.10.1" ){
-			$this->jquery = "<!--    Load Javascript Library - jQuery	-->\n<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/$v/jquery.min.js\"></script>";
-			$this->jqueryui = "<!--	Load jQuery User Interface		-->\n<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jqueryui/$uiv/jquery-ui.min.js\"></script>";
-		}
+    class jQuery{
+        private $jquery;
+        private $jqueryui;
+        public function __construct( $v = "2.0.2", $uiv = "1.10.3" ){
+            $this->jquery = "<!--    Load Javascript Library - jQuery   -->\n<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/$v/jquery.min.js\"></script>";
+            $this->jqueryui = "<!-- Load jQuery User Interface      -->\n<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jqueryui/$uiv/jquery-ui.min.js\"></script>";
+        }
 
-		public function __get($var){
-			if( $var == "jquery" ){
-				return $this->jquery . "\n";
-			}
-			elseif( $var == "jqueryui" || $var == "ui" ){
-				return $this->jqueryui . "\n";
-			}
-			elseif( $var == "both" || $var == "all" || $var == null || !isset($var) ){
-				return $this->jquery . "\n" . $this->jqueryui . "\n";
-			}
-		}
-	}
+        public function __get($var){
+            if( $var == "jquery" ){
+                return $this->jquery . "\n";
+            }
+            elseif( $var == "jqueryui" || $var == "ui" ){
+                return $this->jqueryui . "\n";
+            }
+            elseif( $var == "both" || $var == "all" || $var == null || !isset($var) ){
+                return $this->jquery . "\n" . $this->jqueryui . "\n";
+            }
+        }
+    }
 ?>
