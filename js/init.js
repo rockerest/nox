@@ -171,14 +171,6 @@ $(function(){
     $("#users #username").autocomplete({
         source: "components/account/ajax-search.php",
         minLength: 2,
-        select: function( e, ui ){
-            $("#userid").val( ui.item.userid );
-            $("#username").val( ui.item.fullName );
-
-            Browser.go( 'components/account/be.php?uid=' + ui.item.userid );
-
-            return false;
-        },
         search: function( e, ui ){
             $( this )
                 .next( "img" )
@@ -188,6 +180,14 @@ $(function(){
             $( this )
                 .next( "img" )
                 .hide();
+        },
+        select: function( e, ui ){
+            $("#userid").val( ui.item.userid );
+            $("#username").val( ui.item.fullName );
+
+            Browser.go( 'components/account/be.php?uid=' + ui.item.userid );
+
+            return false;
         }
     })
     .data( "ui-autocomplete" )._renderItem = function( ul, item ){
