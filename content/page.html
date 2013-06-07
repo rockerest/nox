@@ -28,6 +28,27 @@
 		?>
 
 		<link rel="stylesheet" href="components/system/CSS.php?q=<?php echo $css; ?>" />
+
+		<?php
+			include_once('jquery/jQuery.php');
+			$jq = new jQuery();
+			echo $jq->all;
+
+			$jsLinks = array(
+								"global",
+								"jquery.qtip",
+								"jquery.notyfy",
+								"init",
+								"Ui",
+								$tmpl->headerContent['js']['link'],
+								$tmpl->appContent['js']['link'],
+								$tmpl->footerContent['js']['link']
+							);
+
+			$js = implode(",", $jsLinks);
+		?>
+
+		<script src="components/system/JS.php?q=<?php echo $js; ?>"></script>
 		<title>
 			<?php echo $tmpl->title; ?>
 		</title>
@@ -57,27 +78,5 @@
 				It is recommended that you turn Javascript ON in your browser.
 			</div>
 		</noscript>
-
-		<!-- External JS -->
-		<?php
-			include_once('jquery/jQuery.php');
-			$jq = new jQuery();
-			echo $jq->all;
-
-			$jsLinks = array(
-								"global",
-								"jquery.qtip",
-								"jquery.notyfy",
-								"init",
-								"Ui",
-								$tmpl->headerContent['js']['link'],
-								$tmpl->appContent['js']['link'],
-								$tmpl->footerContent['js']['link']
-							);
-
-			$js = implode(",", $jsLinks);
-		?>
-
-		<script src="components/system/JS.php?q=<?php echo $js; ?>"></script>
 	</body>
 </html>
