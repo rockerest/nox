@@ -43,7 +43,6 @@
 		<tr>
 			<th>User Name</th>
 			<th>Contact</th>
-			<th>Role</th>
 			<th>Tools</th>
 			<th>Delete</th>
 		</tr>
@@ -58,8 +57,6 @@
 	<tbody>
 	<?php
 		foreach($tmpl->users as $user){
-			$reduce			= $tmpl->permit->reduceRole( $tmpl->self, $user );
-			$elevate		= $tmpl->permit->elevateRole( $tmpl->self, $user );
 			$impersonate	= $tmpl->permit->impersonate( $tmpl->self, $user );
 
 			$userid = $user->getId();
@@ -70,11 +67,6 @@
 				<td>
 					<a href="mailto:<?php echo $user->getContacts()[0]->getEmail();?>"><img src="images/icons/16/mail.png" alt="envelope" class="icon-fix tooltip" title="Open new email to <?php echo $fullName;?>"/></a>
 					<a href="components/authentication/resendVerification.php?uid=<?php echo $userid;?>"><img src="images/icons/16/mail-forward.png" alt="forward mail" class="icon-fix tooltip" title="Resend email verification to <?php echo $fullName;?>"/></a>
-				</td>
-				<td>
-					<?php if($reduce){?><a href="components/account/reduce.php?uid=<?php echo $userid;?>"><img src="images/icons/16/arrow-270.png" alt="reduce" class="icon-fix tooltip" title="Reduce <?php echo $fullName;?>'s Role"/></a><?php }?>
-					<?php echo $user->getAuthentication()->getRole()->getName();?>
-					<?php if($elevate){?><a href="components/account/elevate.php?uid=<?php echo $userid;?>"><img src="images/icons/16/arrow-090.png" alt="elevate" class="icon-fix tooltip" title="Elevate <?php echo $fullName;?>'s Role"/></a><?php }?>
 				</td>
 				<td>
 					<a href="account.php?uid=<?php echo $userid;?>"><img src="images/icons/16/pencil.png" alt="edit" title="Edit User" class="tooltip" /></a>
