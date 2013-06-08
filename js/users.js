@@ -30,4 +30,4 @@ $( function(){
             .append( "<a>" + item.display + "</a>" )
             .appendTo( ul );
     };
-}
+});
