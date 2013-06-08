@@ -132,7 +132,7 @@
             var results = Cookies.cookies.match( "(^|;) ?" + name + "=([^;]*)(;|$)" );
 
             if( results ){
-                return unescape( results[2] );
+                return decodeURIComponent( results[2] );
             }
 
             return null;
@@ -223,12 +223,12 @@
 
             // set the path
             if( this.settings.path != null && this.settings.path != "" ){
-                selfString += "; path=" + escape( this.settings.path );
+                selfString += "; path=" + encodeURIComponent( this.settings.path );
             }
 
             // set the domain
             if( this.settings.domain != null && this.settings.domain != "" ){
-                selfString += "; domain=" + escape( this.settings.domain );
+                selfString += "; domain=" + encodeURIComponent( this.settings.domain );
             }
 
             // set whether secure or not
@@ -261,7 +261,7 @@
 
     // add or extend querystring parameters
     Browser.insertUrlParam = function( key, value, retain ){
-        key = escape(key); value = escape(value);
+        key = encodeURIComponent(key); value = encodeURIComponent(value);
 
         var kvp = document.location.search.substr(1).split("&"),
             i,x;

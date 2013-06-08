@@ -1,6 +1,8 @@
 Utils.namespace( "nox.Ui" );
 
 (function( Ui, $, undefined ){
+    "use strict";
+
     var defaults = {
         success: {
             text: "success",
@@ -67,7 +69,7 @@ Utils.namespace( "nox.Ui" );
         var faders = $('.fadeout');
 
         faders.each(
-            function( index ){
+            function(){
                 var time = $(this).attr('data-fadetime');
                 if( Utils.isInt(time) ){
                     $( this ).fadeOut(time);
