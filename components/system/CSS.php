@@ -15,6 +15,7 @@
 							$home . "global/qtip/",
 							$home . "global/fullcalendar/",
 							$home . "global/notyfy/",
+							$home . "global/intro.js/",
 							$home . "styles/",
 							$home . "jquery/"
 						);
