@@ -39,19 +39,18 @@
         if( Object.keys ){
             return Object.keys( object );
         }
-        else{
-            if( object !== Object(object) ){
-                throw new TypeError('Object.keys called on non-object');
-            }
 
-            for( p in object ){
-                if( Object.prototype.hasOwnProperty.call( object, p ) ){
-                    ks.push( p );
-                }
-            }
-
-            return ks;
+        if( object !== Object(object) ){
+            throw new TypeError('Object.keys called on non-object');
         }
+
+        for( p in object ){
+            if( Object.prototype.hasOwnProperty.call( object, p ) ){
+                ks.push( p );
+            }
+        }
+
+        return ks;
     };
 
     // convert strings to boolean
@@ -100,8 +99,8 @@
     };
 
     Utils.empty = function( obj ){
-        if (obj === undefined || obj === null || obj === ''){ return true; };
-        if (typeof obj == 'number' && isNaN(obj)){ return true; };
+        if (obj === undefined || obj === null || obj === ''){ return true; }
+        if (typeof obj == 'number' && isNaN(obj)){ return true; }
         if (obj instanceof Date && isNaN(Number(obj))){ return true; }
         return false;
     };
@@ -114,6 +113,8 @@
 
 // Browser Wrappers
 (function( Browser, undefined ){
+    "use strict";
+
     // set up the Cookie jar
     (function( Cookies, undefined ){
         Cookies.cookies = document.cookie;
@@ -133,9 +134,8 @@
             if( results ){
                 return unescape( results[2] );
             }
-            else{
-                return null;
-            }
+
+            return null;
         };
 
         Cookies.remove = function( name ){
@@ -173,7 +173,7 @@
 
         Storage.retrieve = function( key ){
             var parent = window.Browser.Storage.__datastore,
-                data, pl, i, parts, el;
+                data, pl, i, parts;
             Storage.init();
 
             if( key === undefined ){

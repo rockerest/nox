@@ -77,7 +77,7 @@ Utils.namespace( "nox.Ui" );
                 }
             }
         );
-    }
+    };
 
     Ui.alert = function( name ){
         Ui.overloadAlert( name, {} );
