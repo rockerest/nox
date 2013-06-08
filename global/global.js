@@ -107,7 +107,7 @@
     };
 
     Utils.isInt = function( integer ){
-        return ( (parseFloat(value) == parseInt(value) ) && !isNaN(value) );
+        return ( (parseFloat(integer) == parseInt(integer) ) && !isNaN(integer) );
     };
 
 }( window.Utils = window.Utils || {} ));
