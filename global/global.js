@@ -142,7 +142,7 @@
             var past = new Date();
             past.setTime( past.getTime() - 10101010 );
 
-            document.cookie = name += "=; expires=" + past.toUTCString();
+            document.cookie = name + "=; expires=" + past.toUTCString();
         };
     }( Browser.Cookies = Browser.Cookies || {} ));
 
@@ -154,10 +154,9 @@
         };
 
         Storage.store = function( key, value ){
-            var data,parent,pl,i,parts;
+            var parent,pl,i,parts;
 
             Storage.init();
-            data = Storage.retrieve();
             parent = Storage.__datastore;
 
             Utils.namespace( "Browser.Storage.__datastore." + key );
@@ -214,7 +213,7 @@
         this.value = value;
 
         this.toString = function(){
-            var selfString = this.name + "=" + escape( this.value );
+            var selfString = this.name + "=" + encodeURIComponent( this.value );
 
             // set the expiration
             if( this.settings.expire != 0 && this.settings.expire instanceof Date ){
