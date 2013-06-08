@@ -34,6 +34,18 @@ Utils.namespace( "nox.Ui" );
         }
     };
 
+    // default tooltip setup
+    Ui.tooltips = {
+        position:{
+            my: 'bottom center',
+            at: 'top center',
+            target: 'mouse'
+        },
+        style: {
+            classes: 'qtip-light qtip-shadow qtip-rounded'
+        }
+    };
+
     Ui.notifications = {
         success         : defaults.success,
         alert           : defaults.alert,
