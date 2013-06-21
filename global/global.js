@@ -73,6 +73,10 @@
             try{
                 //try an update
                 if( overwrite[p].constructor == Object ){
+                    if (typeof primary[p] == "undefined" || primary[p] === null) {
+                        primary[p] = {};
+                    }
+
                     primary[p] = Utils.recursiveObjectMerge( primary[p], overwrite[p] );
                 }
                 else{
@@ -145,6 +149,55 @@
             document.cookie = name + "=; expires=" + past.toUTCString();
         };
     }( Browser.Cookies = Browser.Cookies || {} ));
+
+    (function( Url, undefined ){
+        // querystring parser
+        Url.getParameters = function(){
+            var map = {};
+
+            window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+                function(m,key,value){
+                    map[key] = value;
+                }
+            );
+
+            return map;
+        };
+
+        // add or extend querystring parameters
+        Url.insertParameter = function( key, value, retain ){
+            key = escape(key); value = escape(value);
+
+            var kvp = document.location.search.substr(1).split("&"),
+                i,x;
+
+            if( retain != null && retain == false ){
+                kvp = "";
+            }
+            if (kvp == ""){
+                document.location.search = key + "=" + value;
+            }
+            else{
+                i = kvp.length;
+                while(i--) {
+                    x = kvp[i].split("=");
+
+                    if( x[0] == key ){
+                            x[1] = value;
+                            kvp[i] = x.join("=");
+                            break;
+                    }
+                }
+
+                if( i < 0 ){
+                    kvp[kvp.length] = [key,value].join("=");
+                }
+
+                //this will reload the page, it"s likely better to store this until finished
+                document.location.search = kvp.join("&");
+            }
+        };
+    }( Browser.Url = Browser.Url || {} ));
 
     (function( Storage, undefined ){
         Storage.init = function(){
@@ -243,52 +296,5 @@
     Browser.go = function(loc){
         window.location=loc;
         return false;
-    };
-
-    // querystring parser
-    Browser.getUrlVars = function(){
-        var map = {};
-
-        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-            function(m,key,value){
-                map[key] = value;
-            }
-        );
-
-        return map;
-    };
-
-    // add or extend querystring parameters
-    Browser.insertUrlParam = function( key, value, retain ){
-        key = encodeURIComponent(key); value = encodeURIComponent(value);
-
-        var kvp = document.location.search.substr(1).split("&"),
-            i,x;
-
-        if( retain != null && retain == false ){
-            kvp = "";
-        }
-        if (kvp == ""){
-            document.location.search = key + "=" + value;
-        }
-        else{
-            i = kvp.length;
-            while(i--) {
-                x = kvp[i].split("=");
-
-                if( x[0] == key ){
-                        x[1] = value;
-                        kvp[i] = x.join("=");
-                        break;
-                }
-            }
-
-            if( i < 0 ){
-                kvp[kvp.length] = [key,value].join("=");
-            }
-
-            //this will reload the page, it"s likely better to store this until finished
-            document.location.search = kvp.join("&");
-        }
     };
 }( window.Browser = window.Browser || {} ));
